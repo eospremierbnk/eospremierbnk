@@ -1,12 +1,12 @@
 const buildProLogger = require('./prodLogger');
 const buildDevLogger = require('./devLogger');
-const config = require('../configs/customEnvVariables');
+const config = require('../src/configs/customEnvVariables');
 
 let logger = null;
 if (config.nodeEnv === 'development') {
-logger = buildDevLogger();
+  logger = buildDevLogger();
 } else {
-    logger = buildProLogger();
+  logger = buildProLogger();
 }
 
 module.exports = logger;

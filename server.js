@@ -11,9 +11,9 @@ const connectAndStartServer = require('./src/configs/database/connection');
 const cors = require('cors');
 const morgan = require('morgan');
 const http = require('http');
-const globaErrorHandler = require('./src/errorHandlers/globaErrorHandler');
+const globalErrorHandler = require('./src/errorHandlers/globalErrorHandler');
 const newsletterScheduler = require('./src/utils/newsletterScheduler');
-const logger = require('./src/logger/logger');
+const logger = require('./logger/logger');
 const middleware = require('./src/middlewares/expressMiddlewares');
 const routes = require('./src/routes');
 const setupSocketIo = require('./src/configs/socket.io/socket');
@@ -57,7 +57,7 @@ logger.info('Newsletter scheduler started.');
 app.use(routes);
 
 //Use the ErrorHandler middleware as the last middleware
-app.use(globaErrorHandler);
+app.use(globalErrorHandler);
 
 // Start the server
 connectAndStartServer(server);

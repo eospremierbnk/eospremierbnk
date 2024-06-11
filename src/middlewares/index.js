@@ -1,17 +1,17 @@
-const  {tryCatch,getUserById,getMerchantById,getAdminById} = require('./authMiddleware');
-const  { verifyUserToken, isUserSignedIn, verifyMerchantToken, isMerchantSignedIn, verifyAdminToken, isAdminSignedIn } = require('./jwtVerify');
-
-
+const { tryCatch, getUserById, getAdminById } = require('./authMiddleware');
+const {
+  verifyUserToken,
+  isUserSignedIn,
+  verifyAdminToken,
+  isAdminSignedIn,
+} = require('./jwtVerify');
 
 module.exports = {
-    tryCatch, 
-    getUserById, 
-    getMerchantById, 
-    getAdminById, 
-    verifyUserToken, 
-    isUserSignedIn, 
-    verifyMerchantToken, 
-    isMerchantSignedIn, 
-    verifyAdminToken, 
-    isAdminSignedIn 
+  tryCatch,
+  getUserById,
+  getAdminById,
+  verifyUserToken,
+  isUserSignedIn,
+  verifyAdminToken,
+  isAdminSignedIn,
 };

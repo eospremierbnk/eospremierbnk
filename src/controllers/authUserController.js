@@ -7,8 +7,8 @@ const { User } = require('../models');
 const { userSchema } = require('../validations');
 const { tryCatch } = require('../middlewares');
 const APIError = require('../errorHandlers/apiError');
-const logger = require('../logger/logger');
-const config = require('../configs/customEnvVariables');
+const logger = require('../../logger/logger');
+const config = require('../../src/configs/customEnvVariables');
 const { sanitizeInput, sanitizeObject } = require('../utils');
 const {} = require('../mailers');
 

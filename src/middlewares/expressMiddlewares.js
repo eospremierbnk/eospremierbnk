@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const middleware = express();
 const session = require('express-session');
-const config = require('../configs/customEnvVariables');
+const config = require('../../src/configs/customEnvVariables');
 const cookieParser = require('cookie-parser');
 
 middleware.use(

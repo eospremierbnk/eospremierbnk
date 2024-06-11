@@ -1,24 +1,21 @@
 const nodemailer = require(`nodemailer`);
-const logger = require('../logger/logger');
-const config = require('../configs/customEnvVariables');
-
+const logger = require('../../logger/logger');
+const config = require('../../src/configs/customEnvVariables');
 
 const transporter = nodemailer.createTransport({
-    service: config.mailerService,
-    auth: {
-        user: config.nodemailerEmail,
-        pass: config.nodemailerPassword
-    }
+  service: config.mailerService,
+  auth: {
+    user: config.nodemailerEmail,
+    pass: config.nodemailerPassword,
+  },
 });
 
 const phoneNumber = config.companyNumber;
 const emailAddress = config.companyEmail;
 
-
-
 //Register admin
 const adminRegistrationMsg = async (newAdmin) => {
-    const verifiedMsg = `
+  const verifiedMsg = `
     <p><img src="cid:companyLogo" alt="companyLogo" style="width: 100%; max-width: 600px; height: auto;"/></p><br>
     <p>Dear  ${newAdmin.adminFirstName} ${newAdmin.adminLastName} ,  Welcome to Korex StyleHub Service! We are thrilled to have you join us. </p>
       
@@ -38,35 +35,34 @@ const adminRegistrationMsg = async (newAdmin) => {
       
     <p>Best regards,<br>
     The Korex StyleHub Team</p>`;
-    
-        // Send the second email for verified users
-    const mailOptions = {
-        from: config.nodemailerEmail,
-        to: newAdmin.adminEmail,
-        subject: 'Welcome to Korex StyleHub!',
-        html: verifiedMsg,
-        attachments: [
-            {
-                filename: 'companyLogo.jpg',
-                path: './public/img/companyLogo.jpg',
-                cid: 'companyLogo'
-            }
-        ]
-    };
-    
-    transporter.sendMail(mailOptions, async (error, info) => {
-        if (error) {
-            logger.info('Email sending error:', error);
-        } else {
-            logger.info('Email sent:', info.response);
-        }
-    });
 
+  // Send the second email for verified users
+  const mailOptions = {
+    from: config.nodemailerEmail,
+    to: newAdmin.adminEmail,
+    subject: 'Welcome to Korex StyleHub!',
+    html: verifiedMsg,
+    attachments: [
+      {
+        filename: 'companyLogo.jpg',
+        path: './public/img/companyLogo.jpg',
+        cid: 'companyLogo',
+      },
+    ],
+  };
+
+  transporter.sendMail(mailOptions, async (error, info) => {
+    if (error) {
+      logger.info('Email sending error:', error);
+    } else {
+      logger.info('Email sent:', info.response);
+    }
+  });
 };
 
-//update admin inofrmation message 
+//update admin inofrmation message
 const updateAdminProfileMsg = async (admin) => {
-    const updateProfile = `
+  const updateProfile = `
     <p><img src="cid:companyLogo" alt="companyLogo" style="width: 100%; max-width: 600px; height: auto;"/></p><br>
     <p>Dear  ${admin.adminFirstName} ${admin.adminLastName} ,  We hope this message finds you well. We wanted to inform you that there has been an update to your information in our database. The details that have been modified include:</p>
 
@@ -86,30 +82,29 @@ const updateAdminProfileMsg = async (admin) => {
       
     <p>Best regards,<br>
     The Korex StyleHub Team</p>`;
-    
-        // Send the second email for verified users
-    const mailOptions = {
-        from: config.nodemailerEmail,
-        to: admin.adminEmail,
-        subject: 'Important Update: Your Information Has Been Modified!',
-        html: updateProfile,
-        attachments: [
-            {
-                filename: 'companyLogo.jpg',
-                path: './public/img/companyLogo.jpg',
-                cid: 'companyLogo'
-            }
-        ]
-    };
-    
-    transporter.sendMail(mailOptions, async (error, info) => {
-        if (error) {
-            logger.info('Email sending error:', error);
-        } else {
-            logger.info('Email sent:', info.response);
-        }
-    });
 
+  // Send the second email for verified users
+  const mailOptions = {
+    from: config.nodemailerEmail,
+    to: admin.adminEmail,
+    subject: 'Important Update: Your Information Has Been Modified!',
+    html: updateProfile,
+    attachments: [
+      {
+        filename: 'companyLogo.jpg',
+        path: './public/img/companyLogo.jpg',
+        cid: 'companyLogo',
+      },
+    ],
+  };
+
+  transporter.sendMail(mailOptions, async (error, info) => {
+    if (error) {
+      logger.info('Email sending error:', error);
+    } else {
+      logger.info('Email sent:', info.response);
+    }
+  });
 };
 
-module.exports = { adminRegistrationMsg,updateAdminProfileMsg};
+module.exports = { adminRegistrationMsg, updateAdminProfileMsg };

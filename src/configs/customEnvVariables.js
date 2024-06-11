@@ -18,8 +18,6 @@ const config = {
 
   maxFailedAttempt: process.env.MAX_FAILED_ATTEMPTS,
 
-  payStackSecret: process.env.PAYSTACK_SECRET,
-
   jwtSecret: process.env.JWT_SECRET,
 
   userAccessToken: process.env.USER_ACCESS_TOKEN,
@@ -39,6 +37,9 @@ const config = {
   cloudinaryCloudName: process.env.CLOUDINARY_CLOUD_NAME,
   cloudinaryApiName: process.env.CLOUDINARY_API_NAME,
   cloudinarySecretName: process.env.CLOUDINARY_SECRET_NAME,
+
+  companyEmail: process.env.COMPANY_EMAIL,
+  companyNumber: process.env.COMPANY_NUMBER,
 };
 
 module.exports = config;
