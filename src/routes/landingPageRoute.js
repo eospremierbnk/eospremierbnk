@@ -2,9 +2,25 @@
 const express = require('express');
 const router = express.Router();
 const { landingPageController } = require('../controllers');
+const { isUserSignedIn, isAdminSignedIn } = require('../middlewares');
 
-router.get('/', landingPageController.indexPage);
-router.get('/single', landingPageController.singlePage);
-router.post('/contactPagePost', landingPageController.contactUsPost);
+router.get(
+  '/',
+  isUserSignedIn,
+  isAdminSignedIn,
+  landingPageController.indexPage
+);
+router.get(
+  '/single',
+  isUserSignedIn,
+  isAdminSignedIn,
+  landingPageController.singlePage
+);
+router.post(
+  '/contactPagePost',
+  isUserSignedIn,
+  isAdminSignedIn,
+  landingPageController.contactUsPost
+);
 
 module.exports = router;

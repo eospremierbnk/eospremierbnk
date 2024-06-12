@@ -1,3 +1,5 @@
+'use strict';
+//get ID of the user that sign in
 const { User, Admin } = require('../models');
 const APIError = require('../../src/errorHandlers/apiError');
 const logger = require('../../logger/logger');

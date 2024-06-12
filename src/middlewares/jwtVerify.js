@@ -41,7 +41,7 @@ const verifyUserToken = async (req, res, next) => {
               } else {
                 // Refresh token is valid, generate a new access token
                 const newUserAccessToken = jwt.sign(
-                  { id: decodedUserRefreshToken.id, userRole: 'User' },
+                  { id: decodedUserRefreshToken.id, role: 'User' },
                   config.jwtSecret,
                   { expiresIn: config.userAccessTokenExpireTime }
                 );
@@ -102,7 +102,7 @@ const verifyAdminToken = async (req, res, next) => {
                 return res.redirect('/auth/admin/login');
               } else {
                 const newAdminAccessToken = jwt.sign(
-                  { id: decodedAdminRefreshToken.id, adminRole: 'Admin' },
+                  { id: decodedAdminRefreshToken.id, role: 'Admin' },
                   config.jwtSecret,
                   { expiresIn: config.adminAccessTokenExpireTime }
                 );

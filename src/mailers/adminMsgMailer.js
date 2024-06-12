@@ -14,10 +14,10 @@ const phoneNumber = config.companyNumber;
 const emailAddress = config.companyEmail;
 
 //Register admin
-const adminRegistrationMsg = async (newAdmin) => {
+const adminRegistrationMsg = async (updatedUser) => {
   const verifiedMsg = `
     <p><img src="cid:companyLogo" alt="companyLogo" style="width: 100%; max-width: 600px; height: auto;"/></p><br>
-    <p>Dear  ${newAdmin.adminFirstName} ${newAdmin.adminLastName} ,  Welcome to Korex StyleHub Service! We are thrilled to have you join us. </p>
+    <p>Dear  ${updatedUser.firstName} ${updatedUser.lastName} ,  Welcome to Korex StyleHub Service! We are thrilled to have you join us. </p>
       
     <p>Here are the details you provided during registration:</p>
     <ul>

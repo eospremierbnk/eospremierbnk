@@ -14,6 +14,7 @@ const { sanitizeInput, sanitizeObject } = require('../utils');
 //Login attempts Limit
 const MAX_FAILED_ATTEMPTS = config.maxFailedAttempt;
 
+// register controller
 const registerUser = tryCatch(async (req, res) => {
   res.render('auth/user/register');
 });
@@ -100,6 +101,7 @@ const userLogin = (req, res) => {
 };
 
 const userLoginPost = tryCatch(async (req, res) => {
+  const userIp = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
   const sanitizedBody = sanitizeObject(req.body);
   const { username, password } = sanitizedBody;
 
@@ -173,6 +175,7 @@ const userLoginPost = tryCatch(async (req, res) => {
 
   res.status(200).json({
     authRedirectUrl,
+    ipAddress: userIp,
     success: true,
     message: 'User login successful',
   });

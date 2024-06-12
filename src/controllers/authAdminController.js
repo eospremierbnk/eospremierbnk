@@ -1,8 +1,6 @@
 'use strict';
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const crypto = require('crypto');
-const randomstring = require('randomstring');
 const { Admin } = require('../models');
 const { adminSchema } = require('../validations');
 const { tryCatch } = require('../middlewares');
@@ -11,6 +9,7 @@ const logger = require('../../logger/logger');
 const config = require('../../src/configs/customEnvVariables');
 const { sanitizeInput, sanitizeObject } = require('../utils');
 
+// register controller
 const registerAdmin = (req, res) => {
   res.render('auth/admin/register');
 };
@@ -62,6 +61,7 @@ const registerAdminPost = tryCatch(async (req, res) => {
     .json({ redirectUrl, success: true, message: 'Registeration successful' });
 });
 
+// login controller
 const adminLogin = (req, res) => {
   const authErrorMessage = req.session.authErrorMessage;
   delete req.session.authErrorMessage;

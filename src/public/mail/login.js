@@ -81,6 +81,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const responseData = await response.json();
       if (response.ok && responseData.success) {
+        const ipAddress = responseData.ipAddress;
+        document.getElementById('userIpAddress').innerText = `IP: ${ipAddress}`;
         window.location.href = responseData.authRedirectUrl;
       } else {
         displayErrorMessage(

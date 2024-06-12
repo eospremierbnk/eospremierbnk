@@ -1,5 +1,5 @@
-const { contactQueriesMsg } = require('./userMsgMailer');
+const { contactQueriesMsg, updateUserProfileMsg } = require('./userMsgMailer');
 
 const {} = require('./adminMsgMailer');
 
-module.exports = { contactQueriesMsg };
+module.exports = { contactQueriesMsg, updateUserProfileMsg };

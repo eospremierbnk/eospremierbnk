@@ -1,0 +1,115 @@
+<!-- Spinner Start -->
+<div
+  id="spinner"
+  class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center"
+>
+  <div
+    class="spinner-border text-primary"
+    style="width: 3rem; height: 3rem"
+    role="status"
+  >
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>
+<!-- Spinner End -->
+
+<!-- Sidebar Start -->
+<div class="sidebar pe-4 pb-3">
+  <nav class="navbar bg-light navbar-light">
+    <a href="/user/index" class="navbar-brand mx-4 mb-3">
+      <h3 class="text-primary"><i class="me-2"></i>EOS Bank</h3>
+    </a>
+    <div class="d-flex align-items-center ms-4 mb-4">
+      <div class="position-relative">
+        <label for="profile-picture-input">
+          <!-- Check if the user object has an image -->
+          <% if (user && user.image && user.image.length > 0) { %>
+          <!-- Display the user's image -->
+          <img
+            class="rounded-circle p-1"
+            src="<%= user.image[0].imageUrl %>"
+            alt="image"
+            width="100"
+            height="100"
+          />
+          <% } else { %>
+          <div style="position: relative; cursor: pointer">
+            <img
+              class="rounded-circle p-1 bg-warning"
+              style="background-color: #009cff !important"
+              src="https://bootdey.com/img/Content/avatar/avatar5.png"
+              alt="image"
+              width="90"
+              height="90"
+            />
+          </div>
+          <% } %>
+        </label>
+
+        <input
+          type="file"
+          name="image"
+          id="profile-picture-input"
+          style="display: none"
+          data-url="/user/uploadUserImage"
+        />
+      </div>
+
+      <div class="ms-3">
+        <h6 class="mb-0">Hi <%-user.lastName %></h6>
+        <span><%-user.role %></span>
+        <div style="color: black" id="userIpAddress"></div>
+        <script>
+          // Assuming the IP is stored in sessionStorage when the user logs in
+          const userIpAddress = sessionStorage.getItem('userIpAddress');
+          if (userIpAddress) {
+            document.getElementById(
+              'userIpAddress'
+            ).innerText = `Your IP address: ${userIpAddress}`;
+          }
+        </script>
+      </div>
+    </div>
+    <div class="navbar-nav w-100">
+      <a href="/user/index" class="nav-item nav-link active"
+        ><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a
+      >
+      <a href="/user/accountSummary" class="nav-item nav-link"
+        ><i class="fa fa-th me-2"></i>Summary</a
+      >
+      <a href="/user/fundTransfer" class="nav-item nav-link"
+        ><i class="fa fa-table me-2"></i>Fund Transfer</a
+      >
+      <a href="/user/accountDetails" class="nav-item nav-link"
+        ><i class="fa fa-table me-2"></i>Account Details</a
+      >
+      <a href="/user/accountStatement" class="nav-item nav-link"
+        ><i class="fa fa-table me-2"></i>Statement</a
+      >
+      <a href="/user/accountBeneficiary" class="nav-item nav-link"
+        ><i class="fa fa-table me-2"></i>Add Beneficiary</a
+      >
+      <a href="/user/settings" class="nav-item nav-link"
+        ><i class="fa fa-th me-2"></i>Security</a
+      >
+      <a
+        id="userSignOutLink"
+        class="nav-item nav-link signOutLink"
+        style="cursor: pointer"
+        data-url="/user/logoutuser"
+      >
+        <i class="fa fa-th me-2"></i>Sign Out
+      </a>
+      <!-- <div class="nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Pages</a>
+                <div class="dropdown-menu bg-transparent border-0">
+                    <a href="signin.html" class="dropdown-item">Sign In</a>
+                    <a href="signup.html" class="dropdown-item">Sign Up</a>
+                    <a href="404.html" class="dropdown-item">404 Error</a>
+                    <a href="blank.html" class="dropdown-item">Blank Page</a>
+                </div>
+            </div> -->
+    </div>
+  </nav>
+</div>
+<!-- Sidebar End -->
