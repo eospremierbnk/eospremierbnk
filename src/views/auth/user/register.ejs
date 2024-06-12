@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>EOS PREMIER BANK</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <!-- Favicon -->
+    <link href="../../images/logo.jpg" rel="icon" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" href="../../css/register.css" />
+  </head>
+  
+  <div class="form_wrapper">
+    <div class="form_container">
+      <div class="title_container">
+        <h2>Registration Form</h2>
+      </div>
+      <div class="row clearfix">
+        <div class="">
+          <form id="registrationForm" action="/auth/user/registerUserPost" method="post">
+            <div class="input_field"> <span><i aria-hidden="true" class="fa fa-envelope"></i></span>
+              <input type="email" name="email" placeholder="Email" />
+              <div id="emailError" class="error"></div>
+            </div>
+            <div class="input_field"> <span><i aria-hidden="true" class="fa fa-lock"></i></span>
+              <input type="password" name="password" placeholder="Password" />
+              <div id="passwordError" class="error"></div>
+            </div>
+            <div class="input_field"> <span><i aria-hidden="true" class="fa fa-lock"></i></span>
+              <input type="password" name="confirmPassword" placeholder="Re-type Password" />
+              <div id="confirmPasswordError" class="error"></div>
+            </div>
+            <div class="row clearfix">
+              <div class="col_half">
+                <div class="input_field"> <span><i aria-hidden="true" class="fa fa-user"></i></span>
+                  <input type="text" name="firstName" placeholder="First Name" />
+                  <div id="firstNameError" class="error"></div>
+                </div>
+              </div>
+              <div class="col_half">
+                <div class="input_field"> <span><i aria-hidden="true" class="fa fa-user"></i></span>
+                  <input type="text" name="lastName" placeholder="Last Name" />
+                  <div id="lastNameError" class="error"></div>
+                </div>
+              </div>
+            </div>
+            <div class="row clearfix">
+                <div class="col_half">
+                  <div class="input_field"> <span><i aria-hidden="true" class="fa fa-user"></i></span>
+                    <input type="text" name="username" placeholder="Username" />
+                    <div id="usernameError" class="error"></div>
+                  </div>
+                </div>
+                <div class="col_half">
+                  <div class="input_field"> <span><i aria-hidden="true" class="fa fa-phone"></i></span>
+                    <input type="text" name="number" placeholder="Contact No" />
+                    <div id="numberError" class="error"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="input_field checkbox_option">
+                  <input type="checkbox" id="cb1">
+                  <label for="cb1">I agree with terms and conditions</label>
+              </div>
+            <input id="submitButton"  class="button" type="submit" value="Register" />
+            <div class="pw-forgot">
+                <a style="text-decoration: none;" href="/auth/user/login">Oh i remember!</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+      <script src="../../js/jquery-3.3.1.min.js"></script>
+      <script src="../../js/jquery-ui.js"></script>
+      <script src="../../js/popper.min.js"></script>
+      <script src="../../js/bootstrap.min.js"></script>
+      <script src="../../js/owl.carousel.min.js"></script>
+      <script src="../../js/jquery.countdown.min.js"></script>
+      <script src="../../js/jquery.easing.1.3.js"></script>
+      <script src="../../js/aos.js"></script>
+      <script src="../../js/jquery.fancybox.min.js"></script>
+      <script src="../../js/jquery.sticky.js"></script>
+      <script src="../../js/isotope.pkgd.min.js"></script>
+
+      <script src="../../js/main.js"></script>
+      <script src="../../mail/register.js"></script>
+
+  </body>
+</html>

@@ -13,26 +13,32 @@
       href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="../../css/bootstrap.min.css" />
-    <link rel="stylesheet" href="../../css/style.css" /> 
     <link rel="stylesheet" href="../../css/login.css" />
   </head>
-  
+
   <div class="containered">
     <div class="content-containered">
         <div class="top-containered">
           
             <h5> Sign In </h5>
-            <p> Need an account? <a href="#">Get started!</a></p>
+            <div  id="successMessageContainer"></div>
+            
+            <% if (authErrorMessage) { %>
+                <div class="colors" style="text-align: center;">
+                    <%= authErrorMessage %>
+                </div>
+            <% } %>
+
+            <p> Need an account? <a href="/auth/user/register">Get started!</a></p>
         </div>
-        <form>
+        <form id="userLoginForm" class="login-form" action="/auth/user/userLoginPost" method="post">
             <input type="email" placeholder="Email">
             <input type="password" placeholder="Password">
           
             <input type="submit" value="Sign In">
         </form>
         <div class="pw-forgot">
-            <a href="#">Forgot Password?</a>
+            <a href="/auth/user/forgetPassword">Forgot Password?</a>
         </div>
     </div>
     <div class="image-containered">
@@ -53,6 +59,7 @@
       <script src="../../js/isotope.pkgd.min.js"></script>
 
       <script src="../../js/main.js"></script>
+      <script src="../../mail/login.js"></script>
 
   </body>
 </html>
