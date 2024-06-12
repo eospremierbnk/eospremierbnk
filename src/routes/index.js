@@ -24,6 +24,7 @@ router.use('/', landingPageRoute);
 router.use('/auth/user', userAuthRoute);
 router.use('/', userAuthRoute);
 router.use('/user', userRoute);
+router.use('/', userRoute);
 
 // Mount the admin authentication routes under /auth/admin
 router.use('/auth/admin', adminAuthRoute);

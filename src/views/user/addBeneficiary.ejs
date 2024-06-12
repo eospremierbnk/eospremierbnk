@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>EOS Premier Bank</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="EOS Premier Bank" name="keywords" />
+    <meta content="EOS Premier Bank" name="description" />
+
+    <!-- Favicon -->
+    <link href="../images/logo.jpg" rel="icon" />
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Icon Font Stylesheet -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+
+    <!-- Libraries Stylesheet -->
+    <link
+      href="../lib/owlcarousel/assets/owl.carousel.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="../lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="../css/adminCss/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Template Stylesheet -->
+    <link href="../css/adminCss/style.css" rel="stylesheet" />
+    <link href="../css/adminCss/adminform.css" rel="stylesheet" />
+  </head>
+
+  <body>
+    <div class="container-xxl position-relative bg-white d-flex p-0">
+      <!-- start header  -->
+      <%- include (`../partials/userHeader`); -%>
+      <!-- end header -->
+
+      <!-- Content Start -->
+      <div class="content">
+        <!-- Recent Sales Start -->
+        <div class="container-fluid pt-4 px-4">
+          <div class="bg-light text-center rounded p-4">
+            <div class="d-flex align-items-center justify-content-between mb-4">
+              <h6 class="mb-0">Add Beneficiary</h6>
+            </div>
+            <div class="container">
+              <form
+                id="addNewBeneficiary"
+                data-url="/user/accountBeneficiary"
+                method="post"
+              >
+                <div class="grid">
+                  <div class="form-group a">
+                    <label for="name">First Name</label>
+                    <input name="firstName" class="centerText" type="text" />
+                    <div id="firstNameError" class="error"></div>
+                  </div>
+
+                  <div class="form-group b">
+                    <label for="first-name">Last Name</label>
+                    <input name="lastName" class="centerText" type="text" />
+                    <div id="lastNameError" class="error"></div>
+                  </div>
+
+                  <div class="form-group email-group">
+                    <label for="email">Email</label>
+                    <input name="email" class="centerText" type="email" />
+                    <div id="emailError" class="error"></div>
+                  </div>
+
+                  <div class="form-group b">
+                    <label for="first-name">Phone Number</label>
+                    <input name="number" class="centerText" type="text" />
+                    <div id="numberError" class="error"></div>
+                  </div>
+
+                  <div class="form-group b">
+                    <label for="first-name">ID Number</label>
+                    <input
+                      name="idNumber"
+                      class="centerText"
+                      maxlength="13"
+                      type="number"
+                    />
+                    <div id="idNumberError" class="error"></div>
+                  </div>
+
+                  <div class="form-group b">
+                    <label for="first-name">Account Type</label>
+                    <input name="accountType" class="centerText" type="text" />
+                    <div id="accountTypeError" class="error"></div>
+                  </div>
+
+                  <div class="form-group b">
+                    <label for="first-name">Relationship</label>
+                    <input name="relationship" class="centerText" type="text" />
+                    <div id="relationshipError" class="error"></div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="address">Adress</label>
+                    <input name="address" class="centerText" type="text" />
+                    <div id="addressError" class="error"></div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="city">City</label>
+                    <input name="city" class="centerText" type="text" />
+                    <div id="cityError" class="error"></div>
+                  </div>
+                  <div class="form-group">
+                    <label for="state">State</label>
+                    <input name="state" class="centerText" type="text" />
+                    <div id="stateError" class="error"></div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="state">Zipcode</label>
+                    <input name="zipcode" class="centerText" type="number" />
+                    <div id="zipcodeError" class="error"></div>
+                  </div>
+                </div>
+
+                <div class="button-container">
+                  <button id="submit_btn" class="btn btn-primary" name="submit">
+                    Save Changes
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <!-- Recent Sales End -->
+
+        <!-- Footer Start -->
+        <%- include (`../partials/userFooter`); -%>
+        <!-- Footer End -->
+      </div>
+      <!-- Content End -->
+
+      <!-- Back to Top -->
+      <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"
+        ><i class="bi bi-arrow-up"></i
+      ></a>
+    </div>
+  </body>
+</html>

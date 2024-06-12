@@ -17,6 +17,8 @@ const userSchema = new mongoose.Schema({
   accountBalance: { type: Number },
   cardType: { type: String },
   cardBalance: { type: Number },
+  cardNumber: { type: Number },
+  amount: { type: Number },
   accountStatus: { type: String, default: 'Active' },
 
   pin: { type: String },

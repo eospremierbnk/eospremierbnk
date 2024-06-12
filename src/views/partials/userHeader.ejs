@@ -56,9 +56,8 @@
       </div>
 
       <div class="ms-3">
-        <h6 class="mb-0">Hi <%-user.lastName %></h6>
-        <span><%-user.role %></span>
-        <div style="color: black" id="userIpAddress"></div>
+        <h6 class="mb-0">Hi <%-user.firstName %> <%-user.lastName %></h6>
+        <span id="userIpAddress"></span>
         <script>
           // Assuming the IP is stored in sessionStorage when the user logs in
           const userIpAddress = sessionStorage.getItem('userIpAddress');
@@ -74,7 +73,10 @@
       <a href="/user/index" class="nav-item nav-link active"
         ><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a
       >
-      <a href="/user/accountSummary" class="nav-item nav-link"
+      <a href="/user/beneficiary" class="nav-item nav-link"
+        ><i class="fa fa-th me-2"></i>Beneficiary</a
+      >
+      <a href="/user/Summary" class="nav-item nav-link"
         ><i class="fa fa-th me-2"></i>Summary</a
       >
       <a href="/user/fundTransfer" class="nav-item nav-link"
@@ -85,9 +87,6 @@
       >
       <a href="/user/accountStatement" class="nav-item nav-link"
         ><i class="fa fa-table me-2"></i>Statement</a
-      >
-      <a href="/user/accountBeneficiary" class="nav-item nav-link"
-        ><i class="fa fa-table me-2"></i>Add Beneficiary</a
       >
       <a href="/user/settings" class="nav-item nav-link"
         ><i class="fa fa-th me-2"></i>Security</a

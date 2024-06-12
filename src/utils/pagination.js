@@ -1,10 +1,13 @@
 'use strict';
-const paginatedResults = (model, filter = {}) => {
+const paginatedResults = (model, getFilter = () => ({})) => {
   return async (req, res, next) => {
-    const page = parseInt(req.query.page) || 1;
-    const perPage = 6;
-
     try {
+      const page = parseInt(req.query.page) || 1;
+      const perPage = 6;
+
+      // Use the getFilter function to get the filter object dynamically
+      const filter = getFilter(req);
+
       const totalItems = await model.countDocuments(filter);
       const totalPages = Math.ceil(totalItems / perPage);
 
@@ -20,39 +23,23 @@ const paginatedResults = (model, filter = {}) => {
         currentPage: page,
         totalPages,
       };
+
       next();
-    } catch (error) {
-      console.error('Error retrieving information:', error);
-      res.status(500).send('Error retrieving information');
+    } catch (err) {
+      next(err);
     }
   };
 };
 
 // fliter to diaply order for user and merchant that sign in .
-const userOrdersFilter = (req) => {
+const userBeneficiaryFilter = (req) => {
   if (req.currentUser) {
-    return { user: req.currentUser._id };
-  }
-  return {};
-};
-const merchantOrdersFilter = (req) => {
-  if (req.currentMerchant) {
-    return { 'cartItems.merchantId': req.currentAdmin._id };
-  }
-  return {};
-};
-
-const merchantProductsFilter = (req) => {
-  if (req.currentMerchant) {
-    return { merchantId: req.currentMerchant._id };
+    return { userId: req.currentUser._id };
   }
   return {};
 };
 
 module.exports = {
   paginatedResults,
-
-  userOrdersFilter,
-  merchantOrdersFilter,
-  merchantProductsFilter,
+  userBeneficiaryFilter,
 };
