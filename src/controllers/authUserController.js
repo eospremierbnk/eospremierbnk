@@ -10,7 +10,6 @@ const APIError = require('../errorHandlers/apiError');
 const logger = require('../../logger/logger');
 const config = require('../../src/configs/customEnvVariables');
 const { sanitizeInput, sanitizeObject } = require('../utils');
-const {} = require('../mailers');
 
 //Login attempts Limit
 const MAX_FAILED_ATTEMPTS = config.maxFailedAttempt;
@@ -85,15 +84,16 @@ const registerUserPost = tryCatch(async (req, res) => {
   });
 
   await newUser.save();
-
+  const redirectUrl = `/auth/user/login`;
   res.status(201).json({
+    redirectUrl,
     success: true,
     message: 'Registeration successful',
   });
 });
 
 // User login
-const loginPage = (req, res) => {
+const userLogin = (req, res) => {
   const authErrorMessage = req.session.authErrorMessage;
   delete req.session.authErrorMessage;
   res.render('auth/user/login', { authErrorMessage });
@@ -146,12 +146,12 @@ const userLoginPost = tryCatch(async (req, res) => {
 
   // Generate an access token and a refresh token
   const userAccessToken = jwt.sign(
-    { id: user._id, userRole: user.userRole },
+    { id: user._id, role: user.role },
     config.jwtSecret,
     { expiresIn: config.userAccessTokenExpireTime }
   );
   const userRefreshToken = jwt.sign(
-    { id: user._id, userRole: user.userRole },
+    { id: user._id, role: user.role },
     config.jwtSecret,
     { expiresIn: config.userRefreshTokenExpireTime }
   );
@@ -169,10 +169,10 @@ const userLoginPost = tryCatch(async (req, res) => {
     secure: true,
   });
 
-  const redirectUrl = '/user/index';
+  const authRedirectUrl = '/user/index';
 
   res.status(200).json({
-    redirectUrl,
+    authRedirectUrl,
     success: true,
     message: 'User login successful',
   });
@@ -217,7 +217,7 @@ module.exports = {
   registerUser,
   checkExistingUser,
   registerUserPost,
-  loginPage,
+  userLogin,
   userLoginPost,
   userRefreshToken,
 };

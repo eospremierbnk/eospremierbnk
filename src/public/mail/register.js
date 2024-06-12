@@ -1,58 +1,12 @@
 'use strict';
 
-// Function to check if email or username already exists asynchronously
-async function checkExistingUser(field, value) {
-  try {
-    const response = await fetch(
-      `/checkExistingUser?field=${field}&value=${encodeURIComponent(value)}`
-    );
-    const data = await response.json();
-    return data; // Return the response data directly
-  } catch (error) {
-    console.error('Error checking existing user:', error);
-    return {
-      exists: false,
-      message: 'An error occurred while checking existing user',
-    };
-  }
-}
-
-// Add event listeners to email and username input fields
-const emailField = document.querySelector('input[name="email"]');
-const usernameField = document.querySelector('input[name="username"]');
-const emailErrorElement = document.getElementById('emailError');
-const usernameErrorElement = document.getElementById('usernameError');
-
-emailField.addEventListener('input', async () => {
-  const email = emailField.value.trim();
-  if (email) {
-    const { exists, message } = await checkExistingUser('email', email);
-    if (exists) {
-      emailErrorElement.textContent = message;
-      console.log(emailErrorElement.textContent);
-    } else {
-      emailErrorElement.textContent = '';
-    }
-  }
-});
-
-usernameField.addEventListener('input', async () => {
-  const username = usernameField.value.trim();
-  if (username) {
-    const { exists, message } = await checkExistingUser('username', username);
-    if (exists) {
-      usernameErrorElement.textContent = message;
-      console.log(usernameErrorElement.textContent);
-    } else {
-      usernameErrorElement.textContent = '';
-    }
-  }
-});
-
 document.addEventListener('DOMContentLoaded', function () {
   const registrationForm = document.getElementById('registrationForm');
   registrationForm.addEventListener('submit', async function (event) {
     event.preventDefault();
+
+    // Fetch URL from form attribute
+    const register = registrationForm.getAttribute('data-url');
 
     // Change the appearance of the submit button to show a spinner
     const submitButton = document.getElementById('submitButton');
@@ -62,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     try {
       const formData = Object.fromEntries(new FormData(registrationForm));
-      const response = await fetch('/auth/user/registerUserPost', {
+      const response = await fetch(register, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -73,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function () {
       const data = await response.json();
 
       if (data.success) {
-        window.location.href = `/auth/user/login`;
+        window.location.href = data.redirectUrl;
       } else {
         const errors = data.errors;
         errors.forEach((error) => {

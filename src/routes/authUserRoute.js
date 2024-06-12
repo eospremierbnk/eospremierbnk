@@ -25,17 +25,20 @@ router.get(
   '/login',
   isUserSignedIn,
   isAdminSignedIn,
-  authuserController.loginPage
+  authuserController.userLogin
 );
 
-// router.post(
-//   '/userLoginPost',
-//   isUserSignedIn,
-//   isMerchantSignedIn,
-//   isAdminSignedIn,
-//   authuserController.userLoginPost
-// );
+router.post(
+  '/userLoginPost',
+  isUserSignedIn,
+  isAdminSignedIn,
+  authuserController.userLoginPost
+);
 
-// router.post('/userRefreshToken', verifyUserToken, authuserController.userRefreshToken);
+router.post(
+  '/userRefreshToken',
+  verifyUserToken,
+  authuserController.userRefreshToken
+);
 
 module.exports = router;

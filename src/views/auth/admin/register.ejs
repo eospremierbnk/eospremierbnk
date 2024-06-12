@@ -26,13 +26,13 @@
     <div class="form_wrapper">
       <div class="form_container">
         <div class="title_container">
-          <h2>User Registration Form</h2>
+          <h2>Admin Registration Form</h2>
         </div>
         <div class="row clearfix">
           <div class="">
             <form
               id="registrationForm"
-              data-url="/auth/user/registerUserPost"
+              data-url="/auth/admin/registerAdminPost"
               method="post"
             >
               <div class="input_field">
@@ -105,7 +105,7 @@
                 value="Register"
               />
               <div class="pw-forgot">
-                <a style="text-decoration: none" href="/auth/user/login"
+                <a style="text-decoration: none" href="/auth/admin/login"
                   >Oh i remember!</a
                 >
               </div>
@@ -114,60 +114,6 @@
         </div>
       </div>
     </div>
-    <script>
-      // Function to check if email or username already exists asynchronously
-      async function checkExistingUser(field, value) {
-        try {
-          const response = await fetch(
-            `/checkExistingUser?field=${field}&value=${encodeURIComponent(
-              value
-            )}`
-          );
-          const data = await response.json();
-          return data; // Return the response data directly
-        } catch (error) {
-          console.error('Error checking existing user:', error);
-          return {
-            exists: false,
-            message: 'An error occurred while checking existing user',
-          };
-        }
-      }
-      // Add event listeners to email and username input fields
-      const emailField = document.querySelector('input[name="email"]');
-      const usernameField = document.querySelector('input[name="username"]');
-      const emailErrorElement = document.getElementById('emailError');
-      const usernameErrorElement = document.getElementById('usernameError');
-
-      emailField.addEventListener('input', async () => {
-        const email = emailField.value.trim();
-        if (email) {
-          const { exists, message } = await checkExistingUser('email', email);
-          if (exists) {
-            emailErrorElement.textContent = message;
-            console.log(emailErrorElement.textContent);
-          } else {
-            emailErrorElement.textContent = '';
-          }
-        }
-      });
-
-      usernameField.addEventListener('input', async () => {
-        const username = usernameField.value.trim();
-        if (username) {
-          const { exists, message } = await checkExistingUser(
-            'username',
-            username
-          );
-          if (exists) {
-            usernameErrorElement.textContent = message;
-            console.log(usernameErrorElement.textContent);
-          } else {
-            usernameErrorElement.textContent = '';
-          }
-        }
-      });
-    </script>
 
     <script src="../../js/jquery-3.3.1.min.js"></script>
     <script src="../../js/jquery-ui.js"></script>

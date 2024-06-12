@@ -13,10 +13,6 @@ const userSchema = new mongoose.Schema({
   accountNumber: { type: String },
   pin: { type: String },
 
-  failedLoginAttempts: { type: Number, default: 0 },
-  accountLocked: { type: Boolean, default: false },
-  isVerified: { type: Boolean, default: false },
-
   date_added: { type: Date, default: Date.now() },
 });
 
