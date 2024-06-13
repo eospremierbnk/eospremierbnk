@@ -34,10 +34,6 @@ const config = {
   nodemailerEmail: process.env.NODEMAILER_EMAIL,
   nodemailerPassword: process.env.NODEMAILER_PASSWORD,
 
-  cloudinaryCloudName: process.env.CLOUDINARY_CLOUD_NAME,
-  cloudinaryApiName: process.env.CLOUDINARY_API_NAME,
-  cloudinarySecretName: process.env.CLOUDINARY_SECRET_NAME,
-
   companyEmail: process.env.COMPANY_EMAIL,
   companyNumber: process.env.COMPANY_NUMBER,
 };

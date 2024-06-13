@@ -36,6 +36,16 @@
 <script src="../mail/addBeneficiary.js"></script>
 <script src="../mail/beneficiaryCrud.js"></script>
 
+<script>
+  const today = new Date();
+  const formattedDate = today.toLocaleDateString('en-US', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+  });
+  document.getElementById('dateNow').textContent = formattedDate;
+</script>
+
 <!-- Contact Javascript File -->
 <!-- <script src="../mail/signout.js"></script>
 <script src="../mail/uploadImage.js"></script>

@@ -3,7 +3,6 @@ const config = require('../configs/customEnvVariables');
 const bcrypt = require('bcryptjs');
 const { tryCatch } = require('../middlewares');
 const APIError = require('../errorHandlers/apiError');
-const cloudinary = require('../configs/cloudinary');
 const { User, Beneficiary, Purchase } = require('../models');
 const { beneficiarySchema } = require('../validations');
 const { updateUserProfileMsg } = require('../mailers');
@@ -27,6 +26,31 @@ const userLandingPage = tryCatch(async (req, res) => {
     userTransaction: results,
     currentPage,
     totalPages,
+  });
+});
+
+const uploadUserImage = tryCatch(async (req, res) => {
+  const user = req.currentUser;
+
+  // Handle the uploaded file
+  const file = req.file;
+  if (!file) {
+    throw new APIError('No file uploaded', 400);
+  }
+
+  image: {
+    data: fs.readFileSync(path.join(__dirname, '../public/userImage/' + req.file.filename)),
+    contentType: 'image/png'
+  };
+
+  user.image = image;
+  await user.save();
+
+  const callbackUrl = '/user/index';
+  return res.status(200).json({
+    callbackUrl,
+    success: true,
+    message: 'Image uploaded successfully',
   });
 });
 
@@ -280,10 +304,12 @@ const accountSummary = tryCatch(async (req, res) => {
   });
 });
 
-const fundsTransfer = (req, res) => {
-  const user = req.currentUser;
+const fundsTransfer = tryCatch(async (req, res) => {
+  const userId = req.currentUser._id;
+  const user = await User.findById(userId).select('accountNumber swiftCode');
+
   res.render('user/fundTransfer', { user });
-};
+});
 
 const fundsTransferPost = tryCatch(async (req, res) => {
   const user = req.currentUser;
@@ -307,8 +333,15 @@ const fundsTransferPost = tryCatch(async (req, res) => {
   });
 });
 
+const deatailsPage = tryCatch(async (req, res) => {
+  const user = req.currentUser._id;
+
+  res.render('user/accountDetails', { user });
+});
+
 module.exports = {
   userLandingPage,
+  uploadUserImage,
   beneficiaryList,
   viewBeneficiary,
   editBeneficiary,
@@ -319,7 +352,7 @@ module.exports = {
   editUserProfile,
   editUserProfilePost,
   accountSummary,
-
   fundsTransfer,
   fundsTransferPost,
+  deatailsPage,
 };

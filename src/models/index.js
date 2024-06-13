@@ -5,7 +5,7 @@ const Blacklist = require('./Blacklist');
 const Admin = require('./Admin');
 const Message = require('./ChatMessage');
 const Beneficiary = require('./Beneficiary');
-const { Transaction, Purchase } = require('./Transaction');
+const { Transaction, Purchase, UserAccount } = require('./Transaction');
 
 module.exports = {
   NewsLetter,
@@ -17,4 +17,5 @@ module.exports = {
   Beneficiary,
   Transaction,
   Purchase,
+  UserAccount,
 };

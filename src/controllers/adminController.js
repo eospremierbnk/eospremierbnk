@@ -1,5 +1,4 @@
 'use strict';
-const cloudinary = require('../configs/cloudinary');
 const { tryCatch } = require('../middlewares');
 const APIError = require('../errorHandlers/apiError');
 const { updateAdminProfileMsg } = require('../mailers');

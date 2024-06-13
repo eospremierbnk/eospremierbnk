@@ -12,17 +12,6 @@ const userSchema = new mongoose.Schema({
   address: { type: String },
   city: { type: String },
   state: { type: String },
-  accountNumber: { type: String },
-  accountType: { type: String },
-  accountBalance: { type: Number },
-  cardType: { type: String },
-  cardBalance: { type: Number },
-  cardNumber: { type: Number },
-  amount: { type: Number },
-  accountStatus: { type: String, default: 'Active' },
-
-  pin: { type: String },
-
   date_added: { type: Date, default: Date.now() },
 });
 

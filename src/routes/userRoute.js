@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 const { verifyUserToken, getUserById } = require('../middlewares');
 const { Beneficiary, Transaction } = require('../models');
-const { userImage, reportImage } = require('../configs/multer');
+const { userImage } = require('../configs/multer');
 const { userController } = require('../controllers');
 const { paginatedResults, userBeneficiaryFilter } = require('../utils');
 
@@ -13,6 +13,14 @@ router.get(
   getUserById,
   paginatedResults(Transaction, userBeneficiaryFilter),
   userController.userLandingPage
+);
+
+router.post(
+  '/uploadUserImage',
+  verifyUserToken,
+  getUserById,
+  userImage.single('image'),
+  userController.uploadUserImage
 );
 
 router.get(
@@ -97,6 +105,13 @@ router.post(
   verifyUserToken,
   getUserById,
   userController.fundsTransferPost
+);
+
+router.get(
+  '/accountDetails',
+  verifyUserToken,
+  getUserById,
+  userController.deatailsPage
 );
 
 module.exports = router;

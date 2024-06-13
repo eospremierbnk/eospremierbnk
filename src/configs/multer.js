@@ -1,24 +1,31 @@
 const multer = require('multer');
 
-
-// Multer config
-
-
-const reportImage = multer({
-    storage: multer.diskStorage({
-      destination: (req, file, cb) => {
-        cb(null, './public/reportImage/'); // Adjust path as needed
-      },
-      filename: (req, file, cb) => {
-        cb(null, file.fieldname + '_' + Date.now());
-      }
-    }),
-    limits: {
-      fileSize: 1000000, // Adjust limit in bytes (here, 1MB)
+const userImage = multer({
+  storage: multer.diskStorage({
+    destination: (req, file, cb) => {
+      cb(null, './public/userImage/');
     },
+    filename: (req, file, cb) => {
+      cb(null, file.fieldname + '_' + Date.now());
+    },
+  }),
+  limits: {
+    fileSize: 1000000,
+  },
 });
-  
 
+const adminImage = multer({
+  storage: multer.diskStorage({
+    destination: (req, file, cb) => {
+      cb(null, './public/adminImage/');
+    },
+    filename: (req, file, cb) => {
+      cb(null, file.fieldname + '_' + Date.now());
+    },
+  }),
+  limits: {
+    fileSize: 1000000,
+  },
+});
 
-module.exports ={reportImage};
-
+module.exports = { userImage, adminImage };

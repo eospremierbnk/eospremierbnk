@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>EOS Premier Bank</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="EOS Premier Bank" name="keywords" />
+    <meta content="EOS Premier Bank" name="description" />
+
+    <!-- Favicon -->
+    <link href="../images/logo.jpg" rel="icon" />
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Icon Font Stylesheet -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+
+    <!-- Libraries Stylesheet -->
+    <link
+      href="../lib/owlcarousel/assets/owl.carousel.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="../lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="../css/adminCss/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Template Stylesheet -->
+    <link href="../css/adminCss/style.css" rel="stylesheet" />
+    <link href="../css/adminCss/adminform.css" rel="stylesheet" />
+  </head>
+
+  <body>
+    <div class="container-xxl position-relative bg-white d-flex p-0">
+      <!-- start header  -->
+      <%- include (`../partials/userHeader`); -%>
+      <!-- end header -->
+
+      <!-- Content Start -->
+      <div class="content">
+        <!-- Recent Sales Start -->
+        <div class="container-fluid pt-4 px-4">
+          <div class="bg-light text-center rounded p-4">
+            <div class="d-flex align-items-center justify-content-between mb-4">
+              <h6 class="mb-0">Balance Enquiry</h6>
+
+              <!-- Toast start -->
+              <div
+                class="position-fixed bottom-0 end-0 p-3"
+                style="z-index: 11"
+              >
+                <div id="toastContainer" class="toast-container"></div>
+              </div>
+              <!-- Toast End -->
+            </div>
+            <div class="table-responsive">
+              <table
+                class="table text-start align-middle table-bordered table-hover mb-0"
+              >
+                <thead>
+                  <tr class="text-dark">
+                    <th scope="col">Full Name</th>
+                    <th scope="col" style="text-align: center">Email</th>
+                    <th scope="col">Phone</th>
+                    <th scope="col">ID Number</th>
+                    <th scope="col">Account</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+              </table>
+              <div class="pagination"></div>
+            </div>
+          </div>
+        </div>
+        <!-- Recent Sales End -->
+
+        <!-- Footer Start -->
+        <%- include (`../partials/userFooter`); -%>
+        <!-- Footer End -->
+      </div>
+      <!-- Content End -->
+
+      <!-- Back to Top -->
+      <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"
+        ><i class="bi bi-arrow-up"></i
+      ></a>
+    </div>
+  </body>
+</html>

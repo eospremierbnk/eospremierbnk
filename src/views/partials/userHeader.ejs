@@ -39,8 +39,8 @@
               style="background-color: #009cff !important"
               src="https://bootdey.com/img/Content/avatar/avatar5.png"
               alt="image"
-              width="90"
-              height="90"
+              width="60"
+              height="60"
             />
           </div>
           <% } %>
@@ -56,9 +56,9 @@
       </div>
 
       <div class="ms-3">
-        <h6 class="mb-0">Hi <%-user.firstName %> <%-user.lastName %></h6>
+        <h6 class="mb-0">Hi <%-user.firstName %></h6>
         <span id="userIpAddress"></span>
-        <script>
+        <!-- <script>
           // Assuming the IP is stored in sessionStorage when the user logs in
           const userIpAddress = sessionStorage.getItem('userIpAddress');
           if (userIpAddress) {
@@ -66,7 +66,7 @@
               'userIpAddress'
             ).innerText = `Your IP address: ${userIpAddress}`;
           }
-        </script>
+        </script> -->
       </div>
     </div>
     <div class="navbar-nav w-100">
