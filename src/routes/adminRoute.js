@@ -7,6 +7,11 @@ const { adminController } = require('../controllers');
 const { adminImage } = require('../configs/multer');
 const { paginatedResults } = require('../utils');
 
-router.get('/index', adminController.adminIndexPage);
+router.get(
+  '/index',
+  verifyAdminToken,
+  getAdminById,
+  adminController.adminIndexPage
+);
 
 module.exports = router;

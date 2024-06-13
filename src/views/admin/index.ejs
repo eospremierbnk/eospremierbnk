@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>EOS Premier Bank</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="EOS Premier Bank" name="keywords" />
+    <meta content="EOS Premier Bank" name="description" />
+
+    <!-- Favicon -->
+    <link href="../images/logo.jpg" rel="icon" />
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Icon Font Stylesheet -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+
+    <!-- Libraries Stylesheet -->
+    <link
+      href="../lib/owlcarousel/assets/owl.carousel.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="../lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="../css/adminCss/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Template Stylesheet -->
+    <link href="../css/adminCss/style.css" rel="stylesheet" />
+  </head>
+
+  <body>
+    <div class="container-xxl position-relative bg-white d-flex p-0">
+      <!-- start header  -->
+      <%- include (`../partials/adminHeader`); -%>
+      <!-- end header -->
+
+      <!-- Content Start -->
+      <div class="content">
+        <!-- Navbar revenue Start -->
+        <%- include (`../partials/adminNav`); -%>
+        <!-- Navbar and revenue End -->
+
+        <!-- Sales Chart Start -->
+        <div class="container-fluid pt-4 px-4">
+          <div class="row g-4">
+            <div class="col-sm-12 col-xl-6">
+              <div class="bg-light text-center rounded p-4">
+                <div
+                  class="d-flex align-items-center justify-content-between mb-4"
+                >
+                  <h6 class="mb-0">Credit Point</h6>
+                </div>
+                <canvas id="worldwide-sales"></canvas>
+              </div>
+            </div>
+            <div class="col-sm-12 col-xl-6">
+              <div class="bg-light text-center rounded p-4">
+                <div
+                  class="d-flex align-items-center justify-content-between mb-4"
+                >
+                  <h6 class="mb-0">Revenue</h6>
+                </div>
+                <canvas id="salse-revenue"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Sales Chart End -->
+
+        <!-- Account Summary Start -->
+        <div class="container-fluid pt-4 px-4">
+          <div class="bg-light text-center rounded p-4">
+            <div class="d-flex align-items-center justify-content-between mb-4">
+              <h6 class="mb-0">Account Summary</h6>
+              <a href="/user/summary">Show All</a>
+            </div>
+            <div class="table-responsive">
+              <table
+                class="table text-start align-middle table-bordered table-hover mb-0"
+              >
+                <thead>
+                  <tr class="text-dark">
+                    <th scope="col">
+                      <input class="form-check-input" type="checkbox" />
+                    </th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Paid In</th>
+                    <th scope="col">Paid Out</th>
+                    <th scope="col">Date</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <!-- Account Summary End -->
+
+        <!-- Account Summary Start -->
+        <div class="container-fluid pt-4 px-4">
+          <div class="bg-light text-center rounded p-4">
+            <div class="d-flex align-items-center justify-content-between mb-4">
+              <h6 class="mb-0">Purchase Summary</h6>
+              <a href="/user/summary">Show All</a>
+            </div>
+            <div class="table-responsive">
+              <table
+                class="table text-start align-middle table-bordered table-hover mb-0"
+              >
+                <thead>
+                  <tr class="text-dark">
+                    <th scope="col">
+                      <input class="form-check-input" type="checkbox" />
+                    </th>
+                    <th scope="col">Store</th>
+                    <th scope="col">Account</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Date</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <!-- Account Summary End -->
+
+        <!-- Footer Start -->
+        <%- include (`../partials/adminFooter`); -%>
+        <!-- Footer End -->
+      </div>
+      <!-- Content End -->
+
+      <!-- Back to Top -->
+      <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"
+        ><i class="bi bi-arrow-up"></i
+      ></a>
+    </div>
+  </body>
+</html>
