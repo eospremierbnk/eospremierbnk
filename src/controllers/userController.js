@@ -28,7 +28,6 @@ const userLandingPage = tryCatch(async (req, res) => {
     totalPages,
   });
 });
-
 const uploadUserImage = tryCatch(async (req, res) => {
   const user = req.currentUser;
 
@@ -38,12 +37,22 @@ const uploadUserImage = tryCatch(async (req, res) => {
     throw new APIError('No file uploaded', 400);
   }
 
-  image: {
-    data: fs.readFileSync(path.join(__dirname, '../public/userImage/' + req.file.filename)),
-    contentType: 'image/png'
+  // Read the uploaded file
+  const imagePath = path.join(__dirname, '../public/userImage/', file.filename);
+  let imageData;
+  try {
+    imageData = fs.readFileSync(imagePath);
+  } catch (err) {
+    throw new APIError('Error reading file', 500);
+  }
+
+  // Assign the image to the user
+  user.image = {
+    data: imageData,
+    contentType: file.mimetype || 'image/png', // Use the uploaded file's MIME type
   };
 
-  user.image = image;
+  // Save the user with the new image
   await user.save();
 
   const callbackUrl = '/user/index';
