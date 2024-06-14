@@ -108,6 +108,13 @@ router.post(
 );
 
 router.get(
+  '/chatAdmin',
+  verifyUserToken,
+  getUserById,
+  userController.chatWithAdmin
+);
+
+router.get(
   '/accountDetails',
   verifyUserToken,
   getUserById,

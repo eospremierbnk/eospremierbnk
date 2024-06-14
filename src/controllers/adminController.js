@@ -1,5 +1,6 @@
 'use strict';
 const fs = require('fs').promises;
+const path = require('path');
 const { tryCatch } = require('../middlewares');
 const APIError = require('../errorHandlers/apiError');
 const { updateAdminProfileMsg } = require('../mailers');
@@ -12,6 +13,7 @@ const adminIndexPage = tryCatch((req, res) => {
   if (!res.paginatedResults) {
     throw new APIError('Paginated results not found', 404);
   }
+
   const { results, currentPage, totalPages } = res.paginatedResults;
   res.render('admin/index', {
     admin,
@@ -34,17 +36,14 @@ const uploadAdminImage = tryCatch(async (req, res) => {
     '../public/adminImage/',
     file.filename
   );
-  const imageData = await fs.readFile(imagePath);
 
-  // Assign the image to the admin
+  const imageData = await fs.readFile(imagePath);
   admin.image = {
     data: imageData,
     contentType: file.mimetype || 'image/png',
   };
 
   await admin.save();
-
-  // Delete the file after saving it to the database
   await fs.unlink(imagePath);
 
   const callbackUrl = '/admin/index';
@@ -60,6 +59,7 @@ const usersPage = tryCatch((req, res) => {
   if (!res.paginatedResults) {
     throw new APIError('Paginated results not found', 404);
   }
+
   const { results, currentPage, totalPages } = res.paginatedResults;
   res.render('admin/ourUsers', {
     admin,
@@ -264,6 +264,62 @@ const editUserPost = tryCatch(async (req, res) => {
   });
 });
 
+const chatWithUser = (req, res) => {
+  const admin = req.currentAdmin;
+  res.render('admin/chatting', { admin });
+};
+
+const editAdminProfile = (req, res) => {
+  const admin = req.currentAdmin;
+  res.render('admin/settings', { admin });
+};
+
+const editAdminProfilePost = tryCatch(async (req, res) => {
+  const admin = req.currentAdmin;
+  const {
+    firstName,
+    lastName,
+    email,
+    username,
+    address,
+    city,
+    state,
+    oldPassword,
+    newPassword,
+  } = sanitizeObject(req.body);
+
+  let hashedPassword = user.password;
+  if (oldPassword && newPassword) {
+    const passwordMatch = await bcrypt.compare(oldPassword, user.password);
+    if (!passwordMatch) {
+      throw new APIError('Old password does not match', 400);
+    }
+    hashedPassword = await bcrypt.hash(newPassword, 10);
+  }
+
+  const updatedUser = await User.findByIdAndUpdate(
+    req.user.id,
+    {
+      $set: {
+        firstName,
+        lastName,
+        email,
+        username,
+        address,
+        city,
+        state,
+        password: hashedPassword,
+      },
+    },
+    { new: true }
+  );
+
+  await updateUserProfileMsg(updatedUser);
+  res
+    .status(201)
+    .json({ user, success: true, message: 'Profile updated successfully' });
+});
+
 module.exports = {
   adminIndexPage,
   uploadAdminImage,
@@ -274,4 +330,7 @@ module.exports = {
   viewUser,
   editUser,
   editUserPost,
+  chatWithUser,
+  editAdminProfile,
+  editAdminProfilePost,
 };

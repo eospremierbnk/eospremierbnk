@@ -31,11 +31,7 @@ const verifyToken = (socket, next) => {
     return next(new Error('Authentication error'));
   }
 
-  const role = decoded.adminRole
-    ? 'Admin'
-    : decoded.userRole
-    ? 'User'
-    : 'Unknown';
+  const role = decoded.role ? 'Admin' : decoded.role ? 'User' : 'Unknown';
   socket.decoded = {
     ...decoded,
     role: role,
@@ -52,7 +48,7 @@ const setupSocketIo = (server) => {
     let image;
     if (socket.decoded.role === 'User') {
       const user = await User.findById(socket.decoded.id);
-      name = `${user.userFirstName} ${user.userLastName}`;
+      name = `${user.firstName} ${user.lastName}`;
       image =
         user.image && user.image.length > 0
           ? user.image[0].imageUrl
@@ -67,7 +63,7 @@ const setupSocketIo = (server) => {
       });
     } else if (socket.decoded.role === 'Admin') {
       const admin = await Admin.findById(socket.decoded.id);
-      name = `${admin.adminFirstName} ${admin.adminLastName}`;
+      name = `${admin.firstName} ${admin.lastName}`;
       image =
         admin.image && admin.image.length > 0
           ? admin.image[0].imageUrl
@@ -83,7 +79,7 @@ const setupSocketIo = (server) => {
       const users = await User.find({});
       const userList = users.map((user) => ({
         userId: user._id,
-        userName: `${user.userFirstName} ${user.userLastName}`,
+        userName: `${user.firstName} ${user.lastName}`,
         userImage:
           user.image && user.image.length > 0
             ? user.image[0].imageUrl

@@ -1,4 +1,6 @@
 'use strict';
+const fs = require('fs').promises;
+const path = require('path');
 const config = require('../configs/customEnvVariables');
 const bcrypt = require('bcryptjs');
 const { tryCatch } = require('../middlewares');
@@ -28,30 +30,30 @@ const userLandingPage = tryCatch(async (req, res) => {
     totalPages,
   });
 });
+
 const uploadUserImage = tryCatch(async (req, res) => {
   const user = req.currentUser;
-
   const file = req.file;
+
   if (!file) {
     throw new APIError('No file uploaded', 400);
   }
 
-  const imagePath = path.join(__dirname, '../public/UserImage/', file.filename);
+  const imagePath = path.resolve(
+    __dirname,
+    '../public/userImage/',
+    file.filename
+  );
 
-  let imageData;
-  try {
-    imageData = fs.readFileSync(imagePath);
-  } catch (err) {
-    throw new APIError('Error reading file', 500);
-  }
+  const imageData = await fs.readFile(imagePath);
 
-  // Assign the image to the user
   user.image = {
     data: imageData,
     contentType: file.mimetype || 'image/png',
   };
 
   await user.save();
+  await fs.unlink(imagePath);
 
   const callbackUrl = '/user/index';
   return res.status(200).json({
@@ -340,6 +342,11 @@ const fundsTransferPost = tryCatch(async (req, res) => {
   });
 });
 
+const chatWithAdmin = (req, res) => {
+  const user = req.currentUser._id;
+  res.render('user/chatAdmin', { user });
+};
+
 const deatailsPage = tryCatch(async (req, res) => {
   const user = req.currentUser._id;
 
@@ -361,5 +368,6 @@ module.exports = {
   accountSummary,
   fundsTransfer,
   fundsTransferPost,
+  chatWithAdmin,
   deatailsPage,
 };

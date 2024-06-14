@@ -62,34 +62,57 @@
         <div class="container-fluid pt-4 px-4">
           <div class="bg-light text-center rounded p-4">
             <div class="d-flex align-items-center justify-content-between mb-4">
-              <h6 class="mb-0">Balance Enquiry</h6>
-
-              <!-- Toast start -->
-              <div
-                class="position-fixed bottom-0 end-0 p-3"
-                style="z-index: 11"
-              >
-                <div id="toastContainer" class="toast-container"></div>
-              </div>
-              <!-- Toast End -->
+              <h6 class="mb-0">Chat with Admin</h6>
             </div>
-            <div class="table-responsive">
-              <table
-                class="table text-start align-middle table-bordered table-hover mb-0"
-              >
-                <thead>
-                  <tr class="text-dark">
-                    <th scope="col">Full Name</th>
-                    <th scope="col" style="text-align: center">Email</th>
-                    <th scope="col">Phone</th>
-                    <th scope="col">ID Number</th>
-                    <th scope="col">Account</th>
-                    <th scope="col">Address</th>
-                    <th scope="col">Action</th>
-                  </tr>
-                </thead>
-              </table>
-              <div class="pagination"></div>
+            <div class="container p-0">
+              <div class="card">
+                <div class="row g-0">
+                  <div class="col-12 col-lg-7 col-xl-9">
+                    <div class="position-relative">
+                      <div id="user-chat-messages" class="chat-messages p-4">
+                        <!-- Chat messages will be inserted here dynamically -->
+                      </div>
+                    </div>
+                    <div id="user-image-preview" class="mb-2"></div>
+                    <div class="typing-indicator">
+                      <small class="text-muted"><em></em></small>
+                    </div>
+                    <div class="flex-grow-0 py-3 px-4 border-top">
+                      <div class="row">
+                        <div class="col-12">
+                          <textarea
+                            class="form-control"
+                            rows="2"
+                            id="user-message"
+                            placeholder="Enter your message..."
+                          ></textarea>
+                        </div>
+                        <div class="col-12 mt-2">
+                          <div class="input-group">
+                            <label
+                              for="user-image-upload"
+                              class="btn btn-primary mr-2"
+                            >
+                              <i class="fas fa-camera"></i> Upload Image
+                            </label>
+                            <input
+                              type="file"
+                              id="user-image-upload"
+                              class="d-none"
+                            />
+                            <button
+                              class="btn btn-primary"
+                              onclick="sendUserMessage()"
+                            >
+                              Send
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

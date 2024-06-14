@@ -72,4 +72,26 @@ router.put(
   getAdminById,
   adminController.editUserPost
 );
+
+router.get(
+  '/chatting',
+  verifyAdminToken,
+  getAdminById,
+  adminController.chatWithUser
+);
+
+router.get(
+  '/settings',
+  verifyAdminToken,
+  getAdminById,
+  adminController.editAdminProfile
+);
+
+router.put(
+  '/editAdminProfile',
+  verifyAdminToken,
+  getAdminById,
+  adminController.editAdminProfilePost
+);
+
 module.exports = router;
