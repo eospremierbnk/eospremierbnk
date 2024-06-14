@@ -31,14 +31,13 @@ const userLandingPage = tryCatch(async (req, res) => {
 const uploadUserImage = tryCatch(async (req, res) => {
   const user = req.currentUser;
 
-  // Handle the uploaded file
   const file = req.file;
   if (!file) {
     throw new APIError('No file uploaded', 400);
   }
 
-  // Read the uploaded file
-  const imagePath = path.join(__dirname, '../public/userImage/', file.filename);
+  const imagePath = path.join(__dirname, '../public/UserImage/', file.filename);
+
   let imageData;
   try {
     imageData = fs.readFileSync(imagePath);
@@ -49,10 +48,9 @@ const uploadUserImage = tryCatch(async (req, res) => {
   // Assign the image to the user
   user.image = {
     data: imageData,
-    contentType: file.mimetype || 'image/png', // Use the uploaded file's MIME type
+    contentType: file.mimetype || 'image/png',
   };
 
-  // Save the user with the new image
   await user.save();
 
   const callbackUrl = '/user/index';

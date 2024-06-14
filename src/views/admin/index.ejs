@@ -88,8 +88,8 @@
         <div class="container-fluid pt-4 px-4">
           <div class="bg-light text-center rounded p-4">
             <div class="d-flex align-items-center justify-content-between mb-4">
-              <h6 class="mb-0">Account Summary</h6>
-              <a href="/user/summary">Show All</a>
+              <h6 class="mb-0">Users Account</h6>
+              <a href="/admin/ourUsers">Show All</a>
             </div>
             <div class="table-responsive">
               <table
@@ -97,47 +97,53 @@
               >
                 <thead>
                   <tr class="text-dark">
-                    <th scope="col">
-                      <input class="form-check-input" type="checkbox" />
-                    </th>
-                    <th scope="col">Description</th>
-                    <th scope="col">Amount</th>
-                    <th scope="col">Type</th>
-                    <th scope="col">Paid In</th>
-                    <th scope="col">Paid Out</th>
-                    <th scope="col">Date</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">Name</th>
+                    <th scope="col" style="text-align: center">Email</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Number</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">City</th>
+                    <th scope="col">State</th>
+                    <th scope="col">Date Added</th>
                   </tr>
                 </thead>
-                <tbody></tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-        <!-- Account Summary End -->
-
-        <!-- Account Summary Start -->
-        <div class="container-fluid pt-4 px-4">
-          <div class="bg-light text-center rounded p-4">
-            <div class="d-flex align-items-center justify-content-between mb-4">
-              <h6 class="mb-0">Purchase Summary</h6>
-              <a href="/user/summary">Show All</a>
-            </div>
-            <div class="table-responsive">
-              <table
-                class="table text-start align-middle table-bordered table-hover mb-0"
-              >
-                <thead>
-                  <tr class="text-dark">
-                    <th scope="col">
-                      <input class="form-check-input" type="checkbox" />
-                    </th>
-                    <th scope="col">Store</th>
-                    <th scope="col">Account</th>
-                    <th scope="col">Amount</th>
-                    <th scope="col">Date</th>
+                <tbody>
+                  <% if (ourUsers.length > 0) { %> <% ourUsers.forEach(users =>
+                  { %>
+                  <tr class="center">
+                    <td>
+                      <% if (users.image && users.image.length > 0) { %>
+                      <img
+                        src="<%= user.image[0] %>"
+                        alt="Image"
+                        style="width: 50px"
+                      />
+                      <% } else { %> NA <% } %>
+                    </td>
+                    <td><%= users.firstName %> <%= users.lastName%></td>
+                    <td><%= users.email %></td>
+                    <td><%= users.username %></td>
+                    <td><%= users.number %></td>
+                    <td><%= users.address %></td>
+                    <td><%= users.city %></td>
+                    <td><%= users.state %></td>
+                    <% const date = users.date_added instanceof Date ?
+                    users.date_added : new Date(users.date_added); const day =
+                    String(date.getDate()).padStart(2, '0'); const month =
+                    String(date.getMonth() + 1).padStart(2, '0'); const year =
+                    date.getFullYear(); const dateAdded =
+                    `${day}-${month}-${year}`; %>
+                    <td><%= dateAdded %></td>
                   </tr>
-                </thead>
-                <tbody></tbody>
+                  <% }); %> <% } else { %>
+                  <tr>
+                    <td colspan="6" class="text-center">
+                      You are yet to have users with EOS premier bank
+                    </td>
+                  </tr>
+                  <% } %>
+                </tbody>
               </table>
             </div>
           </div>

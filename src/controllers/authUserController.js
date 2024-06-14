@@ -132,11 +132,7 @@ const userLoginPost = tryCatch(async (req, res) => {
     }
   }
 
-  if (
-    user.accountLocked ||
-    user.accountStatus === 'Suspend' ||
-    user.accountStatus === 'Locked'
-  ) {
+  if (user.accountLocked || user.accountStatus === 'Locked') {
     throw new APIError(
       'Your account is suspended or locked. Please contact the administrator for assistance.',
       423

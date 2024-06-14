@@ -30,5 +30,6 @@ router.use('/', userRoute);
 router.use('/auth/admin', adminAuthRoute);
 router.use('/', adminAuthRoute);
 router.use('/admin', adminRoute);
+router.use('/', adminRoute);
 
 module.exports = router;

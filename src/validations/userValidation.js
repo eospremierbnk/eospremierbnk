@@ -31,12 +31,46 @@ const passwordMessages = {
   'string.min': 'Password must be at least {#limit} characters',
   'any.required': 'Password is required',
 };
-const ConfirmPasswordMessages = {
-  'any.only': 'Passwords must match',
-  'string.empty': 'Confirm password is required',
-  'any.required': 'Password is required',
+const addressMessages = {
+  'string.empty': 'address is required',
+  'string.min': 'address must be at least {#limit} characters',
+  'any.required': 'address is required',
 };
-
+const cityMessages = {
+  'string.empty': 'city is required',
+  'string.min': 'city must be at least {#limit} characters',
+  'any.required': 'city is required',
+};
+const stateMessages = {
+  'string.empty': 'state is required',
+  'string.min': 'state must be at least {#limit} characters',
+  'any.required': 'state is required',
+};
+const savingsAccountNumberMessages = {
+  'string.empty': 'savings account number is required',
+  'string.min': 'avings account number must be at least {#limit} characters',
+  'any.required': 'avings account number is required',
+};
+const checkingAccountNumberMessages = {
+  'string.empty': 'checking account number is required',
+  'string.min': 'checking account number must be at least {#limit} characters',
+  'any.required': 'checking account number is required',
+};
+const savingAccountBalanceMessages = {
+  'string.empty': 'saving account balance is required',
+  'string.min': 'saving account balance must be at least {#limit} characters',
+  'any.required': 'saving account balance is required',
+};
+const checkingAccountBalanceMessages = {
+  'string.empty': 'checking account balance is required',
+  'string.min': 'checking account balance must be at least {#limit} characters',
+  'any.required': 'checking account balance is required',
+};
+const pinMessages = {
+  'string.empty': 'Pin is required',
+  'string.min': 'Pin must be at least {#limit} characters',
+  'any.required': 'Pin is required',
+};
 // Define a Joi schema for the user data
 const userSchema = Joi.object({
   firstName: Joi.string().min(2).required().messages(firstNameMessages),
@@ -57,10 +91,26 @@ const userSchema = Joi.object({
     .required()
     .messages(numberMessages),
   password: Joi.string().min(6).required().messages(passwordMessages),
-  confirmPassword: Joi.string()
-    .valid(Joi.ref('password'))
+  address: Joi.string().min(2).required().messages(addressMessages),
+  city: Joi.string().min(2).required().messages(cityMessages),
+  state: Joi.string().min(2).required().messages(stateMessages),
+  savingsAccountNumber: Joi.string()
+    .min(2)
     .required()
-    .messages(ConfirmPasswordMessages),
+    .messages(savingsAccountNumberMessages),
+  checkingAccountNumber: Joi.string()
+    .min(2)
+    .required()
+    .messages(checkingAccountNumberMessages),
+  savingAccountBalance: Joi.string()
+    .min(2)
+    .required()
+    .messages(savingAccountBalanceMessages),
+  checkingAccountBalance: Joi.string()
+    .min(2)
+    .required()
+    .messages(checkingAccountBalanceMessages),
+  pin: Joi.string().min(4).required().messages(pinMessages),
 });
 
 module.exports = userSchema;
