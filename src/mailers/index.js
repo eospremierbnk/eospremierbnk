@@ -4,6 +4,8 @@ const {
   sendOTPByEmail,
   addBeneficiaryMsg,
   sendLoginNotification,
+  forgetPasswordMsg,
+  resetPasswordMsg,
 } = require('./userMsgMailer');
 
 const {
@@ -19,4 +21,6 @@ module.exports = {
   sendLoginNotification,
   sendAccountStatusUpdateNotification,
   updateAdminProfileMsg,
+  forgetPasswordMsg,
+  resetPasswordMsg,
 };

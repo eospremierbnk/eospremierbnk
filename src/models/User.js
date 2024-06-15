@@ -1,5 +1,5 @@
 const mongoose = require(`mongoose`);
-
+const crypto = require('crypto');
 const userSchema = new mongoose.Schema({
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
@@ -24,8 +24,22 @@ const userSchema = new mongoose.Schema({
   cardNumber: { type: String },
   pin: { type: String },
   otp: { type: String },
+
+  resetPasswordToken: { type: String, default: null },
+  resetPasswordExpires: { type: Date, default: null },
+
   date_added: { type: Date, default: Date.now() },
 });
+
+userSchema.methods.getResetPasswordToken = function () {
+  const resetToken = crypto.randomBytes(20).toString('hex');
+  this.resetPasswordToken = crypto
+    .createHash('sha256')
+    .update(resetToken)
+    .digest('hex');
+  this.resetPasswordExpires = new Date(Date.now() + 30 * 60 * 1000);
+  return resetToken;
+};
 
 const User = mongoose.model('User', userSchema);
 

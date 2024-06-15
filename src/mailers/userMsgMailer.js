@@ -221,10 +221,90 @@ const sendLoginNotification = async (user) => {
   });
 };
 
+const forgetPasswordMsg = async (user, resetLink) => {
+  const msg = `
+  <p><img src="cid:logo" alt="logo" style="width: 100%; max-width: 600px; height: auto;"/></p><br>
+  <p>Dear ${user.firstName} ${user.lastName},</p>
+
+  <p>We are writing to confirm your password recovery with Korex StyleHub.</p>
+  <p>Reset your password here: <a href="${resetLink}">Click here to reset your password</a></p>
+
+  <p>If you didn't request this verification, please ignore this email.</p>
+
+  <p>If you encounter any issues or need further assistance, feel free to contact our support team at <a href="tel:${phoneNumber}">${phoneNumber}</a> or <a href="mailto:${emailAddress}">${emailAddress}</a>. Your satisfaction is important to us, and we are here to assist you</p>
+
+  <p>Warm regards,<br>
+  EOS PREMIER BANK</p>`;
+
+  const mailOptions = {
+    from: config.nodemailerEmail,
+    to: user.email,
+    subject: 'Recover your password with EOS Permier Bank!',
+    html: msg,
+    attachments: [
+      {
+        filename: 'logo.jpg',
+        path: './src/public/images/logo.jpg',
+        cid: 'logo',
+      },
+    ],
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      logger.info('Email sending error:', error);
+    } else {
+      logger.info('Email sent:', info.response);
+    }
+  });
+};
+
+const resetPasswordMsg = async (user) => {
+  const msg = `
+  <p><img src="cid:logo" alt="logo" style="width: 100%; max-width: 600px; height: auto;"/></p><br>
+  <p>Dear ${user.firstName} ${user.lastName},</p>
+
+  <p>We are writing to confirm your password recovery with EOS Bank.</p>
+  <p>Your password has been successfully reset. You can now log in to your account using your new password.</p>
+
+  <p>If you did not request this password reset, please contact us immediately. at <a href="tel:${phoneNumber}">${phoneNumber}</a> or <a href="mailto:${emailAddress}">${emailAddress}</a>. Your satisfaction is important to us, and we are here to assist you</p>
+
+  <p>Warm regards,<br>
+  EOS Bank</p>
+`;
+
+  const mailOptions = {
+    from: config.nodemailerEmail,
+    to: user.email,
+    subject: 'Password Reset Successful!',
+    html: msg,
+    attachments: [
+      {
+        filename: 'logo.jpg',
+        path: './src/public/images/logo.jpg',
+        cid: 'logo',
+      },
+    ],
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      logger.info('Email sending error:', error);
+      return res
+        .status(500)
+        .json({ success: false, errors: [{ msg: 'Error sending email' }] });
+    } else {
+      logger.info('Email sent:', info.response);
+    }
+  });
+};
+
 module.exports = {
   contactQueriesMsg,
   updateUserProfileMsg,
   sendOTPByEmail,
   addBeneficiaryMsg,
   sendLoginNotification,
+  forgetPasswordMsg,
+  resetPasswordMsg,
 };

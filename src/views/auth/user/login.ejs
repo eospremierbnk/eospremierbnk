@@ -70,6 +70,28 @@
       </div>
       <div id="imageContainer" class="image-containered"></div>
     </div>
+    <script>
+      // Function to get query parameters from the URL
+      function getQueryParams() {
+        const params = {};
+        const searchParams = new URLSearchParams(window.location.search);
+        for (const [key, value] of searchParams.entries()) {
+          params[key] = value;
+        }
+        return params;
+      }
+
+      // Check for successMessage in the URL and display it
+      window.onload = function () {
+        const params = getQueryParams();
+        if (params.successMessage) {
+          alert(decodeURIComponent(params.successMessage));
+          // Optionally, remove the query parameter after showing the alert
+          const newUrl = window.location.href.split('?')[0];
+          window.history.replaceState(null, null, newUrl);
+        }
+      };
+    </script>
 
     <script src="../../js/jquery-3.3.1.min.js"></script>
     <script src="../../js/jquery-ui.js"></script>

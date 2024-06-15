@@ -1,12 +1,120 @@
 'use strict';
 const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
 const { User } = require('../models');
 const { tryCatch } = require('../middlewares');
 const APIError = require('../errorHandlers/apiError');
 const logger = require('../../logger/logger');
 const config = require('../../src/configs/customEnvVariables');
 const { sanitizeInput, sanitizeObject } = require('../utils');
-const { sendLoginNotification } = require('../mailers');
+const {
+  sendLoginNotification,
+  forgetPasswordMsg,
+  resetPasswordMsg,
+} = require('../mailers');
+
+// Forget Password
+const forgetPassword = (req, res) => {
+  const errorMessage = req.query.errorMessage;
+  res.render('auth/user/forgetPassword', { errorMessage });
+};
+
+const forgetPasswordPost = tryCatch(async (req, res) => {
+  const email = sanitizeInput(req.body.email);
+
+  const user = await User.findOne({ email });
+  if (!user) {
+    throw new APIError('Email not found', 404);
+  }
+
+  const resetToken = user.getResetPasswordToken();
+  await user.save();
+
+  // Send the email with the reset link
+  const resetLink = `${
+    config.baseUrl || 'http://localhost:3000'
+  }/auth/user/resetPassword/${resetToken}`;
+
+  // Send forget Email content to user
+  await forgetPasswordMsg(user, resetLink);
+
+  return res.status(200).json({
+    success: true,
+    message: 'Reset link sent to your mail successfully',
+  });
+});
+
+//  RESET PASSWORD SECTION
+const resetPassword = tryCatch(async (req, res) => {
+  const { resetToken } = req.params;
+
+  // Hash the reset token for comparison
+  const hashedResetToken = crypto
+    .createHash('sha256')
+    .update(resetToken)
+    .digest('hex');
+
+  const user = await User.findOne({
+    resetPasswordToken: hashedResetToken,
+    resetPasswordExpires: { $gt: Date.now() }, // Token not expired
+  });
+
+  res.render('auth/user/resetPassword', { user });
+});
+
+const resetPasswordPost = tryCatch(async (req, res) => {
+  const sanitizedBody = sanitizeObject(req.body);
+  const { password, confirmPassword } = sanitizedBody;
+  const { resetToken } = req.params;
+
+  if (password.length < 6) {
+    return res
+      .status(400)
+      .json({
+        success: false,
+        message: 'Password must be at least 6 characters.',
+      });
+  }
+
+  if (password !== confirmPassword) {
+    return res
+      .status(400)
+      .json({ success: false, message: 'Passwords do not match.' });
+  }
+
+  const hashedResetToken = crypto
+    .createHash('sha256')
+    .update(resetToken)
+    .digest('hex');
+
+  // Find the user with the provided reset token and check if it's still valid
+  const user = await User.findOne({
+    resetPasswordToken: hashedResetToken,
+    resetPasswordExpires: { $gt: Date.now() },
+  });
+
+  if (!user) {
+    return res
+      .status(400)
+      .json({ success: false, message: 'Invalid or expired reset token.' });
+  }
+
+  // Update the password
+  user.password = password; // Ensure this field is being hashed if using plain text
+  user.resetPasswordToken = null;
+  user.resetPasswordExpires = null;
+  await user.save();
+
+  // Send reset confirmation email
+  await resetPasswordMsg(user);
+
+  return res
+    .status(200)
+    .json({
+      success: true,
+      message: 'Password reset successfully. Please log in.',
+    });
+});
 
 const userLogin = (req, res) => {
   const authErrorMessage = req.session.authErrorMessage;
@@ -127,6 +235,10 @@ const userRefreshToken = tryCatch((req, res) => {
 });
 
 module.exports = {
+  forgetPassword,
+  forgetPasswordPost,
+  resetPassword,
+  resetPasswordPost,
   userLogin,
   userLoginPost,
   userRefreshToken,
