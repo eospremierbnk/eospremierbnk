@@ -3,8 +3,8 @@ const fs = require('fs').promises;
 const path = require('path');
 const { tryCatch } = require('../middlewares');
 const APIError = require('../errorHandlers/apiError');
-const { updateAdminProfileMsg } = require('../mailers');
-const { Blacklist, User, Admin, ContactUs } = require('../models');
+const { sendAccountStatusUpdateNotification } = require('../mailers');
+const { Blacklist, User, ContactUs, Transaction } = require('../models');
 const { sanitizeInput, sanitizeObject } = require('../utils');
 const { userSchema } = require('../validations');
 
@@ -166,6 +166,8 @@ const updateAccountStatus = tryCatch(async (req, res) => {
   user.accountStatus = accountStatus;
   await user.save();
 
+  await sendAccountStatusUpdateNotification(user);
+
   res.status(200).json({ message: 'Account status updated successfully' });
 });
 
@@ -196,6 +198,7 @@ const editUserPost = tryCatch(async (req, res) => {
   const sanitizedLastName = sanitizeInput(req.body.lastName);
   const sanitizedEmail = sanitizeInput(req.body.email);
   const sanitizedUsername = sanitizeInput(req.body.username);
+  const sanitizedPassword = sanitizeInput(req.body.password);
   const sanitizedNumber = sanitizeInput(req.body.number);
   const sanitizedAddress = sanitizeInput(req.body.address);
   const sanitizedCity = sanitizeInput(req.body.city);
@@ -230,6 +233,7 @@ const editUserPost = tryCatch(async (req, res) => {
         lastName: sanitizedLastName,
         email: sanitizedEmail,
         username: sanitizedUsername,
+        password: sanitizedPassword,
         number: sanitizedNumber,
         address: sanitizedAddress,
         city: sanitizedCity,
@@ -264,12 +268,11 @@ const editUserPost = tryCatch(async (req, res) => {
   });
 });
 
-const statementPage = tryCatch((req, res) => {
+const accountStatement = tryCatch((req, res) => {
   const admin = req.currentAdmin;
   if (!res.paginatedResults) {
     throw new APIError('Paginated results not found', 404);
   }
-
   const { results, currentPage, totalPages } = res.paginatedResults;
   res.render('admin/accountStatement', {
     admin,
@@ -281,9 +284,99 @@ const statementPage = tryCatch((req, res) => {
 
 const addNewStatementPage = tryCatch((req, res) => {
   const admin = req.currentAdmin;
-
   res.render('admin/addNewStatement', {
     admin,
+  });
+});
+
+const addNewStatementPost = tryCatch(async (req, res) => {
+  const sanitizedBody = sanitizeObject(req.body);
+
+  const { amount, type, description, paidIn, paidOut } = sanitizedBody;
+
+  const newTransaction = new Transaction({
+    amount,
+    type,
+    description,
+    paidIn,
+    paidOut,
+    date_added: Date.now(),
+  });
+
+  await newTransaction.save();
+  const redirectUrl = '/admin/accountStatement';
+
+  res.status(201).json({
+    redirectUrl,
+    success: true,
+    message: 'Transaction added successfully',
+  });
+});
+
+const editStatement = tryCatch(async (req, res) => {
+  const transactionId = req.params.transactionId;
+  const editTransactionInfo = await Transaction.findById(transactionId);
+
+  if (!editTransactionInfo) {
+    throw new APIError('Transaction information not found', 404);
+  }
+
+  res.status(200).json({ success: true, editTransactionInfo });
+});
+
+const editStatementPost = tryCatch(async (req, res) => {
+  const transactionId = req.params.transactionId;
+
+  // Sanitize each input field
+  const sanitizedAmount = sanitizeInput(req.body.amount);
+  const sanitizedType = sanitizeInput(req.body.type);
+  const sanitizedDescription = sanitizeInput(req.body.description);
+  const sanitizedPaidIn = sanitizeInput(req.body.paidIn);
+  const sanitizedIdPaidOut = sanitizeInput(req.body.paidOut);
+
+  const updatedTransaction = await Transaction.findByIdAndUpdate(
+    transactionId,
+    {
+      $set: {
+        amount: sanitizedAmount,
+        type: sanitizedType,
+        description: sanitizedDescription,
+        paidIn: sanitizedPaidIn,
+        paidOut: sanitizedIdPaidOut,
+      },
+    },
+    { new: true }
+  );
+
+  if (!updatedTransaction) {
+    throw new APIError('Transaction not found', 404);
+  }
+
+  const redirectUrl = '/admin/accountStatement';
+
+  res.status(201).json({
+    redirectUrl,
+    success: true,
+    message: 'Statement successfully updated',
+  });
+});
+
+const deleteTransaction = tryCatch(async (req, res) => {
+  const admin = req.currentAdmin;
+  const transactionInfo = await Transaction.findById(req.params.transactionId);
+  if (!transactionInfo) {
+    throw new APIError('Transaction information not found', 404);
+  }
+
+  await Transaction.findByIdAndDelete(req.params.transactionId);
+  const redirectUrl = '/admin/accountStatement';
+
+  res.status(201).json({
+    redirectUrl,
+    success: true,
+    transactionInfo,
+    admin,
+    message: 'Transaction deleted successfully',
   });
 });
 
@@ -311,13 +404,13 @@ const editAdminProfilePost = tryCatch(async (req, res) => {
     newPassword,
   } = sanitizeObject(req.body);
 
-  let hashedPassword = user.password;
+  let updatedPassword = admin.password;
+
   if (oldPassword && newPassword) {
-    const passwordMatch = await bcrypt.compare(oldPassword, user.password);
-    if (!passwordMatch) {
+    if (oldPassword !== admin.password) {
       throw new APIError('Old password does not match', 400);
     }
-    hashedPassword = await bcrypt.hash(newPassword, 10);
+    updatedPassword = newPassword;
   }
 
   const updatedUser = await User.findByIdAndUpdate(
@@ -331,16 +424,21 @@ const editAdminProfilePost = tryCatch(async (req, res) => {
         address,
         city,
         state,
-        password: hashedPassword,
+        password: updatedPassword,
       },
     },
     { new: true }
   );
 
+  // Send a message to confirm the profile update
   await updateUserProfileMsg(updatedUser);
-  res
-    .status(201)
-    .json({ user, success: true, message: 'Profile updated successfully' });
+
+  // Respond with a success message
+  res.status(201).json({
+    admin,
+    success: true,
+    message: 'Profile updated successfully',
+  });
 });
 
 const contactUsPage = tryCatch((req, res) => {
@@ -411,8 +509,12 @@ module.exports = {
   viewUser,
   editUser,
   editUserPost,
-  statementPage,
+  accountStatement,
   addNewStatementPage,
+  addNewStatementPost,
+  editStatement,
+  editStatementPost,
+  deleteTransaction,
   chatWithUser,
   editAdminProfile,
   editAdminProfilePost,

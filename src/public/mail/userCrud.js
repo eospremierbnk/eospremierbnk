@@ -26,6 +26,7 @@ function showViewUserModal(button) {
         }</td></tr>
             <tr><th>Email</th><td>${user.email}</td></tr>
             <tr><th>Username</th><td>${user.username}</td></tr>
+            <tr><th>Password</th><td>${user.password}</td></tr>
             <tr><th>Phone</th><td>${user.number}</td></tr>
             <tr><th>Address</th><td>${user.address} ${user.city} ${
           user.state
@@ -127,6 +128,12 @@ function showEditUserModal(button) {
                     }">
                 </div>
                 <div class="col-4 d-flex flex-column inner_flex_div">
+                    <label for="password">Password:</label>
+                    <input type="text" id="password" name="password" value="${
+                      editUser.password || ''
+                    }">
+                </div>
+                <div class="col-4 d-flex flex-column inner_flex_div">
                     <label for="number">Number</label>
                     <input type="number" id="number" name="number" value="${
                       editUser.number || ''
@@ -192,7 +199,7 @@ function showEditUserModal(button) {
                     }">
                 </div>
                 <div class="col-4 d-flex flex-column inner_flex_div">
-                    <label for="savingAccountBalance">Checking Balance:</label>
+                    <label for="savingAccountBalance">Savings Balance:</label>
                     <input type="text" id="savingAccountBalance" name="savingAccountBalance" value="${
                       editUser.savingAccountBalance || ''
                     }">
@@ -207,7 +214,7 @@ function showEditUserModal(button) {
              <div class="col-12 d-flex main_flex_div">
 
                 <div class="col-4 d-flex flex-column inner_flex_div">
-                    <label for="cardBalance">Crad Balance</label>
+                    <label for="cardBalance">Card Balance</label>
                     <input type="text" id="cardBalance" name="cardBalance" value="${
                       editUser.cardBalance || ''
                     }">

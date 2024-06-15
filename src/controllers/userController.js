@@ -1,14 +1,16 @@
 'use strict';
 const fs = require('fs').promises;
 const path = require('path');
-const config = require('../configs/customEnvVariables');
-const bcrypt = require('bcryptjs');
 const { tryCatch } = require('../middlewares');
 const APIError = require('../errorHandlers/apiError');
 const { User, Beneficiary, Purchase, Blacklist } = require('../models');
 const { beneficiarySchema } = require('../validations');
-const { updateUserProfileMsg, sendOTPByEmail } = require('../mailers');
 const { sanitizeInput, sanitizeObject, generateOTP } = require('../utils');
+const {
+  updateUserProfileMsg,
+  sendOTPByEmail,
+  addBeneficiaryMsg,
+} = require('../mailers');
 
 const userLandingPage = tryCatch(async (req, res) => {
   const user = req.currentUser;
@@ -240,6 +242,8 @@ const addBeneficiaryPosted = tryCatch(async (req, res) => {
   await newBeneficiary.save();
   const redirectUrl = '/user/beneficiary';
 
+  await addBeneficiaryMsg(user);
+
   res.status(201).json({
     user,
     redirectUrl,
@@ -257,21 +261,24 @@ const editUserProfilePost = tryCatch(async (req, res) => {
   const user = req.currentUser;
   const { oldPassword, newPassword } = sanitizeObject(req.body);
 
-  let hashedPassword = user.password;
+  // Compare old password with the stored plain text password
   if (oldPassword && newPassword) {
-    const passwordMatch = await bcrypt.compare(oldPassword, user.password);
-    if (!passwordMatch) {
+    if (oldPassword !== user.password) {
       throw new APIError('Old password does not match', 400);
     }
-    hashedPassword = await bcrypt.hash(newPassword, 10);
+  }
+
+  const updatedFields = {};
+
+  // Set the new plain text password if provided
+  if (newPassword) {
+    updatedFields.password = newPassword;
   }
 
   const updatedUser = await User.findByIdAndUpdate(
     req.user.id,
     {
-      $set: {
-        password: hashedPassword,
-      },
+      $set: updatedFields,
     },
     { new: true }
   );

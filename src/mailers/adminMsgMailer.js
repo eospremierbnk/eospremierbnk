@@ -14,39 +14,31 @@ const phoneNumber = config.companyNumber;
 const emailAddress = config.companyEmail;
 
 //Register admin
-const adminRegistrationMsg = async (updatedUser) => {
+const sendAccountStatusUpdateNotification = async (user) => {
   const verifiedMsg = `
-    <p><img src="cid:companyLogo" alt="companyLogo" style="width: 100%; max-width: 600px; height: auto;"/></p><br>
-    <p>Dear  ${updatedUser.firstName} ${updatedUser.lastName} ,  Welcome to Korex StyleHub Service! We are thrilled to have you join us. </p>
+     <p><img src="cid:logo" alt="logo" style="width: 100%; max-width: 600px; height: auto;"/></p><br>
+    <p>Hello ${user.firstName},</p><p>Your account status has been updated to: <strong>${user.accountStatus}</strong>. </p>
       
-    <p>Here are the details you provided during registration:</p>
-    <ul>
-        <li>Full Name: ${newAdmin.adminFirstName} ${newAdmin.adminLastName}</li>
-        <li>Email Address: ${newAdmin.adminEmail}</li>
-        <li>Username: ${newAdmin.adminUsername}</li>
-        <li>Home Address: ${newAdmin.adminAddress}</li>
-        <li>City: ${newAdmin.adminCity}</li>
-        <li>State: ${newAdmin.adminState}</li>
-    </ul>
+  
       
-    <p>Thank you for choosing Korex StyleHub! Your account has been successfully created, granting you access to our platform's exciting features</p>
+    <p>Thank you for choosing EOS Premier Bank! Your account has been successfully created, granting you access to our platform's exciting features</p>
       
     <p>Should you have any inquiries or require assistance, please don't hesitate to contact our support team at <a href="tel:${phoneNumber}">${phoneNumber}</a> or <a href="mailto:${emailAddress}">${emailAddress}</a>.Your satisfaction is our priority, and we are committed to providing you with the assistance you need.</p>
       
     <p>Best regards,<br>
-    The Korex StyleHub Team</p>`;
+   EOS Premier Bank</p>`;
 
   // Send the second email for verified users
   const mailOptions = {
     from: config.nodemailerEmail,
     to: newAdmin.adminEmail,
-    subject: 'Welcome to Korex StyleHub!',
+    subject: 'Account Status Update',
     html: verifiedMsg,
     attachments: [
       {
-        filename: 'companyLogo.jpg',
-        path: './public/img/companyLogo.jpg',
-        cid: 'companyLogo',
+        filename: 'logo.jpg',
+        path: './src/public/images/logo.jpg',
+        cid: 'logo',
       },
     ],
   };
@@ -63,7 +55,7 @@ const adminRegistrationMsg = async (updatedUser) => {
 //update admin inofrmation message
 const updateAdminProfileMsg = async (admin) => {
   const updateProfile = `
-    <p><img src="cid:companyLogo" alt="companyLogo" style="width: 100%; max-width: 600px; height: auto;"/></p><br>
+     <p><img src="cid:logo" alt="logo" style="width: 100%; max-width: 600px; height: auto;"/></p><br>
     <p>Dear  ${admin.adminFirstName} ${admin.adminLastName} ,  We hope this message finds you well. We wanted to inform you that there has been an update to your information in our database. The details that have been modified include:</p>
 
     <p>Here are some important details to get you started:</p>
@@ -91,9 +83,9 @@ const updateAdminProfileMsg = async (admin) => {
     html: updateProfile,
     attachments: [
       {
-        filename: 'companyLogo.jpg',
-        path: './public/img/companyLogo.jpg',
-        cid: 'companyLogo',
+        filename: 'logo.jpg',
+        path: './src/public/images/logo.jpg',
+        cid: 'logo',
       },
     ],
   };
@@ -107,4 +99,4 @@ const updateAdminProfileMsg = async (admin) => {
   });
 };
 
-module.exports = { adminRegistrationMsg, updateAdminProfileMsg };
+module.exports = { updateAdminProfileMsg, sendAccountStatusUpdateNotification };

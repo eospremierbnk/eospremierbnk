@@ -5,7 +5,7 @@ const { verifyAdminToken, getAdminById } = require('../middlewares');
 const { User, ContactUs, Transaction } = require('../models');
 const { adminController } = require('../controllers');
 const { adminImage } = require('../configs/multer');
-const { paginatedResults, userBeneficiaryFilter } = require('../utils');
+const { paginatedResults } = require('../utils');
 
 router.get(
   '/index',
@@ -78,7 +78,7 @@ router.get(
   verifyAdminToken,
   getAdminById,
   paginatedResults(Transaction),
-  adminController.statementPage
+  adminController.accountStatement
 );
 
 router.get(
@@ -86,6 +86,34 @@ router.get(
   verifyAdminToken,
   getAdminById,
   adminController.addNewStatementPage
+);
+
+router.post(
+  '/addNewStatementPost',
+  verifyAdminToken,
+  getAdminById,
+  adminController.addNewStatementPost
+);
+
+router.get(
+  '/editStatement/:transactionId',
+  verifyAdminToken,
+  getAdminById,
+  adminController.editStatement
+);
+
+router.put(
+  '/editStatementPost/:transactionId',
+  verifyAdminToken,
+  getAdminById,
+  adminController.editStatementPost
+);
+
+router.delete(
+  '/deleteTransaction/:transactionId',
+  verifyAdminToken,
+  getAdminById,
+  adminController.deleteTransaction
 );
 
 router.get(

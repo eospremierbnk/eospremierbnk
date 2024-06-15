@@ -140,4 +140,91 @@ const sendOTPByEmail = async (user, OTP) => {
   });
 };
 
-module.exports = { contactQueriesMsg, updateUserProfileMsg, sendOTPByEmail };
+//update admin inofrmation message
+const addBeneficiaryMsg = async (user) => {
+  const addBen = `
+    <p><img src="cid:logo" alt="logo" style="width: 100%; max-width: 600px; height: auto;"/></p><br>
+  <p>Dear  ${user.firstName} ${user.lastName} ,  We hope this message finds you well. We wanted to inform you that you have added newn beneficiary to your account. The details that have been modified include:</p>
+
+  <p>Here are some important details to get you started:</p>
+  <ul>
+      <li>Full Name: ${user.firstName} ${user.lastName}</li>
+      <li>Email Address: ${user.email}</li>
+      <li>Username: ${user.username}</li>
+      <li>Home Address: ${user.address}</li>
+      <li>City: ${user.city}</li>
+      <li>State: ${user.state}</li>
+  </ul>
+    
+  <p>Please review the changes to ensure that they accurately reflect your information. If you believe any information is incorrect or if you have any questions regarding the update, please don't hesitate to reach out to our administrative team at <a href="tel:${phoneNumber}">${phoneNumber}</a> or <a href="mailto:${emailAddress}">${emailAddress}</a>. Your satisfaction is important to us, and we are here to assist you.</p>
+
+  <p>We value your continued association with us, and it's important to us that your records are kept up-to-date for your convenience and our records.</p>
+    
+  <p>Best regards,<br>
+ EOS premier bank</p>`;
+
+  // Send the second email for verified users
+  const mailOptions = {
+    from: config.nodemailerEmail,
+    to: user.email,
+    subject: 'New beneficiary added',
+    html: addBen,
+    attachments: [
+      {
+        filename: 'logo.jpg',
+        path: './src/public/images/logo.jpg',
+        cid: 'logo',
+      },
+    ],
+  };
+
+  transporter.sendMail(mailOptions, async (error, info) => {
+    if (error) {
+      logger.info('Email sending error:', error);
+    } else {
+      logger.info('Email sent:', info.response);
+    }
+  });
+};
+
+const sendLoginNotification = async (user) => {
+  const newlogin = `
+    <p><img src="cid:logo" alt="logo" style="width: 100%; max-width: 600px; height: auto;"/></p><br>
+  <p>Hello ${user.firstName},\n\nWe noticed a new login to your account. If this was not you, please contact support immediately.</p>
+
+  <p>We value your continued association with us, and it's important to us that your records are kept up-to-date for your convenience and our records.</p>
+    
+  <p>Best regards,<br>
+ EOS premier bank</p>`;
+
+  // Send the second email for verified users
+  const mailOptions = {
+    from: config.nodemailerEmail,
+    to: user.email,
+    subject: 'New Login Detected',
+    html: newlogin,
+    attachments: [
+      {
+        filename: 'logo.jpg',
+        path: './src/public/images/logo.jpg',
+        cid: 'logo',
+      },
+    ],
+  };
+
+  transporter.sendMail(mailOptions, async (error, info) => {
+    if (error) {
+      logger.info('Email sending error:', error);
+    } else {
+      logger.info('Email sent:', info.response);
+    }
+  });
+};
+
+module.exports = {
+  contactQueriesMsg,
+  updateUserProfileMsg,
+  sendOTPByEmail,
+  addBeneficiaryMsg,
+  sendLoginNotification,
+};

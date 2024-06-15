@@ -8,18 +8,6 @@ const {
 } = require('../middlewares');
 const { authuserController } = require('../controllers');
 
-router.get(
-  '/register',
-  isUserSignedIn,
-  isAdminSignedIn,
-  authuserController.registerUser
-);
-
-// checkExistingUser route
-router.get('/checkExistingUser', authuserController.checkExistingUser);
-
-router.post('/registerUserPost', authuserController.registerUserPost);
-
 // User Login route with verifyAccessToken middleware
 router.get(
   '/login',

@@ -111,7 +111,7 @@
                         value="Edit"
                         class="btn btn-primary btn-sm edit-button btnBorder rstBtnWidth rstBtnWidthSpace1"
                         data-user-id="<%= transaction._id %>"
-                        onclick="showEditUserModal(this)"
+                        onclick="showEditTransactionModal(this)"
                       />
                       <!-- Delete Button -->
                       <input
@@ -119,8 +119,8 @@
                         value="Delete"
                         class="btn btn-danger btn-sm delete-button btnBorder"
                         data-user-id="<%= transaction._id %>"
-                        data-url="/admin/deleteUser"
-                        onclick="showDeleteUserModal(this)"
+                        data-url="/admin/deleteTransaction"
+                        onclick="showDeleteTransactionModal(this)"
                       />
                     </td>
                   </tr>
@@ -156,41 +156,22 @@
         </div>
         <!-- Recent Sales End -->
 
-        <!-- START VIEW User -->
-        <div id="viewUserModal" class="modal">
-          <div style="height: 500px; overflow-y: auto">
-            <div class="modal-content">
-              <span
-                class="close"
-                style="cursor: pointer"
-                onclick="closeViewUserModal()"
-                >&times;</span
-              >
-              <div class="mt-4">
-                <div class="card-body p-0">
-                  <h4 class="p-3 mb-0">User Information</h4>
-                  <div id="modalContent">
-                    <!-- dynamically create the HTML for the modal form elements after fetching the product details -->
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- END VIEW User -->
-
         <!-- START EDIT User -->
-        <div id="editUserModal" class="modal styleInput">
+        <div id="editTransactionModal" class="modal styleInput">
           <div class="modal-content">
             <span
               class="close"
               style="cursor: pointer"
-              onclick="closeEditUserModal()"
+              onclick="closeEditTransactionModal()"
               >&times;</span
             >
-            <h6 class="mb-0">Edit User Information</h6>
-            <form id="editUserForm" method="post" action="/admin/editUserPost">
-              <div id="editUserFormContent">
+            <h6 class="mb-0">Edit transaction Information</h6>
+            <form
+              id="editTransactionForm"
+              method="post"
+              action="/admin/editStatementPost"
+            >
+              <div id="editTransactionFormContent">
                 <!-- dynamically create the HTML for the modal form elements after fetching the BenefUsericiary details -->
               </div>
               <div class="col-12 d-flex button_div">
@@ -200,7 +181,7 @@
                 <button
                   style="background-color: #009cff"
                   type="button"
-                  onclick="closeEditUserModal()"
+                  onclick="closeEditTransactionModal()"
                 >
                   Cancel
                 </button>

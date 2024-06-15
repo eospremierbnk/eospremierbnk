@@ -1,5 +1,4 @@
 'use strict';
-const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { Admin } = require('../models');
 const { adminSchema } = require('../validations');
@@ -42,15 +41,13 @@ const registerAdminPost = tryCatch(async (req, res) => {
   }
   const { firstName, lastName, email, username, number, password } = value;
 
-  const hashedPassword = await bcrypt.hash(password, 10);
-
   const newAdmin = new Admin({
     firstName,
     lastName,
     email,
     username,
     number,
-    password: hashedPassword,
+    password,
     date_added: Date.now(),
   });
 
@@ -82,8 +79,7 @@ const adminLoginPost = tryCatch(async (req, res) => {
     throw new APIError('Access forbidden. Only Admin are allowed.', 403);
   }
 
-  const passwordMatch = await bcrypt.compare(password, admin.password);
-  if (!passwordMatch) {
+  if (password !== admin.password) {
     throw new APIError('Invalid password provided', 401);
   }
 
