@@ -1,6 +1,10 @@
 const { paginatedResults, userBeneficiaryFilter } = require('./pagination');
 
-const { sanitizeInput, sanitizeObject } = require('./inputSanitizer');
+const {
+  sanitizeInput,
+  sanitizeObject,
+  generateOTP,
+} = require('./inputSanitizer');
 
 module.exports = {
   paginatedResults,
@@ -8,4 +12,5 @@ module.exports = {
 
   sanitizeInput,
   sanitizeObject,
+  generateOTP,
 };

@@ -23,6 +23,7 @@ const userSchema = new mongoose.Schema({
   cardBalance: { type: String },
   cardNumber: { type: String },
   pin: { type: String },
+  otp: { type: String },
   date_added: { type: Date, default: Date.now() },
 });
 

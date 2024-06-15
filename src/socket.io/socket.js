@@ -1,8 +1,8 @@
 const socketIo = require('socket.io');
 const jwt = require('jsonwebtoken');
 const cron = require('node-cron');
-const { User, Admin, Message } = require('../../models');
-const config = require('../../configs/customEnvVariables');
+const { User, Admin, Message } = require('../models');
+const config = require('../configs/customEnvVariables');
 
 // Store socket ID for each user and admin
 const userSockets = {};
@@ -21,13 +21,16 @@ const verifyToken = (socket, next) => {
     : null;
 
   if (!token) {
+    console.log('Authentication error: No token found');
     return next(new Error('Authentication error'));
   }
 
   let decoded;
   try {
     decoded = jwt.verify(token, config.jwtSecret);
+    console.log('Token verified:', decoded);
   } catch (err) {
+    console.log('Authentication error:', err);
     return next(new Error('Authentication error'));
   }
 
@@ -44,14 +47,27 @@ const setupSocketIo = (server) => {
   io.use(verifyToken);
 
   io.on('connection', async (socket) => {
+    console.log('A client connected:', socket.id);
     let name;
     let image;
+
+    const convertToBase64 = (data, contentType) => {
+      return `data:${contentType};base64,${data.toString('base64')}`;
+    };
+
     if (socket.decoded.role === 'User') {
       const user = await User.findById(socket.decoded.id);
+
+      if (!user) {
+        console.log('User not found:', socket.decoded.id);
+        socket.disconnect(); // or handle accordingly
+        return;
+      }
+
       name = `${user.firstName} ${user.lastName}`;
       image =
-        user.image && user.image.length > 0
-          ? user.image[0].imageUrl
+        user.image && user.image.data
+          ? convertToBase64(user.image.data, user.image.contentType)
           : 'https://bootdey.com/img/Content/avatar/avatar5.png';
       userSockets[socket.decoded.id] = socket.id;
       const mainAdmin = await Admin.findOne({});
@@ -63,11 +79,19 @@ const setupSocketIo = (server) => {
       });
     } else if (socket.decoded.role === 'Admin') {
       const admin = await Admin.findById(socket.decoded.id);
+
+      if (!admin) {
+        console.log('Admin not found:', socket.decoded.id);
+        socket.disconnect(); // or handle accordingly
+        return;
+      }
+
       name = `${admin.firstName} ${admin.lastName}`;
       image =
-        admin.image && admin.image.length > 0
-          ? admin.image[0].imageUrl
+        admin.image && admin.image.data
+          ? convertToBase64(admin.image.data, admin.image.contentType)
           : 'https://bootdey.com/img/Content/avatar/avatar3.png';
+
       adminSockets[socket.decoded.id] = socket.id;
       socket.emit('adminInfo', {
         adminId: socket.decoded.id,
@@ -81,8 +105,8 @@ const setupSocketIo = (server) => {
         userId: user._id,
         userName: `${user.firstName} ${user.lastName}`,
         userImage:
-          user.image && user.image.length > 0
-            ? user.image[0].imageUrl
+          user.image && user.image.data
+            ? convertToBase64(user.image.data, user.image.contentType)
             : 'https://bootdey.com/img/Content/avatar/avatar5.png',
       }));
       socket.emit('allUsers', userList);
@@ -124,6 +148,7 @@ const setupSocketIo = (server) => {
             unreadCount: 1,
             image,
           });
+          console.log('Message sent to recipient:', recipientId);
         }
         callback({ status: 'ok' });
       }
@@ -136,6 +161,7 @@ const setupSocketIo = (server) => {
         socket
           .to(recipientSocketId)
           .emit('typing', { isTyping, senderId: socket.decoded.id });
+        console.log('Typing event sent to recipient:', recipientId);
       }
     });
 
@@ -146,6 +172,7 @@ const setupSocketIo = (server) => {
           { senderId: socket.decoded.id, recipientId: userId },
         ],
       }).sort({ time: 1 });
+      console.log('Chat history loaded for user:', userId);
 
       callback(chatHistory);
     });
@@ -156,6 +183,7 @@ const setupSocketIo = (server) => {
       } else if (socket.decoded.role === 'Admin') {
         delete adminSockets[socket.decoded.id];
       }
+      console.log('Client disconnected:', socket.id);
     });
   });
 

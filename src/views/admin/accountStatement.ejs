@@ -54,16 +54,15 @@
 
       <!-- Content Start -->
       <div class="content">
-            <!-- Navbar revenue Start -->
-            <%- include (`../partials/adminNav`); -%>
-            <!-- Navbar and revenue End -->
-  
-           
+        <!-- Navbar revenue Start -->
+        <%- include (`../partials/adminNav`); -%>
+        <!-- Navbar and revenue End -->
+
         <!-- Recent Sales Start -->
         <div class="container-fluid pt-4 px-4">
           <div class="bg-light text-center rounded p-4">
             <div class="d-flex align-items-center justify-content-between mb-4">
-              <h6 class="mb-0">Users List</h6>
+              <h6 class="mb-0">Account Statement</h6>
 
               <!-- Toast start -->
               <div
@@ -74,7 +73,7 @@
               </div>
               <!-- Toast End -->
 
-              <a href="/admin/addUser">Add New User</a>
+              <a href="/admin/addNewStatement">Add New Statement</a>
             </div>
             <div class="table-responsive">
               <table
@@ -82,72 +81,48 @@
               >
                 <thead>
                   <tr class="text-dark">
-                    <th scope="col">Image</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Number</th>
-                    <th scope="col">Username</th>
-                    <th scope="col">Address</th>
-                    <th scope="col">Date Added</th>
-                    <th scope="col" style="text-align: center">Status</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Paid In</th>
+                    <th scope="col">Paid Out</th>
+                    <th scope="col">Date</th>
                     <th scope="col" style="text-align: center">Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <% if (ourUser.length > 0) { %> <% ourUser.forEach(users =>
-                  { %>
+                  <% if (userTransaction.length > 0) { %> <%
+                  userTransaction.forEach(transaction => { %>
                   <tr class="center">
+                    <td><%= transaction.description %></td>
+                    <td>$<%= transaction.amount %></td>
+                    <td><%= transaction.type %></td>
+                    <td>$<%= transaction.paidIn %></td>
+                    <td>$<%= transaction.paidOut %></td>
                     <td>
-                      <% if (users.image && users.image.data) { %>
-                        <img src="data:<%= users.image.contentType %>;base64,<%= users.image.data.toString('base64') %>" alt="Image" style="width: 50px; border-radius: 50%;">
-                      <% } else { %>
-                        NA
-                      <% } %>
+                      <%= new Date(transaction.date_added).toLocaleDateString()
+                      %>
                     </td>
-                    <td><%= users.firstName %> <%= users.lastName%></td>
-                    <td><%= users.number %></td>
-                    <td><%= users.username %></td>
-                    <td><%= users.address %></td>
-                    <% const date = users.date_added instanceof Date ?
-                    users.date_added : new Date(users.date_added); const day =
-                    String(date.getDate()).padStart(2, '0'); const month =
-                    String(date.getMonth() + 1).padStart(2, '0'); const year =
-                    date.getFullYear(); const dateAdded =
-                    `${day}-${month}-${year}`; %>
-                    <td><%= dateAdded %></td>
-                    <td>
-                        <select class="form-select account-status-select" data-user-id="<%= users._id %>">
-                            <option value="Active" <%= users.accountStatus === 'Active' ? 'selected' : '' %>>Active</option>
-                            <option value="Locked" <%= users.accountStatus === 'Locked' ? 'selected' : '' %>>Locked</option>
-                        </select>
-                    </td>
+
                     <td data-label="Profile">
-                        <!-- View Button -->
-                        <input
-                          type="button"
-                          value="View"
-                          class="btn btn-primary btn-sm view-button btnBorder rstBtnWidth"
-                          data-user-id="<%= users._id %>"
-                          data-url="/admin/viewUser"
-                          onclick="showViewUserModal(this)"
-                        />
-                        <!-- Edit Button -->
-                        <input
-                          type="button"
-                          value="Edit"
-                          class="btn btn-primary btn-sm edit-button btnBorder rstBtnWidth rstBtnWidthSpace1"
-                          data-user-id="<%= users._id %>"
-                          onclick="showEditUserModal(this)"
-                        />
-                        <!-- Delete Button -->
-                        <input
-                          type="button"
-                          value="Delete"
-                          class="btn btn-danger btn-sm delete-button btnBorder"
-                          data-user-id="<%= users._id %>"
-                          data-url="/admin/deleteUser"
-                          onclick="showDeleteUserModal(this)"
-                        />
-                      </td>
+                      <!-- Edit Button -->
+                      <input
+                        type="button"
+                        value="Edit"
+                        class="btn btn-primary btn-sm edit-button btnBorder rstBtnWidth rstBtnWidthSpace1"
+                        data-user-id="<%= transaction._id %>"
+                        onclick="showEditUserModal(this)"
+                      />
+                      <!-- Delete Button -->
+                      <input
+                        type="button"
+                        value="Delete"
+                        class="btn btn-danger btn-sm delete-button btnBorder"
+                        data-user-id="<%= transaction._id %>"
+                        data-url="/admin/deleteUser"
+                        onclick="showDeleteUserModal(this)"
+                      />
+                    </td>
                   </tr>
                   <% }); %> <% } else { %>
                   <tr>
@@ -160,18 +135,20 @@
               </table>
               <div class="pagination">
                 <% if (currentPage > 1) { %>
-                <a href="/admin/ourUsers?page=<%= currentPage - 1 %>"
+                <a href="/admin/accountStatement?page=<%= currentPage - 1 %>"
                   >Previous</a
                 >
                 <% } %> <% for (let i = 1; i <= totalPages; i++) { %>
                 <a
-                  href="/admin/ourUsers?page=<%= i %>"
+                  href="/admin/accountStatement?page=<%= i %>"
                   class="<%= currentPage === i ? 'active' : '' %>"
                 >
                   <%= i %>
                 </a>
                 <% } %> <% if (currentPage < totalPages) { %>
-                <a href="/admin/ourUsers?page=<%= currentPage + 1 %>">Next</a>
+                <a href="/admin/accountStatement?page=<%= currentPage + 1 %>"
+                  >Next</a
+                >
                 <% } %>
               </div>
             </div>
@@ -212,11 +189,7 @@
               >&times;</span
             >
             <h6 class="mb-0">Edit User Information</h6>
-            <form
-              id="editUserForm"
-              method="post"
-              action="/admin/editUserPost"
-            >
+            <form id="editUserForm" method="post" action="/admin/editUserPost">
               <div id="editUserFormContent">
                 <!-- dynamically create the HTML for the modal form elements after fetching the BenefUsericiary details -->
               </div>

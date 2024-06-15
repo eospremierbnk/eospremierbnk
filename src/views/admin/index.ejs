@@ -160,11 +160,11 @@
                   { %>
                   <tr class="center">
                     <td>
-                      <% if (users.image && users.image.length > 0) { %>
+                      <% if (users.image && users.image.data) { %>
                       <img
-                        src="<%= user.image[0] %>"
+                        src="data:<%= users.image.contentType %>;base64,<%= users.image.data.toString('base64') %>"
                         alt="Image"
-                        style="width: 50px"
+                        style="width: 50px; border-radius: 50%"
                       />
                       <% } else { %> NA <% } %>
                     </td>

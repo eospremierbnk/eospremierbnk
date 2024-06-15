@@ -5,10 +5,10 @@ const config = require('../configs/customEnvVariables');
 const bcrypt = require('bcryptjs');
 const { tryCatch } = require('../middlewares');
 const APIError = require('../errorHandlers/apiError');
-const { User, Beneficiary, Purchase } = require('../models');
+const { User, Beneficiary, Purchase, Blacklist } = require('../models');
 const { beneficiarySchema } = require('../validations');
-const { updateUserProfileMsg } = require('../mailers');
-const { sanitizeInput, sanitizeObject } = require('../utils');
+const { updateUserProfileMsg, sendOTPByEmail } = require('../mailers');
+const { sanitizeInput, sanitizeObject, generateOTP } = require('../utils');
 
 const userLandingPage = tryCatch(async (req, res) => {
   const user = req.currentUser;
@@ -255,17 +255,7 @@ const editUserProfile = (req, res) => {
 
 const editUserProfilePost = tryCatch(async (req, res) => {
   const user = req.currentUser;
-  const {
-    firstName,
-    lastName,
-    email,
-    username,
-    address,
-    city,
-    state,
-    oldPassword,
-    newPassword,
-  } = sanitizeObject(req.body);
+  const { oldPassword, newPassword } = sanitizeObject(req.body);
 
   let hashedPassword = user.password;
   if (oldPassword && newPassword) {
@@ -280,13 +270,6 @@ const editUserProfilePost = tryCatch(async (req, res) => {
     req.user.id,
     {
       $set: {
-        firstName,
-        lastName,
-        email,
-        username,
-        address,
-        city,
-        state,
         password: hashedPassword,
       },
     },
@@ -314,43 +297,91 @@ const accountSummary = tryCatch(async (req, res) => {
 });
 
 const fundsTransfer = tryCatch(async (req, res) => {
-  const userId = req.currentUser._id;
-  const user = await User.findById(userId).select('accountNumber swiftCode');
-
-  res.render('user/fundTransfer', { user });
-});
-
-const fundsTransferPost = tryCatch(async (req, res) => {
   const user = req.currentUser;
-  const { amount, description } = req.body;
+  const userInfo = await User.findById(user);
 
-  const newPurchase = new Purchase({
-    amount,
-    description,
-    userId: user._id,
-    date_added: Date.now(),
-  });
-
-  await newPurchase.save();
-  const redirectUrl = '/user/beneficiary';
-
-  res.status(201).json({
-    user,
-    redirectUrl,
-    success: true,
-    message: 'Beneficiary added successfully',
-  });
+  res.render('user/localTransfer', { user, userInfo });
 });
 
-const chatWithAdmin = (req, res) => {
-  const user = req.currentUser._id;
+const internationTf = tryCatch(async (req, res) => {
+  const user = req.currentUser;
+  const userInfo = await User.findById(user);
+  res.render('user/internalTransfer', { user, userInfo });
+});
+
+const processTransaction = tryCatch(async (req, res) => {
+  const user = req.currentUser;
+  const userInfo = await User.findById(user);
+  res.render('user/transactionProcessing', { user, userInfo });
+});
+
+const generateOtp = tryCatch(async (req, res) => {
+  const userId = req.currentUser;
+  const user = await User.findById(userId);
+  if (!user) {
+    throw new APIError('User not found', 404);
+  }
+
+  const OTP = generateOTP();
+  user.otp = OTP;
+  await user.save();
+
+  sendOTPByEmail(user, OTP);
+
+  res.sendStatus(200);
+});
+
+const verifyingOtp = tryCatch(async (req, res) => {
+  const userId = req.currentUser;
+  const { otp } = req.body;
+  const user = await User.findById(userId);
+
+  if (!user) {
+    throw new APIError('User not found', 404);
+  }
+
+  if (otp === user.otp) {
+    user.otp = null;
+    await user.save();
+    res.sendStatus(200);
+  } else {
+    res.status(400).json({ error: 'Invalid OTP' });
+  }
+});
+
+const chatWithAdmin = tryCatch((req, res) => {
+  const user = req.currentUser;
   res.render('user/chatAdmin', { user });
-};
+});
 
 const deatailsPage = tryCatch(async (req, res) => {
-  const user = req.currentUser._id;
-
+  const user = req.currentUser;
   res.render('user/accountDetails', { user });
+});
+
+const logoutUser = tryCatch(async (req, res) => {
+  const userAccessToken = req.cookies.userAccessToken;
+  const userRefreshToken = req.cookies.userRefreshToken;
+  const logoutRedirectUrl = '/index';
+
+  if (userAccessToken || userRefreshToken) {
+    // Blacklist both access and refresh tokens
+    const newBlacklist = [
+      { token: userAccessToken },
+      { token: userRefreshToken },
+    ];
+    await Blacklist.insertMany(newBlacklist);
+  }
+
+  // Clear cookies
+  res.setHeader('Clear-Site-Data', '"cookies"');
+  res.clearCookie('userAccessToken');
+  res.clearCookie('userRefreshToken');
+
+  res
+    .status(200)
+    .json({ logoutRedirectUrl, success: true, message: 'You are logged out!' });
+  res.end(); // End the response
 });
 
 module.exports = {
@@ -367,7 +398,11 @@ module.exports = {
   editUserProfilePost,
   accountSummary,
   fundsTransfer,
-  fundsTransferPost,
+  internationTf,
+  processTransaction,
+  generateOtp,
+  verifyingOtp,
   chatWithAdmin,
   deatailsPage,
+  logoutUser,
 };

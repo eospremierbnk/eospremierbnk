@@ -94,17 +94,38 @@ router.get(
 );
 
 router.get(
-  '/fundTransfer',
+  '/localTransfer',
   verifyUserToken,
   getUserById,
   userController.fundsTransfer
 );
 
-router.post(
-  '/fundsTransferPost',
+router.get(
+  '/internalTransfer',
   verifyUserToken,
   getUserById,
-  userController.fundsTransferPost
+  userController.internationTf
+);
+
+router.get(
+  '/transactionProcessing',
+  verifyUserToken,
+  getUserById,
+  userController.processTransaction
+);
+
+router.post(
+  '/sendOTP',
+  verifyUserToken,
+  getUserById,
+  userController.generateOtp
+);
+
+router.post(
+  '/verifyingOtp',
+  verifyUserToken,
+  getUserById,
+  userController.verifyingOtp
 );
 
 router.get(
@@ -119,6 +140,13 @@ router.get(
   verifyUserToken,
   getUserById,
   userController.deatailsPage
+);
+
+router.delete(
+  '/logoutUser',
+  verifyUserToken,
+  getUserById,
+  userController.logoutUser
 );
 
 module.exports = router;

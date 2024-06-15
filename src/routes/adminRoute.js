@@ -2,7 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const { verifyAdminToken, getAdminById } = require('../middlewares');
-const { User } = require('../models');
+const { User, ContactUs, Transaction } = require('../models');
 const { adminController } = require('../controllers');
 const { adminImage } = require('../configs/multer');
 const { paginatedResults, userBeneficiaryFilter } = require('../utils');
@@ -74,6 +74,21 @@ router.put(
 );
 
 router.get(
+  '/accountStatement',
+  verifyAdminToken,
+  getAdminById,
+  paginatedResults(Transaction),
+  adminController.statementPage
+);
+
+router.get(
+  '/addNewStatement',
+  verifyAdminToken,
+  getAdminById,
+  adminController.addNewStatementPage
+);
+
+router.get(
   '/chatting',
   verifyAdminToken,
   getAdminById,
@@ -92,6 +107,28 @@ router.put(
   verifyAdminToken,
   getAdminById,
   adminController.editAdminProfilePost
+);
+
+router.get(
+  '/contactUs',
+  verifyAdminToken,
+  getAdminById,
+  paginatedResults(ContactUs),
+  adminController.contactUsPage
+);
+
+router.delete(
+  '/deleteContactUs/:contactUsId',
+  verifyAdminToken,
+  getAdminById,
+  adminController.deleteContactUs
+);
+
+router.delete(
+  '/logoutAdmin',
+  verifyAdminToken,
+  getAdminById,
+  adminController.logoutAdmin
 );
 
 module.exports = router;

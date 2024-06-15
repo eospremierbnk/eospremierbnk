@@ -2,7 +2,6 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
-const randomstring = require('randomstring');
 const { User } = require('../models');
 const { userSchema } = require('../validations');
 const { tryCatch } = require('../middlewares');
@@ -93,7 +92,7 @@ const registerUserPost = tryCatch(async (req, res) => {
   });
 });
 
-// User login
+// // User login
 const userLogin = (req, res) => {
   const authErrorMessage = req.session.authErrorMessage;
   delete req.session.authErrorMessage;
@@ -101,80 +100,78 @@ const userLogin = (req, res) => {
 };
 
 const userLoginPost = tryCatch(async (req, res) => {
-  const userIp = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
-  const sanitizedBody = sanitizeObject(req.body);
-  const { username, password } = sanitizedBody;
-
+  const { username, password, pin } = sanitizeObject(req.body);
   const user = await User.findOne({ username });
 
   if (!user) {
     throw new APIError('Invalid username provided', 401);
   }
 
-  const passwordMatch = await bcrypt.compare(password, user.password);
-  if (!passwordMatch) {
-    // If passwords do not match, increment failed login attempts
-    await User.updateOne({ username }, { $inc: { failedLoginAttempts: 1 } });
+  // If the PIN is provided, verify it
+  if (pin) {
+    if (pin !== user.pin) {
+      throw new APIError('Invalid PIN', 401);
+    }
+    // Successful PIN verification
+    const userAccessToken = jwt.sign(
+      { id: user._id, role: user.role },
+      config.jwtSecret,
+      { expiresIn: config.userAccessTokenExpireTime }
+    );
+    const userRefreshToken = jwt.sign(
+      { id: user._id, role: user.role },
+      config.jwtSecret,
+      { expiresIn: config.userRefreshTokenExpireTime }
+    );
 
-    // Check if the account should be locked
-    const updatedUser = await User.findOne({ username });
-    if (updatedUser.failedLoginAttempts >= MAX_FAILED_ATTEMPTS) {
-      await User.updateOne({ username }, { $set: { accountLocked: true } });
+    req.session.userAccessToken = userAccessToken;
+    req.session.userRefreshToken = userRefreshToken;
+
+    res.cookie('userAccessToken', userAccessToken, {
+      httpOnly: true,
+      secure: true,
+    });
+    res.cookie('userRefreshToken', userRefreshToken, {
+      httpOnly: true,
+      secure: true,
+    });
+
+    return res.status(200).json({
+      authRedirectUrl: '/user/index',
+      success: true,
+    });
+  } else {
+    const passwordMatch = await bcrypt.compare(password, user.password);
+    if (!passwordMatch) {
+      throw new APIError('Invalid password provided', 401);
+    }
+
+    if (user.accountLocked || user.accountStatus === 'Locked') {
       throw new APIError(
-        'Account locked. Contact EOS premier bank for assistance to reset Password',
-        403
-      );
-    } else {
-      throw new APIError(
-        'Invalid Password 2 attempts left before access disabled',
-        409
+        'Your account is suspended or locked. Please contact the administrator for assistance.',
+        423
       );
     }
+
+    // Reset failed login attempts
+    await User.updateOne({ username }, { $set: { failedLoginAttempts: 0 } });
+
+    // Convert user's image buffer to Base64
+    let userImageUrl = 'https://bootdey.com/img/Content/avatar/avatar5.png';
+    if (user.image && user.image.data) {
+      const imageBuffer = user.image.data;
+      const mimeType = user.image.contentType || 'image/jpeg';
+      userImageUrl = `data:${mimeType};base64,${imageBuffer.toString(
+        'base64'
+      )}`;
+    }
+
+    // Respond with success, prompting PIN entry
+    return res.status(200).json({
+      success: true,
+      userImageUrl,
+    });
   }
-
-  if (user.accountLocked || user.accountStatus === 'Locked') {
-    throw new APIError(
-      'Your account is suspended or locked. Please contact the administrator for assistance.',
-      423
-    );
-  }
-
-  // Successful login - reset failed login attempts
-  await User.updateOne({ username }, { $set: { failedLoginAttempts: 0 } });
-
-  // Generate an access token and a refresh token
-  const userAccessToken = jwt.sign(
-    { id: user._id, role: user.role },
-    config.jwtSecret,
-    { expiresIn: config.userAccessTokenExpireTime }
-  );
-  const userRefreshToken = jwt.sign(
-    { id: user._id, role: user.role },
-    config.jwtSecret,
-    { expiresIn: config.userRefreshTokenExpireTime }
-  );
-
-  req.session.userAccessToken = userAccessToken;
-  req.session.userRefreshToken = userRefreshToken;
-
-  // Set the tokens as cookies
-  res.cookie('userAccessToken', userAccessToken, {
-    httpOnly: true,
-    secure: true,
-  });
-  res.cookie('userRefreshToken', userRefreshToken, {
-    httpOnly: true,
-    secure: true,
-  });
-
-  const authRedirectUrl = '/user/index';
-
-  res.status(200).json({
-    authRedirectUrl,
-    ipAddress: userIp,
-    success: true,
-    message: 'User login successful',
-  });
 });
 
 // refreshToken controller

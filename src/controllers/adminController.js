@@ -4,7 +4,7 @@ const path = require('path');
 const { tryCatch } = require('../middlewares');
 const APIError = require('../errorHandlers/apiError');
 const { updateAdminProfileMsg } = require('../mailers');
-const { Blacklist, User, Admin } = require('../models');
+const { Blacklist, User, Admin, ContactUs } = require('../models');
 const { sanitizeInput, sanitizeObject } = require('../utils');
 const { userSchema } = require('../validations');
 
@@ -63,7 +63,7 @@ const usersPage = tryCatch((req, res) => {
   const { results, currentPage, totalPages } = res.paginatedResults;
   res.render('admin/ourUsers', {
     admin,
-    ourUsers: results,
+    ourUser: results,
     currentPage,
     totalPages,
   });
@@ -264,10 +264,33 @@ const editUserPost = tryCatch(async (req, res) => {
   });
 });
 
-const chatWithUser = (req, res) => {
+const statementPage = tryCatch((req, res) => {
+  const admin = req.currentAdmin;
+  if (!res.paginatedResults) {
+    throw new APIError('Paginated results not found', 404);
+  }
+
+  const { results, currentPage, totalPages } = res.paginatedResults;
+  res.render('admin/accountStatement', {
+    admin,
+    userTransaction: results,
+    currentPage,
+    totalPages,
+  });
+});
+
+const addNewStatementPage = tryCatch((req, res) => {
+  const admin = req.currentAdmin;
+
+  res.render('admin/addNewStatement', {
+    admin,
+  });
+});
+
+const chatWithUser = tryCatch((req, res) => {
   const admin = req.currentAdmin;
   res.render('admin/chatting', { admin });
-};
+});
 
 const editAdminProfile = (req, res) => {
   const admin = req.currentAdmin;
@@ -320,6 +343,64 @@ const editAdminProfilePost = tryCatch(async (req, res) => {
     .json({ user, success: true, message: 'Profile updated successfully' });
 });
 
+const contactUsPage = tryCatch((req, res) => {
+  const admin = req.currentAdmin;
+  if (!res.paginatedResults) {
+    throw new APIError('Paginated results not found', 404);
+  }
+  const { results, currentPage, totalPages } = res.paginatedResults;
+  res.render('admin/contactUs', {
+    admin,
+    contact: results,
+    currentPage,
+    totalPages,
+  });
+});
+
+const deleteContactUs = tryCatch(async (req, res) => {
+  const admin = req.currentAdmin;
+  const contactUsInfo = await ContactUs.findById(req.params.contactUsId);
+  if (!contactUsInfo) {
+    throw new APIError('Contact information not found', 404);
+  }
+
+  await ContactUs.findByIdAndDelete(req.params.contactUsId);
+  const redirectUrl = '/admin/contactUs';
+
+  res.status(201).json({
+    redirectUrl,
+    success: true,
+    contactUsInfo,
+    admin,
+    message: 'Contact deleted successfully',
+  });
+});
+
+const logoutAdmin = tryCatch(async (req, res) => {
+  const adminAccessToken = req.cookies.adminAccessToken;
+  const adminRefreshToken = req.cookies.adminRefreshToken;
+  const logoutRedirectUrl = '/index';
+
+  if (adminAccessToken || adminRefreshToken) {
+    // Blacklist both access and refresh tokens
+    const newBlacklist = [
+      { token: adminAccessToken },
+      { token: adminRefreshToken },
+    ];
+    await Blacklist.insertMany(newBlacklist);
+  }
+
+  // Clear cookies
+  res.setHeader('Clear-Site-Data', '"cookies"');
+  res.clearCookie('adminAccessToken');
+  res.clearCookie('adminRefreshToken');
+
+  res
+    .status(200)
+    .json({ logoutRedirectUrl, success: true, message: 'You are logged out!' });
+  res.end(); // End the response
+});
+
 module.exports = {
   adminIndexPage,
   uploadAdminImage,
@@ -330,7 +411,12 @@ module.exports = {
   viewUser,
   editUser,
   editUserPost,
+  statementPage,
+  addNewStatementPage,
   chatWithUser,
   editAdminProfile,
   editAdminProfilePost,
+  contactUsPage,
+  deleteContactUs,
+  logoutAdmin,
 };

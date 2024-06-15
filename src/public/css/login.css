@@ -79,9 +79,14 @@ input[type='submit'] {
     height: 100%;
   }
   .image-containered {
+    background: bottom / 100% url(../images/logo.jpg);
     width: 50%;
     height: 100%;
-    background: bottom / 100%
-      url('https://assets.codepen.io/6060109/worker.jpg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #fff;
+    overflow: hidden;
+    background-size: cover;
   }
 }

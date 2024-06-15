@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>EOS Premier Bank</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="EOS Premier Bank" name="keywords" />
+    <meta content="EOS Premier Bank" name="description" />
+
+    <!-- Favicon -->
+    <link href="../images/logo.jpg" rel="icon" />
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Icon Font Stylesheet -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+
+    <!-- Libraries Stylesheet -->
+    <link
+      href="../lib/owlcarousel/assets/owl.carousel.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="../lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="../css/adminCss/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Template Stylesheet -->
+    <link href="../css/adminCss/style.css" rel="stylesheet" />
+    <link href="../css/adminCss/adminform.css" rel="stylesheet" />
+  </head>
+
+  <body>
+    <div class="container-xxl position-relative bg-white d-flex p-0">
+      <!-- start header  -->
+      <%- include (`../partials/userHeader`); -%>
+      <!-- end header -->
+
+      <!-- Content Start -->
+      <div class="content">
+        <!-- Navbar revenue Start -->
+        <%- include (`../partials/userNav`); -%>
+        <!-- Navbar and revenue End -->
+
+        <!-- Recent Sales Start -->
+        <div class="container-fluid pt-4 px-4">
+          <div class="bg-light text-center rounded p-4">
+            <div class="d-flex align-items-center justify-content-between mb-4">
+              <h6 class="mb-0">Welcome to International Transfer portal</h6>
+              <a href="/user/localTransfer">Back to Local Tranfer</a>
+            </div>
+
+            <div class="containered d-lg-flex">
+              <div class="box-1 bg-light user">
+                <div class="box-inner-1 pb-3 mb-3">
+                  <p class="dis info my-3">
+                    Please make sure that you have enough funds available in
+                    your account to transfer.
+                  </p>
+                  <div class="radiobtn"></div>
+                </div>
+              </div>
+              <div class="box-2">
+                <div class="box-inner-2">
+                  <div>
+                    <p class="fw-bold">Payment Details</p>
+                    <p class="dis mb-3">
+                      Funds transfer is a process of transfering funds from your
+                      account to other account in same Bank.
+                    </p>
+                  </div>
+                  <form action="" method="post">
+                    <div class="mb-3">
+                      <p class="dis fw-bold mb-2">Receiver's Bank Name</p>
+                      <input class="form-control" type="text" required />
+                    </div>
+                    <div class="mb-3">
+                      <p class="dis fw-bold mb-2">Receiver's Account Number</p>
+                      <input class="form-control" type="number" required />
+                    </div>
+                    <div>
+                      <div class="my-3 cardname">
+                        <p class="dis fw-bold mb-2">Receiver's Name</p>
+                        <input class="form-control" type="text" required />
+                      </div>
+                      <div class="my-3 cardname">
+                        <p class="dis fw-bold mb-2">Amount</p>
+                        <input
+                          class="form-control"
+                          id="amountInput"
+                          type="text"
+                          required
+                        />
+                      </div>
+                      <div class="my-3 cardname">
+                        <p class="dis fw-bold mb-2">Swift Code</p>
+                        <input class="form-control" type="text" required />
+                      </div>
+
+                      <div class="my-3 cardname">
+                        <p class="dis fw-bold mb-2">Country</p>
+                        <input class="form-control" type="text" required />
+                      </div>
+                      <div class="my-3 cardname">
+                        <p class="dis fw-bold mb-2">Sender checking Account</p>
+                        <input
+                          class="form-control"
+                          type="text"
+                          name="checkingAccountNumber"
+                          value="<%-userInfo.checkingAccountNumber%>"
+                          readonly
+                        />
+                        <span class="dis fw-bold mb-2"
+                          >Balance <%-userInfo.checkingAccountBalance%></span
+                        >
+                      </div>
+
+                      <div class="address">
+                        <div class="d-flex"></div>
+                        <div class="my-3">
+                          <p class="dis fw-bold mb-2">Transfer Description</p>
+                          <div class="inputWithcheck">
+                            <textarea
+                              type="text"
+                              name="TfDescription"
+                              placeholder="Write your message here..."
+                              class="form-control"
+                              cols="2"
+                              rows="3"
+                              maxlength="250"
+                              required
+                            ></textarea>
+                          </div>
+                        </div>
+                        <div class="d-flex flex-column dis">
+                          <div
+                            class="d-flex align-items-center justify-content-between mb-2"
+                          >
+                            <p>Date of Transfer</p>
+                            <p><span id="dateNow" class="infoText"></span></p>
+                          </div>
+                          <div
+                            class="d-flex align-items-center justify-content-between mb-2"
+                          >
+                            <p>Transfer fee</p>
+                            <p>
+                              <span class="fas fa-dollar-sign"></span
+                              ><span id="transferFee">250.00</span>
+                            </p>
+                          </div>
+                          <div
+                            class="d-flex align-items-center justify-content-between mb-2"
+                          >
+                            <p class="fw-bold">Total</p>
+                            <p class="fw-bold">
+                              <span class="fas fa-dollar-sign"></span
+                              ><span id="totalAmount"></span>
+                            </p>
+                          </div>
+                          <div
+                            class="btn btn-primary mt-2"
+                            id="processingButton"
+                          >
+                            Process payment<span
+                              class="fas fa-dollar-sign px-1"
+                            ></span
+                            ><span id="payAmount"></span>
+                          </div>
+                          <!-- Progress Display -->
+                          <div
+                            class="progress mt-2"
+                            style="display: none"
+                            id="progressContainer"
+                          >
+                            <div
+                              class="progress-bar"
+                              role="progressbar"
+                              id="progressBar"
+                              aria-valuenow="0"
+                              aria-valuemin="0"
+                              aria-valuemax="100"
+                              style="width: 0%"
+                            >
+                              0%
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Recent Sales End -->
+
+        <!-- Footer Start -->
+        <%- include (`../partials/userFooter`); -%>
+        <!-- Footer End -->
+      </div>
+      <!-- Content End -->
+
+      <!-- Back to Top -->
+      <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"
+        ><i class="bi bi-arrow-up"></i
+      ></a>
+    </div>
+  </body>
+</html>

@@ -1,42 +1,48 @@
 'use strict';
 
 document.addEventListener('DOMContentLoaded', () => {
-    const signOutLinks = document.querySelectorAll('.signOutLink');
+  const signOutLinks = document.querySelectorAll('.signOutLink');
 
-    signOutLinks.forEach(signOutLink => {
-        signOutLink.addEventListener('click', async function(event) {
-            event.preventDefault();
+  signOutLinks.forEach((signOutLink) => {
+    signOutLink.addEventListener('click', async function (event) {
+      event.preventDefault();
 
-            const signoutUrl = this.getAttribute('data-url');
+      // Ask for confirmation before proceeding
+      const confirmed = confirm('Are you sure you want to log out?');
+      if (!confirmed) {
+        return; // Exit if user cancels logout
+      }
 
-            try {
-                const response = await fetch(signoutUrl, {
-                    method: 'DELETE',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                });
+      const signoutUrl = this.getAttribute('data-url');
 
-                if (response.ok) {
-                    const data = await response.json();
-                    window.location.href = data.logoutRedirectUrl;
-                } else {
-                    const data = await response.json();
-                    displayErrorMessage(data.message);
-                }
-            } catch (error) {
-                displayErrorMessage('An error occurred. Please try again later.');
-            }
+      try {
+        const response = await fetch(signoutUrl, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
         });
-    });
 
-    function displayErrorMessage(message) {
-        const errorMessageElement = document.getElementById('message');
-        if (errorMessageElement) {
-            errorMessageElement.textContent = message;
-            errorMessageElement.style.display = 'block';
+        if (response.ok) {
+          const data = await response.json();
+          window.location.href = data.logoutRedirectUrl;
         } else {
-            alert(message);
+          const data = await response.json();
+          displayErrorMessage(data.message);
         }
+      } catch (error) {
+        displayErrorMessage('An error occurred. Please try again later.');
+      }
+    });
+  });
+
+  function displayErrorMessage(message) {
+    const errorMessageElement = document.getElementById('message');
+    if (errorMessageElement) {
+      errorMessageElement.textContent = message;
+      errorMessageElement.style.display = 'block';
+    } else {
+      alert(message);
     }
+  }
 });

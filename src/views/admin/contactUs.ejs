@@ -49,20 +49,20 @@
   <body>
     <div class="container-xxl position-relative bg-white d-flex p-0">
       <!-- start header  -->
-      <%- include (`../partials/userHeader`); -%>
+      <%- include (`../partials/adminHeader`); -%>
       <!-- end header -->
 
       <!-- Content Start -->
       <div class="content">
         <!-- Navbar revenue Start -->
-        <%- include (`../partials/userNav`); -%>
+        <%- include (`../partials/adminNav`); -%>
         <!-- Navbar and revenue End -->
 
         <!-- Recent Sales Start -->
         <div class="container-fluid pt-4 px-4">
           <div class="bg-light text-center rounded p-4">
             <div class="d-flex align-items-center justify-content-between mb-4">
-              <h6 class="mb-0">Balance Enquiry</h6>
+              <h6 class="mb-0">Contact Us Message</h6>
 
               <!-- Toast start -->
               <div
@@ -79,61 +79,58 @@
               >
                 <thead>
                   <tr class="text-dark">
-                    <th scope="col">Name</th>
-                    <th scope="col">Checking Account Number</th>
-                    <th scope="col">Balance</th>
-                    <th scope="col">Savings Account Number</th>
-                    <th scope="col">Balance</th>
-                    <th scope="col" style="text-align: center">Status</th>
-                    <th scope="col">Swift Code</th>
+                    <th scope="col">Full Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Subject</th>
+                    <th scope="col">Message</th>
+                    <th scope="col">Date Added</th>
+                    <th scope="col" style="text-align: center">Action</th>
                   </tr>
                 </thead>
                 <tbody>
+                  <% if (contact.length > 0) { %> <% contact.forEach(contact =>
+                  { %>
                   <tr class="center">
-                    <td><%= user.firstName %> <%= user.lastName%></td>
-                    <td style="text-align: center">
-                      <%= user.checkingAccountNumber %>
+                    <td><%= contact.firstName %> <%= contact.lastName%></td>
+                    <td><%= contact.email %></td>
+                    <td><%= contact.subject %></td>
+                    <td><%= contact.message %></td>
+                    <% const date = contact.date_added instanceof Date ?
+                    contact.date_added : new Date(contact.date_added); const day
+                    = String(date.getDate()).padStart(2, '0'); const month =
+                    String(date.getMonth() + 1).padStart(2, '0'); const year =
+                    date.getFullYear(); const dateAdded =
+                    `${day}-${month}-${year}`; %>
+                    <td><%= dateAdded %></td>
+                    <td data-label="Profile">
+                      <!-- Delete Button -->
+                      <input
+                        type="button"
+                        value="Delete"
+                        class="btn btn-danger btn-sm delete-button btnBorder"
+                        data-user-id="<%= contact._id %>"
+                        data-url="/admin/deleteContactUs"
+                        onclick="showDeleteUserModal(this)"
+                      />
                     </td>
-                    <td><%= user.checkingAccountBalance %></td>
-                    <td style="text-align: center">
-                      <%= user.savingsAccountNumber %>
-                    </td>
-                    <td><%= user.savingAccountBalance %></td>
-                    <td><%= user.accountStatus %></td>
-                    <td><%= user.swiftCode %></td>
                   </tr>
+                  <% }); %> <% } else { %>
+                  <tr>
+                    <td colspan="6" class="text-center">
+                      You are yet to have contact message with EOS premier bank
+                    </td>
+                  </tr>
+                  <% } %>
                 </tbody>
               </table>
+              <div class="pagination"></div>
             </div>
           </div>
         </div>
         <!-- Recent Sales End -->
 
-        <!-- START VIEW User -->
-        <div id="viewUserModal" class="modal">
-          <div style="height: 500px; overflow-y: auto">
-            <div class="modal-content">
-              <span
-                class="close"
-                style="cursor: pointer"
-                onclick="closeViewUserModal()"
-                >&times;</span
-              >
-              <div class="mt-4">
-                <div class="card-body p-0">
-                  <h4 class="p-3 mb-0">User Information</h4>
-                  <div id="modalContent">
-                    <!-- dynamically create the HTML for the modal form elements after fetching the product details -->
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- END VIEW User -->
-
         <!-- Footer Start -->
-        <%- include (`../partials/userFooter`); -%>
+        <%- include (`../partials/adminFooter`); -%>
         <!-- Footer End -->
       </div>
       <!-- Content End -->

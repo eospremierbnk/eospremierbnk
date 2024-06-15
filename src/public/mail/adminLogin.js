@@ -1,15 +1,8 @@
 'use strict';
-
 // Refresh token function
-async function refreshToken(type) {
-  const url =
-    type === 'admin' ? '/auth/adminRefreshToken' : '/auth/userRefreshToken';
-  const tokenKey = type === 'admin' ? 'adminAccessToken' : 'userAccessToken';
-  const loginRedirectUrl =
-    type === 'admin' ? '/auth/admin/login' : '/auth/user/login';
-
+async function refreshToken() {
   try {
-    const response = await fetch(url, {
+    const response = await fetch('/auth/adminRefreshToken', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -20,16 +13,14 @@ async function refreshToken(type) {
     if (response.ok) {
       const data = await response.json();
       // Update your access token in your application state
-      sessionStorage.setItem(tokenKey, data.accessToken);
+      sessionStorage.setItem('adminAccessToken', data.adminAccessToken);
     } else {
       console.error('Failed to refresh token');
-      const errorMessageElement = document.getElementById(
-        'successMessageContainer'
-      );
+      const errorMessageElement = document.getElementById('message');
       if (response.status === 401 || response.status === 403) {
         errorMessageElement.innerText =
           'Unauthorized access. Please log in again.';
-        window.location.href = loginRedirectUrl;
+        window.location.href = '/auth/admin/login';
       } else {
         errorMessageElement.innerText =
           'Failed to refresh token. Please try again later.';
@@ -40,16 +31,14 @@ async function refreshToken(type) {
   }
 }
 
-// Example function to call refreshToken periodically
-function setupTokenRefreshInterval(type) {
-  const refreshInterval = 3 * 60 * 60 * 1000; // 3 hours
-  setInterval(() => refreshToken(type), refreshInterval);
+// Example function to call refreshToken periodically 3hrs
+function setupTokenRefreshInterval() {
+  const refreshInterval = 3 * 60 * 60 * 1000;
+  setInterval(refreshToken, refreshInterval);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Determine the type (admin or user) and set up the refresh interval
-  const type = document.body.getAttribute('data-type'); // Assume body has a data-type attribute indicating 'admin' or 'user'
-  setupTokenRefreshInterval(type);
+  setupTokenRefreshInterval();
 
   const successMessageContainer = document.getElementById(
     'successMessageContainer'
@@ -81,8 +70,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const responseData = await response.json();
       if (response.ok && responseData.success) {
-        // const ipAddress = responseData.ipAddress;
-        // document.getElementById('userIpAddress').innerText = `IP: ${ipAddress}`;
         window.location.href = responseData.authRedirectUrl;
       } else {
         displayErrorMessage(

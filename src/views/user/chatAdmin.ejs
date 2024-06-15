@@ -44,6 +44,8 @@
     <!-- Template Stylesheet -->
     <link href="../css/adminCss/style.css" rel="stylesheet" />
     <link href="../css/adminCss/adminform.css" rel="stylesheet" />
+    <link href="../css/adminCss/chatting.css" rel="stylesheet" />
+    <script src="/socket.io/socket.io.js"></script>
   </head>
 
   <body>
@@ -67,6 +69,8 @@
             <div class="container p-0">
               <div class="card">
                 <div class="row g-0">
+                  <div class="col-12 col-lg-5 col-xl-3 border-right"></div>
+
                   <div class="col-12 col-lg-7 col-xl-9">
                     <div class="position-relative">
                       <div id="user-chat-messages" class="chat-messages p-4">
@@ -93,7 +97,8 @@
                               for="user-image-upload"
                               class="btn btn-primary mr-2"
                             >
-                              <i class="fas fa-camera"></i> Upload Image
+                              <i style="color: #fff" class="fas fa-camera"></i>
+                              Upload Image
                             </label>
                             <input
                               type="file"
