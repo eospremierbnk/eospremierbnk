@@ -73,6 +73,13 @@ router.put(
   adminController.editUserPost
 );
 
+router.delete(
+  '/deleteUser/:userId',
+  verifyAdminToken,
+  getAdminById,
+  adminController.deleteUser
+);
+
 router.get(
   '/accountStatement',
   verifyAdminToken,
@@ -131,7 +138,7 @@ router.get(
 );
 
 router.put(
-  '/editAdminProfile',
+  '/editAdminProfilePost',
   verifyAdminToken,
   getAdminById,
   adminController.editAdminProfilePost

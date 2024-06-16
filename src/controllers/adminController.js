@@ -4,7 +4,7 @@ const path = require('path');
 const { tryCatch } = require('../middlewares');
 const APIError = require('../errorHandlers/apiError');
 const { sendAccountStatusUpdateNotification } = require('../mailers');
-const { Blacklist, User, ContactUs, Transaction } = require('../models');
+const { Blacklist, User, ContactUs, Transaction, Admin } = require('../models');
 const { sanitizeInput, sanitizeObject } = require('../utils');
 const { userSchema } = require('../validations');
 
@@ -214,7 +214,6 @@ const editUserPost = tryCatch(async (req, res) => {
     req.body.checkingAccountType
   );
   const sanitizedInternalRef = sanitizeInput(req.body.internalRef);
-  const sanitizedSwiftCode = sanitizeInput(req.body.swiftCode);
   const sanitizedSavingAccountBalance = sanitizeInput(
     req.body.savingAccountBalance
   );
@@ -243,7 +242,6 @@ const editUserPost = tryCatch(async (req, res) => {
         savingAccountType: sanitizedSavingAccountType,
         checkingAccountType: sanitizedCheckingAccountType,
         internalRef: sanitizedInternalRef,
-        swiftCode: sanitizedSwiftCode,
         savingAccountBalance: sanitizedSavingAccountBalance,
         checkingAccountBalance: sanitizedCheckingAccountBalance,
         cardBalance: sanitizedCardBalance,
@@ -268,6 +266,22 @@ const editUserPost = tryCatch(async (req, res) => {
   });
 });
 
+const deleteUser = tryCatch(async (req, res) => {
+  const user = await User.findById(req.params.userId);
+  if (!user) {
+    throw new APIError('User information not found', 404);
+  }
+
+  await User.findByIdAndDelete(user);
+  const redirectUrl = '/admin/ourUsers';
+
+  res.status(201).json({
+    redirectUrl,
+    success: true,
+    message: 'User deleted successfully',
+  });
+});
+
 const accountStatement = tryCatch((req, res) => {
   const admin = req.currentAdmin;
   if (!res.paginatedResults) {
@@ -282,19 +296,22 @@ const accountStatement = tryCatch((req, res) => {
   });
 });
 
-const addNewStatementPage = tryCatch((req, res) => {
+const addNewStatementPage = tryCatch(async (req, res) => {
   const admin = req.currentAdmin;
+  const users = await User.find();
   res.render('admin/addNewStatement', {
     admin,
+    users,
   });
 });
 
 const addNewStatementPost = tryCatch(async (req, res) => {
   const sanitizedBody = sanitizeObject(req.body);
 
-  const { amount, type, description, paidIn, paidOut } = sanitizedBody;
+  const { userId, amount, type, description, paidIn, paidOut } = sanitizedBody;
 
   const newTransaction = new Transaction({
+    userId,
     amount,
     type,
     description,
@@ -413,7 +430,7 @@ const editAdminProfilePost = tryCatch(async (req, res) => {
     updatedPassword = newPassword;
   }
 
-  const updatedUser = await User.findByIdAndUpdate(
+  const updatedAdmin = await Admin.findByIdAndUpdate(
     req.user.id,
     {
       $set: {
@@ -430,9 +447,6 @@ const editAdminProfilePost = tryCatch(async (req, res) => {
     { new: true }
   );
 
-  // Send a message to confirm the profile update
-  await updateUserProfileMsg(updatedUser);
-
   // Respond with a success message
   res.status(201).json({
     admin,
@@ -441,11 +455,17 @@ const editAdminProfilePost = tryCatch(async (req, res) => {
   });
 });
 
-const contactUsPage = tryCatch((req, res) => {
+const contactUsPage = tryCatch(async (req, res) => {
   const admin = req.currentAdmin;
   if (!res.paginatedResults) {
     throw new APIError('Paginated results not found', 404);
   }
+  // Fetch the total count of contact messages
+  const contactMessagesCount = await ContactUs.countDocuments();
+
+  // Add the count to locals for use in the sidebar
+  res.locals.contactMessagesCount = contactMessagesCount;
+
   const { results, currentPage, totalPages } = res.paginatedResults;
   res.render('admin/contactUs', {
     admin,
@@ -509,6 +529,7 @@ module.exports = {
   viewUser,
   editUser,
   editUserPost,
+  deleteUser,
   accountStatement,
   addNewStatementPage,
   addNewStatementPost,

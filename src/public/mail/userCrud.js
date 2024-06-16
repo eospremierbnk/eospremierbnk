@@ -139,15 +139,15 @@ function showEditUserModal(button) {
                       editUser.number || ''
                     }">
                 </div>
-                 <div class="col-4 d-flex flex-column inner_flex_div">
+                 
+            </div>
+            <div class="col-12 d-flex main_flex_div">
+               <div class="col-4 d-flex flex-column inner_flex_div">
                     <label for="address">Address:</label>
                     <input type="text" id="username" name="address" value="${
                       editUser.address || ''
                     }">
                 </div>
-            </div>
-            <div class="col-12 d-flex main_flex_div">
-               
                 <div class="col-4 d-flex flex-column inner_flex_div">
                     <label for="city">City</label>
                     <input type="text" id="city" name="city" value="${
@@ -160,15 +160,15 @@ function showEditUserModal(button) {
                       editUser.state || ''
                     }">
                 </div>
-                 <div class="col-4 d-flex flex-column inner_flex_div">
+                
+            </div>
+             <div class="col-12 d-flex main_flex_div">
+                <div class="col-4 d-flex flex-column inner_flex_div">
                      <label for="savingsAccountNumber">Savings Account Number:</label>
                     <input type="text" id="savingsAccountNumber" name="savingsAccountNumber" value="${
                       editUser.savingsAccountNumber || ''
                     }">
                 </div>
-            </div>
-             <div class="col-12 d-flex main_flex_div">
-               
                 <div class="col-4 d-flex flex-column inner_flex_div">
                      <label for="checkingAccountNumber">Checking Account Number:</label>
                     <input type="text" id="checkingAccountNumber" name="checkingAccountNumber" value="${
@@ -182,20 +182,14 @@ function showEditUserModal(button) {
                       editUser.savingAccountType || ''
                     }">
                 </div>
+               
+            </div>
+
+            <div class="col-12 d-flex main_flex_div">
                  <div class="col-4 d-flex flex-column inner_flex_div">
                     <label for="checkingAccountType">Checking Account Type:</label>
                     <input type="text" id="checkingAccountType" name="checkingAccountType" value="${
                       editUser.checkingAccountType || ''
-                    }">
-                </div>
-            </div>
-
-            <div class="col-12 d-flex main_flex_div">
-               
-                 <div class="col-4 d-flex flex-column inner_flex_div">
-                    <label for="swiftCode">Swift Code</label>
-                    <input type="text" id="swiftCode" name="swiftCode" value="${
-                      editUser.swiftCode || ''
                     }">
                 </div>
                 <div class="col-4 d-flex flex-column inner_flex_div">

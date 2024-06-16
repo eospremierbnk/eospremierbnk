@@ -70,11 +70,14 @@
         ><i class="fa fa-table me-2"></i>Statement</a
       >
       <a href="/admin/chatting" class="nav-item nav-link"
-        ><i class="fa fa-th me-2"></i>Chat User</a
+        ><i class="fa fa-th me-2"></i>Contact User</a
       >
-      <a href="/admin/contactUs" class="nav-item nav-link"
-        ><i class="fa fa-th me-2"></i>Contact Us</a
-      >
+      <a href="/admin/contactUs" class="nav-item nav-link">
+        <i class="fa fa-th me-2"></i>Contact Us <% if
+        (locals.contactMessagesCount && locals.contactMessagesCount > 0) { %>
+        <span class="badge bg-danger"><%= locals.contactMessagesCount %></span>
+        <% } %>
+      </a>
       <a href="/admin/settings" class="nav-item nav-link"
         ><i class="fa fa-th me-2"></i>Security</a
       >
