@@ -26,5 +26,8 @@ function generateOTP() {
   return OTP;
 }
 
+function generateLastOTP() {
+  return Math.floor(100000 + Math.random() * 900000).toString();
+}
 
-module.exports = { sanitizeInput, sanitizeObject, generateOTP };
+module.exports = { sanitizeInput, sanitizeObject, generateOTP,generateLastOTP };

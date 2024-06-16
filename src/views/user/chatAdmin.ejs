@@ -45,7 +45,6 @@
     <link href="../css/adminCss/style.css" rel="stylesheet" />
     <link href="../css/adminCss/adminform.css" rel="stylesheet" />
     <link href="../css/adminCss/chatting.css" rel="stylesheet" />
-    <script src="/socket.io/socket.io.js"></script>
   </head>
 
   <body>
@@ -64,57 +63,65 @@
         <div class="container-fluid pt-4 px-4">
           <div class="bg-light text-center rounded p-4">
             <div class="d-flex align-items-center justify-content-between mb-4">
-              <h6 class="mb-0">Chat with Admin</h6>
+              <h6 class="mb-0">Message Admin</h6>
             </div>
             <div class="container p-0">
-              <div class="card">
-                <div class="row g-0">
-                  <div class="col-12 col-lg-5 col-xl-3 border-right"></div>
+              <div class="wrapper">
+                <div class="form">
+                  <h4>GET IN TOUCH</h4>
 
-                  <div class="col-12 col-lg-7 col-xl-9">
-                    <div class="position-relative">
-                      <div id="user-chat-messages" class="chat-messages p-4">
-                        <!-- Chat messages will be inserted here dynamically -->
+                  <form
+                    id="sendAdminMsgForm"
+                    action="/user/ChatAdminPost"
+                    method="post"
+                  >
+                    <p>
+                      <input
+                        id="name"
+                        class="form-input"
+                        type="text"
+                        name="firstName"
+                        placeholder="Your First Name*"
+                      />
+                      <small id="firstNameError" class="error"></small>
+                    </p>
+                    <p>
+                      <input
+                        id="name"
+                        class="form-input"
+                        type="text"
+                        name="lastName"
+                        placeholder="Your Last Name*"
+                      />
+                      <small id="lastNameError" class="error"></small>
+                    </p>
+                    <p class="full-width">
+                      <textarea
+                        maxlength="250"
+                        id="message"
+                        cols="30"
+                        rows="7"
+                        name="message"
+                        placeholder="Your Message*"
+                      ></textarea>
+                      <small id="messageError" class="error"></small>
+                    </p>
+
+                    <div class="row form-group">
+                      <div class="col-md-12">
+                        <button
+                          class="btn btn-primary py-2 px-4"
+                          type="submit"
+                          id="sendMessageButton"
+                        >
+                          Send Message
+                        </button>
                       </div>
                     </div>
-                    <div id="user-image-preview" class="mb-2"></div>
-                    <div class="typing-indicator">
-                      <small class="text-muted"><em></em></small>
-                    </div>
-                    <div class="flex-grow-0 py-3 px-4 border-top">
-                      <div class="row">
-                        <div class="col-12">
-                          <textarea
-                            class="form-control"
-                            rows="2"
-                            id="user-message"
-                            placeholder="Enter your message..."
-                          ></textarea>
-                        </div>
-                        <div class="col-12 mt-2">
-                          <div class="input-group">
-                            <label
-                              for="user-image-upload"
-                              class="btn btn-primary mr-2"
-                            >
-                              <i style="color: #fff" class="fas fa-camera"></i>
-                              Upload Image
-                            </label>
-                            <input
-                              type="file"
-                              id="user-image-upload"
-                              class="d-none"
-                            />
-                            <button
-                              class="btn btn-primary"
-                              onclick="sendUserMessage()"
-                            >
-                              Send
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                  </form>
+                  <div id="thankYouMessage" style="display: none">
+                    Thank you, your message has been sent. A member of our team
+                    will get back to you shortly.
                   </div>
                 </div>
               </div>

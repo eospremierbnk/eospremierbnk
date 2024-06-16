@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>EOS Premier Bank</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="EOS Premier Bank" name="keywords" />
+    <meta content="EOS Premier Bank" name="description" />
+
+    <!-- Favicon -->
+    <link href="../images/logo.jpg" rel="icon" />
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Icon Font Stylesheet -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+
+    <!-- Libraries Stylesheet -->
+    <link
+      href="../lib/owlcarousel/assets/owl.carousel.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="../lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="../css/adminCss/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Template Stylesheet -->
+    <link href="../css/adminCss/style.css" rel="stylesheet" />
+    <link href="../css/adminCss/adminform.css" rel="stylesheet" />
+  </head>
+
+  <body>
+    <div class="container-xxl position-relative bg-white d-flex p-0">
+      <!-- start header  -->
+      <%- include (`../partials/userHeader`); -%>
+      <!-- end header -->
+
+      <!-- Content Start -->
+      <div class="content">
+        <!-- Navbar revenue Start -->
+        <%- include (`../partials/userNav`); -%>
+        <!-- Navbar and revenue End -->
+
+        <!-- Recent Sales Start -->
+        <div class="container-fluid pt-4 px-4">
+          <div class="bg-light text-center rounded p-4">
+            <h6 class="mb-0">Cost of Transfer (COT) Code</h6>
+            <div class="d-flex align-items-center justify-content-between mb-4">
+              <div class="card" style="padding: 10px 10px">
+                <p class="dis mb-3 disFont">
+                  Funds transfer is a process of transfering funds from your
+                  account to other account in same Bank. Please make sure that
+                  you have enough funds available in your account to transfer.
+                  Also don't forgot to validate receiver's account number.
+                </p>
+                <p class="dis mb-3 disFont">
+                  The C.O.T. code you desire is a Cost of Transfer. You should
+                  contact your bank to get this code. A Cost of Transfer is
+                  allegedly needed to complete international wire transfers. COT
+                  (Cost of Transfer) codes are frequently mentione when carrying
+                  out international fund transfer
+                </p>
+
+                <p class="dis mb-3 disFont">
+                  Generally you need to have the routing number or code of the
+                  bank to receive funds plus the name or account number of the
+                  recipient account at that bank in order to complete an
+                  interbank wire transfer of funds.
+                </p>
+
+                <p class="dis mb-3 disFont">
+                  The token code has been sent to your email: <%- userInfo.email
+                  %>
+                </p>
+
+                <p class="dis mb-3 disFont">
+                  You have <span id="countdown">5:00</span> remaining to insert
+                  valid Transaction Authorization Code. System will
+                  automatically redirect to 'Fund Transfer' page to initiate
+                  fund transfer again.
+                </p>
+                <form class="authCode" id="completeOtpForm">
+                  <h4 class="text-center mb-4">Transfer Funds</h4>
+                  <div class="d-flex mb-3 inputptcode">
+                    <input
+                      type="tel"
+                      maxlength="1"
+                      pattern="[0-9]"
+                      class="form-control"
+                    />
+                    <input
+                      type="tel"
+                      maxlength="1"
+                      pattern="[0-9]"
+                      class="form-control"
+                    />
+                    <input
+                      type="tel"
+                      maxlength="1"
+                      pattern="[0-9]"
+                      class="form-control"
+                    />
+                    <input
+                      type="tel"
+                      maxlength="1"
+                      pattern="[0-9]"
+                      class="form-control"
+                    />
+                    <input
+                      type="tel"
+                      maxlength="1"
+                      pattern="[0-9]"
+                      class="form-control"
+                    />
+                    <input
+                      type="tel"
+                      maxlength="1"
+                      pattern="[0-9]"
+                      class="form-control"
+                    />
+                  </div>
+                  <button
+                    type="submit"
+                    id="completeTransfer"
+                    class="w-100 btn btn-primary"
+                  >
+                    Complete Transfer
+                  </button>
+                  <p
+                    id="thankYouMessage"
+                    class="text-center mt-3"
+                    style="display: none"
+                  ></p>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Recent Sales End -->
+
+        <!-- Footer Start -->
+        <%- include (`../partials/userFooter`); -%>
+        <!-- Footer End -->
+      </div>
+      <!-- Content End -->
+
+      <!-- Back to Top -->
+      <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"
+        ><i class="bi bi-arrow-up"></i
+      ></a>
+    </div>
+  </body>
+</html>

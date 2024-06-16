@@ -10,7 +10,7 @@ const lastNameMessages = {
 };
 const emailMessages = {
   'string.empty': 'Your email is required',
-  'string.email': 'Contact email must be a valid email address',
+  'string.email': 'Your email must be a valid email address',
   'any.required': 'Your email is required',
 };
 const subjectMessages = {
@@ -40,4 +40,10 @@ const contactUsSchema = Joi.object({
   message: Joi.string().max(250).required().messages(msgMessages),
 });
 
-module.exports = contactUsSchema;
+const contactAdminSchema = Joi.object({
+  firstName: Joi.string().required().messages(firstNameMessages),
+  lastName: Joi.string().required().messages(lastNameMessages),
+  message: Joi.string().max(250).required().messages(msgMessages),
+});
+
+module.exports = { contactUsSchema, contactAdminSchema };

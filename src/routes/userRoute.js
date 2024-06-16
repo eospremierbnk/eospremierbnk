@@ -129,6 +129,13 @@ router.post(
 );
 
 router.get(
+  '/completeTransaction',
+  verifyUserToken,
+  getUserById,
+  userController.completeTransaction
+);
+
+router.get(
   '/chatAdmin',
   verifyUserToken,
   getUserById,
@@ -140,6 +147,13 @@ router.get(
   verifyUserToken,
   getUserById,
   userController.deatailsPage
+);
+
+router.post(
+  '/ChatAdminPost',
+  verifyUserToken,
+  getUserById,
+  userController.contactAdminPost
 );
 
 router.delete(

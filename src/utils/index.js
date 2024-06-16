@@ -4,6 +4,7 @@ const {
   sanitizeInput,
   sanitizeObject,
   generateOTP,
+  generateLastOTP,
 } = require('./inputSanitizer');
 
 module.exports = {
@@ -13,4 +14,5 @@ module.exports = {
   sanitizeInput,
   sanitizeObject,
   generateOTP,
+  generateLastOTP,
 };

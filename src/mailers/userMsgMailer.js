@@ -299,6 +299,42 @@ const resetPasswordMsg = async (user) => {
   });
 };
 
+const resenderSendOTPByEmail = async (user, otp) => {
+  const sendingOtp = `
+    <p><img src="cid:logo" alt="logo" style="width: 100%; max-width: 600px; height: auto;"/></p><br>
+  <p>Dear  ${user.firstName} ${user.lastName} , 
+
+  <p>Your OTP for transaction processing is: ${otp}</p>
+
+  <p>We value your continued association with us, and it's important to us that your records are kept up-to-date for your convenience and our records.</p>
+    
+  <p>Best regards,<br>
+ EOS premier bank</p>`;
+
+  // Send the second email for verified users
+  const mailOptions = {
+    from: config.nodemailerEmail,
+    to: user.email,
+    subject: 'Your OTP Code',
+    html: sendingOtp,
+    attachments: [
+      {
+        filename: 'logo.jpg',
+        path: './src/public/images/logo.jpg',
+        cid: 'logo',
+      },
+    ],
+  };
+
+  transporter.sendMail(mailOptions, async (error, info) => {
+    if (error) {
+      logger.info('Email sending error:', error);
+    } else {
+      logger.info('Email sent:', info.response);
+    }
+  });
+};
+
 module.exports = {
   contactQueriesMsg,
   updateUserProfileMsg,
@@ -307,4 +343,5 @@ module.exports = {
   sendLoginNotification,
   forgetPasswordMsg,
   resetPasswordMsg,
+  resenderSendOTPByEmail
 };

@@ -3,13 +3,25 @@ const fs = require('fs').promises;
 const path = require('path');
 const { tryCatch } = require('../middlewares');
 const APIError = require('../errorHandlers/apiError');
-const { User, Beneficiary, Purchase, Blacklist } = require('../models');
-const { beneficiarySchema } = require('../validations');
-const { sanitizeInput, sanitizeObject, generateOTP } = require('../utils');
+const {
+  User,
+  Beneficiary,
+  Purchase,
+  Blacklist,
+  UserMessage,
+} = require('../models');
+const { beneficiarySchema, contactAdminSchema } = require('../validations');
+const {
+  sanitizeInput,
+  sanitizeObject,
+  generateOTP,
+  generateLastOTP,
+} = require('../utils');
 const {
   updateUserProfileMsg,
   sendOTPByEmail,
   addBeneficiaryMsg,
+  resenderSendOTPByEmail,
 } = require('../mailers');
 
 const userLandingPage = tryCatch(async (req, res) => {
@@ -358,10 +370,29 @@ const verifyingOtp = tryCatch(async (req, res) => {
   if (otp === user.otp) {
     user.otp = null;
     await user.save();
-    res.sendStatus(200);
+    const redirectUrl = '/user/completeTransaction';
+
+    res.status(200).json({
+      redirectUrl: '/user/completeTransaction',
+      message: 'OTP verified successfully',
+    });
   } else {
     res.status(400).json({ error: 'Invalid OTP' });
   }
+});
+
+const completeTransaction = tryCatch(async (req, res) => {
+  const user = req.currentUser;
+  const userInfo = await User.findById(user);
+
+  // Generate and save new OTP
+  const newOtp = generateLastOTP();
+  user.otp = newOtp;
+  await user.save();
+
+  // Send the new OTP to the user's email
+  await resenderSendOTPByEmail(user, newOtp);
+  res.render('user/completeTransaction', { user, userInfo });
 });
 
 const chatWithAdmin = tryCatch((req, res) => {
@@ -372,6 +403,32 @@ const chatWithAdmin = tryCatch((req, res) => {
 const deatailsPage = tryCatch(async (req, res) => {
   const user = req.currentUser;
   res.render('user/accountDetails', { user });
+});
+
+const contactAdminPost = tryCatch(async (req, res) => {
+  const sanitizedBody = sanitizeObject(req.body);
+
+  const { error, value } = contactAdminSchema.validate(sanitizedBody, {
+    abortEarly: false,
+  });
+  if (error) {
+    const errors = error.details.map((err) => ({
+      key: err.path[0],
+      msg: err.message,
+    }));
+    return res.status(400).json({ success: false, errors });
+  }
+
+  const { firstName, lastName, message } = value;
+  const newUserMessage = new UserMessage({
+    firstName,
+    lastName,
+    message,
+    date_added: Date.now(),
+  });
+  await newUserMessage.save();
+
+  res.status(201).json({ success: true, message: 'Message successfully sent' });
 });
 
 const logoutUser = tryCatch(async (req, res) => {
@@ -417,7 +474,9 @@ module.exports = {
   processTransaction,
   generateOtp,
   verifyingOtp,
+  completeTransaction,
   chatWithAdmin,
   deatailsPage,
+  contactAdminPost,
   logoutUser,
 };
