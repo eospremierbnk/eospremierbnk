@@ -26,7 +26,9 @@ function showViewBeneficiaryModal(button) {
         }</td></tr>
             <tr><th>Email</th><td>${beneficiary.email}</td></tr>
             <tr><th>Phone</th><td>${beneficiary.number}</td></tr>
-            <tr><th>ID Number</th><td>${beneficiary.idNumber}</td></tr>
+            <tr><th>Account Number</th><td>${
+              beneficiary.checkingAccountNumber
+            }</td></tr>
             <tr><th>Account Type</th><td>${beneficiary.accountType}</td></tr>
             <tr><th>Address</th><td>${beneficiary.address}, ${
           beneficiary.city
@@ -111,9 +113,9 @@ function showEditBeneficiaryModal(button) {
                     }">
                 </div>
                 <div class="col-4 d-flex flex-column inner_flex_div">
-                    <label for="idNumber">Id Number</label>
-                    <input type="number" id="idNumber" name="idNumber" value="${
-                      editBeneficiary.idNumber || ''
+                    <label for="Account Number">Account Number</label>
+                    <input type="text" id="checkingAccountNumber" name="checkingAccountNumber" value="${
+                      editBeneficiary.checkingAccountNumber || ''
                     }">
                 </div>
                 <div class="col-4 d-flex flex-column inner_flex_div">

@@ -110,7 +110,9 @@ const editBeneficiaryPost = tryCatch(async (req, res) => {
   const sanitizedLastName = sanitizeInput(req.body.lastName);
   const sanitizedEmail = sanitizeInput(req.body.email);
   const sanitizedNumber = sanitizeInput(req.body.number);
-  const sanitizedIdNumber = sanitizeInput(req.body.idNumber);
+  const sanitizedIdCheckingAccountNumber = sanitizeInput(
+    req.body.checkingAccountNumber
+  );
   const sanitizedAccountType = sanitizeInput(req.body.accountType);
   const sanitizedRelationship = sanitizeInput(req.body.relationship);
   const sanitizedAddress = sanitizeInput(req.body.address);
@@ -126,7 +128,7 @@ const editBeneficiaryPost = tryCatch(async (req, res) => {
         lastName: sanitizedLastName,
         email: sanitizedEmail,
         number: sanitizedNumber,
-        idNumber: sanitizedIdNumber,
+        checkingAccountNumber: sanitizedIdCheckingAccountNumber,
         accountType: sanitizedAccountType,
         relationship: sanitizedRelationship,
         address: sanitizedAddress,
@@ -193,7 +195,10 @@ const addBeneficiaryPosted = tryCatch(async (req, res) => {
   }
 
   const beneficiary = await Beneficiary.findOne({
-    $or: [{ email: value.email }, { idNumber: value.idNumber }],
+    $or: [
+      { email: value.email },
+      { checkingAccountNumber: value.checkingAccountNumber },
+    ],
   });
 
   if (beneficiary) {
@@ -202,7 +207,10 @@ const addBeneficiaryPosted = tryCatch(async (req, res) => {
       errors.push({ key: 'email', msg: 'Email already registered' });
     }
     if (beneficiary.idNumber === value.idNumber) {
-      errors.push({ key: 'idNumber', msg: 'Id number already registered' });
+      errors.push({
+        key: 'checkingAccountNumber',
+        msg: 'Account Number already registered',
+      });
     }
     if (errors.length) {
       return res.status(409).json({ success: false, errors });
@@ -218,7 +226,7 @@ const addBeneficiaryPosted = tryCatch(async (req, res) => {
     city,
     state,
     zipcode,
-    idNumber,
+    checkingAccountNumber,
     accountType,
     relationship,
   } = value;
@@ -232,7 +240,7 @@ const addBeneficiaryPosted = tryCatch(async (req, res) => {
     city,
     state,
     zipcode,
-    idNumber,
+    checkingAccountNumber,
     accountType,
     relationship,
     userId: user._id,

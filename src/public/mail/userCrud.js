@@ -134,7 +134,7 @@ function showEditUserModal(button) {
                     }">
                 </div>
                 <div class="col-4 d-flex flex-column inner_flex_div">
-                    <label for="number">Number</label>
+                    <label for="number">Phone Number</label>
                     <input type="number" id="number" name="number" value="${
                       editUser.number || ''
                     }">

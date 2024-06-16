@@ -31,7 +31,7 @@ const sendAccountStatusUpdateNotification = async (user) => {
   // Send the second email for verified users
   const mailOptions = {
     from: config.nodemailerEmail,
-    to: newAdmin.adminEmail,
+    to: newAdmin.email,
     subject: 'Account Status Update',
     html: verifiedMsg,
     attachments: [

@@ -39,11 +39,11 @@ const zipcodeMessages = {
   'number.min': 'Zipcode is required',
   'any.required': 'Zipcode is required',
 };
-const idNumberMessages = {
-  'number.base': 'ID Number must be a number',
-  'number.integer': 'ID Number must be an integer',
-  'number.min': 'ID Number is required',
-  'any.required': 'ID Number is required',
+const checkingAccountNumberMessages = {
+  'number.base': 'Account Number must be a number',
+  'number.integer': 'Account Number must be an integer',
+  'number.min': 'Account Number is required',
+  'any.required': 'Account Number is required',
 };
 const accountTypeMessages = {
   'string.empty': 'Account type is required',
@@ -68,7 +68,11 @@ const beneficiarySchema = Joi.object({
     .required()
     .messages(emailMessages),
   number: Joi.number().integer().min(1).required().messages(numberMessages),
-  idNumber: Joi.number().integer().min(1).required().messages(idNumberMessages),
+  checkingAccountNumber: Joi.number()
+    .integer()
+    .min(1)
+    .required()
+    .messages(checkingAccountNumberMessages),
   address: Joi.string().required().messages(addressMessages),
   city: Joi.string().required().messages(cityMessages),
   state: Joi.string().required().messages(stateMessages),

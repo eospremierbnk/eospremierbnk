@@ -5,7 +5,7 @@ const beneficiarySchema = new mongoose.Schema({
   lastName: { type: String, required: true },
   email: { type: String, required: true },
   number: { type: Number, required: true },
-  idNumber: { type: String, required: true },
+  checkingAccountNumber: { type: String, required: true },
   accountType: { type: String, required: true },
   relationship: { type: String, required: true },
   address: { type: String, required: true },

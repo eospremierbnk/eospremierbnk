@@ -44,8 +44,6 @@
     <!-- Template Stylesheet -->
     <link href="../css/adminCss/style.css" rel="stylesheet" />
     <link href="../css/adminCss/adminform.css" rel="stylesheet" />
-    <link href="../css/adminCss/chatting.css" rel="stylesheet" />
-    <script src="/socket.io/socket.io.js"></script>
   </head>
 
   <body>
@@ -64,72 +62,78 @@
         <div class="container-fluid pt-4 px-4">
           <div class="bg-light text-center rounded p-4">
             <div class="d-flex align-items-center justify-content-between mb-4">
-              <h6 class="mb-0">Chat with users</h6>
-            </div>
-            <div class="container p-0">
-              <div class="card">
-                <div class="row g-0">
-                  <div
-                    class="col-12 col-lg-5 col-xl-3 border-right"
-                    style="height: 530px; overflow-y: scroll"
-                  >
-                    <!-- User list -->
-                    <div
-                      id="user-list"
-                      class="list-group"
-                      style="cursor: pointer"
-                    >
-                      <!-- User list items will be inserted here dynamically -->
-                    </div>
-                    <hr class="d-block d-lg-none mt-1 mb-0" />
-                  </div>
+              <h6 class="mb-0">Message from User</h6>
 
-                  <div class="col-12 col-lg-7 col-xl-9">
-                    <div class="position-relative">
-                      <div id="admin-chat-messages" class="chat-messages p-4">
-                        <!-- Chat messages will be inserted here dynamically -->
-                      </div>
-                    </div>
-                    <div id="admin-image-preview" class="mb-2"></div>
-                    <div class="typing-indicator">
-                      <small class="text-muted"><em></em></small>
-                    </div>
-                    <div class="flex-grow-0 py-3 px-4 border-top">
-                      <div class="row">
-                        <div class="col-12">
-                          <textarea
-                            class="form-control"
-                            rows="2"
-                            id="admin-message"
-                            placeholder="Enter your message..."
-                          ></textarea>
-                        </div>
-                        <div class="col-12 mt-2">
-                          <div class="input-group">
-                            <label
-                              for="admin-image-upload"
-                              class="btn btn-primary mr-2"
-                            >
-                              <i style="color: #fff" class="fas fa-camera"></i>
-                              Upload Image
-                            </label>
-                            <input
-                              type="file"
-                              id="admin-image-upload"
-                              class="d-none"
-                            />
-                            <button
-                              class="btn btn-primary"
-                              onclick="sendAdminMessage()"
-                            >
-                              Send
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+              <!-- Toast start -->
+              <div
+                class="position-fixed bottom-0 end-0 p-3"
+                style="z-index: 11"
+              >
+                <div id="toastContainer" class="toast-container"></div>
+              </div>
+              <!-- Toast End -->
+            </div>
+            <div class="table-responsive">
+              <table
+                class="table text-start align-middle table-bordered table-hover mb-0"
+              >
+                <thead>
+                  <tr class="text-dark">
+                    <th scope="col">Full Name</th>
+                    <th scope="col">Date Added</th>
+                    <th scope="col">Message</th>
+                    <th scope="col" style="text-align: center">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% if (userMessage.length > 0) { %> <%
+                  userMessage.forEach(contact => { %>
+                  <tr class="center">
+                    <td><%= contact.firstName %> <%= contact.lastName%></td>
+                    <% const date = contact.date_added instanceof Date ?
+                    contact.date_added : new Date(contact.date_added); const day
+                    = String(date.getDate()).padStart(2, '0'); const month =
+                    String(date.getMonth() + 1).padStart(2, '0'); const year =
+                    date.getFullYear(); const dateAdded =
+                    `${day}-${month}-${year}`; %>
+                    <td><%= dateAdded %></td>
+                    <td><%= contact.message %></td>
+                    <td data-label="Profile">
+                      <!-- Delete Button -->
+                      <input
+                        type="button"
+                        value="Delete"
+                        class="btn btn-danger btn-sm delete-button btnBorder"
+                        data-user-id="<%= contact._id %>"
+                        data-url="/admin/deleteUserMessage"
+                        onclick="showDeleteUserModal(this)"
+                      />
+                    </td>
+                  </tr>
+                  <% }); %> <% } else { %>
+                  <tr>
+                    <td colspan="6" class="text-center">
+                      You are yet to have contact message with EOS premier bank
+                    </td>
+                  </tr>
+                  <% } %>
+                </tbody>
+              </table>
+              <div class="pagination">
+                <% if (currentPage > 1) { %>
+                <a href="/admin/chatting?page=<%= currentPage - 1 %>"
+                  >Previous</a
+                >
+                <% } %> <% for (let i = 1; i <= totalPages; i++) { %>
+                <a
+                  href="/admin/chatting?page=<%= i %>"
+                  class="<%= currentPage === i ? 'active' : '' %>"
+                >
+                  <%= i %>
+                </a>
+                <% } %> <% if (currentPage < totalPages) { %>
+                <a href="/admin/chatting?page=<%= currentPage + 1 %>">Next</a>
+                <% } %>
               </div>
             </div>
           </div>

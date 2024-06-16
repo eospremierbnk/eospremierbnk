@@ -7,7 +7,7 @@ const transactionSchema = new mongoose.Schema({
   description: { type: String },
   paidIn: { type: Number },
   paidOut: { type: Number },
-  date_added: { type: Date, default: Date.now() },
+  date_added: { type: Date },
 });
 
 const purchaseSchema = new mongoose.Schema({

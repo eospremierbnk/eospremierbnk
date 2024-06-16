@@ -50,7 +50,13 @@ function showEditTransactionModal(button) {
                       editTransaction.paidOut || ''
                     }">
                 </div>
-                <div class="col-6 d-flex flex-column inner_flex_div">
+                <div class="col-4 d-flex flex-column inner_flex_div">
+                    <label for="paidOut">Date:</label>
+                    <input type="text" id="date_added" name="date_added" value="${
+                      editTransaction.date_added || ''
+                    }">
+                </div>
+                <div class="col-4 d-flex flex-column inner_flex_div">
                     <label for="description">Description</label>
                     <textarea id="description" name="description">
                                 ${editTransaction.description || ''}

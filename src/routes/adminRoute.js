@@ -2,7 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const { verifyAdminToken, getAdminById } = require('../middlewares');
-const { User, ContactUs, Transaction } = require('../models');
+const { User, ContactUs, Transaction, UserMessage } = require('../models');
 const { adminController } = require('../controllers');
 const { adminImage } = require('../configs/multer');
 const { paginatedResults } = require('../utils');
@@ -127,6 +127,7 @@ router.get(
   '/chatting',
   verifyAdminToken,
   getAdminById,
+  paginatedResults(UserMessage),
   adminController.chatWithUser
 );
 

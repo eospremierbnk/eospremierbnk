@@ -10,11 +10,9 @@ const express = require('express');
 const connectAndStartServer = require('./src/configs/database/connection');
 const cors = require('cors');
 const morgan = require('morgan');
-const http = require('http');
 const globalErrorHandler = require('./src/errorHandlers/globalErrorHandler');
 const middleware = require('./src/middlewares/expressMiddlewares');
 const routes = require('./src/routes');
-const setupSocketIo = require('./src/socket.io/socket');
 
 const app = express();
 
@@ -43,10 +41,6 @@ app.use(middleware);
 app.use(morgan('tiny'));
 app.disable('x-powered-by');
 
-//socket io chatting
-const server = http.createServer(app);
-setupSocketIo(server);
-
 // Use routes defined in the routes module
 app.use(routes);
 
@@ -54,4 +48,4 @@ app.use(routes);
 app.use(globalErrorHandler);
 
 // Start the server
-connectAndStartServer(server);
+connectAndStartServer(app);

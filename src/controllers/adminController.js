@@ -350,6 +350,7 @@ const editStatementPost = tryCatch(async (req, res) => {
   const sanitizedDescription = sanitizeInput(req.body.description);
   const sanitizedPaidIn = sanitizeInput(req.body.paidIn);
   const sanitizedIdPaidOut = sanitizeInput(req.body.paidOut);
+  const sanitizedIdDate_added = sanitizeInput(req.body.date_added);
 
   const updatedTransaction = await Transaction.findByIdAndUpdate(
     transactionId,
@@ -360,6 +361,7 @@ const editStatementPost = tryCatch(async (req, res) => {
         description: sanitizedDescription,
         paidIn: sanitizedPaidIn,
         paidOut: sanitizedIdPaidOut,
+        date_added: sanitizedIdDate_added,
       },
     },
     { new: true }
@@ -399,7 +401,16 @@ const deleteTransaction = tryCatch(async (req, res) => {
 
 const chatWithUser = tryCatch((req, res) => {
   const admin = req.currentAdmin;
-  res.render('admin/chatting', { admin });
+  if (!res.paginatedResults) {
+    throw new APIError('Paginated results not found', 404);
+  }
+  const { results, currentPage, totalPages } = res.paginatedResults;
+  res.render('admin/chatting', {
+    admin,
+    userMessage: results,
+    currentPage,
+    totalPages,
+  });
 });
 
 const editAdminProfile = (req, res) => {
