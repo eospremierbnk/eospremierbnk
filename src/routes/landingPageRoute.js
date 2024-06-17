@@ -10,12 +10,6 @@ router.get(
   isAdminSignedIn,
   landingPageController.indexPage
 );
-router.get(
-  '/single',
-  isUserSignedIn,
-  isAdminSignedIn,
-  landingPageController.singlePage
-);
 router.post(
   '/contactPagePost',
   isUserSignedIn,

@@ -9,10 +9,6 @@ const indexPage = tryCatch((req, res) => {
   res.render('index');
 });
 
-const singlePage = tryCatch((req, res) => {
-  res.render('single');
-});
-
 const contactUsPost = tryCatch(async (req, res) => {
   const sanitizedBody = sanitizeObject(req.body);
 
@@ -44,6 +40,5 @@ const contactUsPost = tryCatch(async (req, res) => {
 
 module.exports = {
   indexPage,
-  singlePage,
   contactUsPost,
 };

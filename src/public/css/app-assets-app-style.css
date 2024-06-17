@@ -1,0 +1,101 @@
+.master-prs-bar-wrapper {
+  background: #fff;
+  transition: 0.4s;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  z-index: 99999999;
+}
+
+.master-prs-bar {
+  width: 400px;
+  padding: 4rem 25px 5rem;
+}
+
+.prs-bar {
+  width: 100%;
+  background-color: #e2e2e2;
+  position: relative;
+  margin-bottom: 25px;
+  border-radius: 20px;
+  height: 10px;
+}
+
+.bar-loader {
+  position: absolute;
+  width: 0%;
+  height: 100%;
+  z-index: 0;
+  background-color: #067b70;
+  border-radius: 20px;
+  transition: 0.5s;
+}
+
+.progress-counter {
+  position: relative;
+  color: #fafafa;
+  font-family: 'nunito', sans-serif;
+  margin: 0;
+  font-size: 9px;
+  text-align: right;
+  z-index: 99;
+  right: 5px;
+}
+
+.cur-app-name {
+  text-align: center;
+  margin-bottom: 10px;
+  transition: 0.4s;
+  font-family: 'nunito', sans-serif;
+  color: #004a7c;
+  font-size: 20px;
+  font-weight: 600;
+  height: 50px;
+}
+
+.cur-app-icon {
+  vertical-align: middle;
+}
+
+.bar-label {
+  text-align: center;
+  margin-bottom: 10px;
+  transition: 0.4s;
+  font-family: 'nunito', sans-serif;
+  color: #004a7c;
+  font-size: 20px;
+}
+
+.response-btn {
+  cursor: pointer;
+  border: none;
+  width: 120px;
+  height: 43px;
+  border-radius: 3px;
+  font-size: 17px;
+  background: #418653;
+  color: #fff;
+}
+
+.response-button {
+  margin: 20px 0 4rem;
+}
+
+.close-btn-wrp {
+  margin: 4rem 0 0;
+}
+
+.close-win-btn {
+  background: none;
+  border: none;
+  outline: none;
+  font-size: 17px;
+  color: #134a7c;
+  text-decoration: underline;
+  cursor: pointer;
+}

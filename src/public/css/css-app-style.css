@@ -1,0 +1,354 @@
+.master-prs-bar-wrapper {
+  background: #fff;
+  transition: 0.4s;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  z-index: 99999999;
+}
+
+.master-prs-bar {
+  width: 400px;
+  padding: 4rem 25px 5rem;
+}
+
+.prs-bar {
+  width: 100%;
+  background-color: #e2e2e2;
+  position: relative;
+  margin-bottom: 25px;
+  border-radius: 20px;
+  height: 10px;
+}
+
+.bar-loader {
+  position: absolute;
+  width: 0%;
+  height: 100%;
+  z-index: 0;
+  background-color: #067b70;
+  border-radius: 20px;
+  transition: 0.5s;
+}
+
+.progress-counter {
+  position: relative;
+  color: #fafafa;
+  font-family: 'nunito', sans-serif;
+  margin: 0;
+  font-size: 9px;
+  text-align: right;
+  z-index: 99;
+  right: 5px;
+}
+
+.cur-app-name {
+  text-align: center;
+  margin-bottom: 10px;
+  transition: 0.4s;
+  font-family: 'nunito', sans-serif;
+  color: #004a7c;
+  font-size: 20px;
+  font-weight: 600;
+  height: 50px;
+}
+
+.cur-app-icon {
+  vertical-align: middle;
+}
+
+.bar-label {
+  text-align: center;
+  margin-bottom: 10px;
+  transition: 0.4s;
+  font-family: 'nunito', sans-serif;
+  color: #004a7c;
+  font-size: 20px;
+}
+
+.response-btn {
+  cursor: pointer;
+  border: none;
+  width: 120px;
+  height: 43px;
+  border-radius: 3px;
+  font-size: 17px;
+  background: #418653;
+  color: #fff;
+}
+
+.response-button {
+  margin: 20px 0 4rem;
+}
+
+.close-btn-wrp {
+  margin: 4rem 0 0;
+}
+
+.close-win-btn {
+  background: none;
+  border: none;
+  outline: none;
+  font-size: 17px;
+  color: #134a7c;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* Start App Install */
+.install-app-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #ededf5;
+  z-index: 5;
+}
+
+.install-app-container-inner {
+  margin: 10rem 1rem 3rem;
+}
+
+.app-inst-heading {
+  padding: 0 16px 10px;
+}
+
+.install-app-txt {
+  font-size: 17px;
+  color: #141f5f;
+  margin-bottom: 1rem;
+}
+
+.app-inst-icon {
+  padding: 30px 0 0;
+}
+
+.app-inst-icon svg {
+  width: 265px;
+  height: 100%;
+}
+
+.exit-install-window {
+  text-align: right;
+  justify-content: right;
+}
+
+.exit-install-window-btn {
+  background: transparent;
+  border: 1px solid #ddd;
+  border-radius: 90px;
+  width: 40px;
+  height: 40px;
+  color: #cd2122;
+}
+
+img.imaged.w64.mb-2.mt-install {
+  border-radius: 0;
+  width: auto !important;
+}
+
+.ios-add-to-home img.imaged.w64.mb-2.mt-install {
+  width: 72px !important;
+}
+
+.image-listview > li:after {
+  left: 0;
+}
+
+.listview.inset {
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 28%);
+}
+
+.listview {
+  display: block;
+  padding: 0;
+  margin: 0;
+  color: #27173e;
+  background: #fff;
+  border-top: 1px solid #dcdce9;
+  border-bottom: 1px solid #dcdce9;
+  line-height: 1.3em;
+}
+
+.listview.inset {
+  margin-left: 16px;
+  margin-right: 16px;
+  overflow: hidden;
+  border: 0;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 9%);
+}
+
+.image-listview > li {
+  padding: 0;
+  min-height: auto;
+}
+
+.listview > li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  min-height: 50px;
+}
+
+.image-listview > li a.item {
+  color: #27173e !important;
+}
+
+.image-listview > li .item {
+  width: 100%;
+  min-height: 50px;
+  display: flex;
+  align-items: center;
+}
+
+.image-listview > li:after {
+  left: 0;
+}
+
+.listview > li:after {
+  content: '';
+  display: block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: #dcdce9;
+}
+
+.image-listview > li .item .icon-box {
+  min-width: 36px;
+  max-width: 36px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1em;
+  font-size: 22px;
+  border-radius: 400px;
+  margin-right: 16px;
+}
+
+.image-listview > li .item .in {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.image-listview > li a.item {
+  padding: 15px 16px;
+}
+
+.install-app-container .image-listview > li .item .icon-box {
+  min-width: 45px;
+  max-width: 45px;
+  width: 45px;
+  height: 45px;
+  font-size: 32px;
+}
+
+.install-app-container .image-listview > li .item .in {
+  font-size: 19px;
+}
+
+svg.ionicon.s-ion-icon {
+  fill: #fff;
+  padding: 6px;
+}
+
+.bg-success {
+  background-color: #1dcc70 !important;
+}
+/* End App Install */
+
+.ios-install-close {
+  cursor: pointer;
+  padding: 5px 0;
+}
+
+.modal.ios-add-to-home .modal-dialog {
+  padding: 16px;
+  margin: 0;
+  bottom: 0;
+  position: fixed;
+  width: 100%;
+  min-width: 100%;
+  z-index: 12000;
+  transform: translate(0, 100%);
+}
+
+.ios-add-to-home.show .modal-dialog {
+  transform: translate(0, 0);
+}
+
+.modal.ios-add-to-home .modal-content {
+  border-radius: 16px;
+  box-shadow: 0 10px 20px -4px rgb(0 0 0 / 20%) !important;
+}
+
+.modal.ios-add-to-home {
+  background: rgba(7, 21, 70, 0.59);
+}
+
+.modal.ios-add-to-home .modal-header {
+  padding: 2px 20px;
+  border-bottom-color: transparent !important;
+}
+
+.modal.ios-add-to-home h5.modal-title {
+  margin: 0;
+  text-align: center;
+  display: block;
+  font-size: 16px;
+  padding: 10px 0;
+  color: #27173e;
+  font-weight: 500;
+  font-family: sans-serif;
+}
+
+.modal.ios-add-to-home .modal-body {
+  font-family: sans-serif;
+}
+
+.ios-add-to-home .modal-content:before {
+  content: '';
+  display: block;
+  width: 0;
+  height: 0;
+  border-left: 14px solid transparent;
+  border-right: 14px solid transparent;
+  border-top: 10px solid #fff;
+  position: absolute;
+  bottom: -7px;
+  z-index: 10;
+  left: 50%;
+  margin-left: -16px;
+}
+
+.ios-install-logo {
+  margin: 10px 0 15px;
+}
+
+.ios-install-txt {
+  font-size: 14px;
+  color: #040d32;
+  margin-bottom: 15px;
+}
+
+.ios-install-title-img {
+  width: 50px;
+}
+
+.icon-box:before {
+  display: none;
+}
