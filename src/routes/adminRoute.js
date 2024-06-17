@@ -131,6 +131,13 @@ router.get(
   adminController.chatWithUser
 );
 
+router.delete(
+  '/deleteUserMessage/:UserId',
+  verifyAdminToken,
+  getAdminById,
+  adminController.deleteUserMessage
+);
+
 router.get(
   '/settings',
   verifyAdminToken,

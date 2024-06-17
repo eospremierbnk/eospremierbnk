@@ -434,7 +434,7 @@ const contactAdminPost = tryCatch(async (req, res) => {
 const logoutUser = tryCatch(async (req, res) => {
   const userAccessToken = req.cookies.userAccessToken;
   const userRefreshToken = req.cookies.userRefreshToken;
-  const logoutRedirectUrl = '/index';
+  const logoutRedirectUrl = '/';
 
   if (userAccessToken || userRefreshToken) {
     // Blacklist both access and refresh tokens

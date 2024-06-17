@@ -4,7 +4,14 @@ const path = require('path');
 const { tryCatch } = require('../middlewares');
 const APIError = require('../errorHandlers/apiError');
 const { sendAccountStatusUpdateNotification } = require('../mailers');
-const { Blacklist, User, ContactUs, Transaction, Admin } = require('../models');
+const {
+  Blacklist,
+  User,
+  ContactUs,
+  Transaction,
+  Admin,
+  UserMessage,
+} = require('../models');
 const { sanitizeInput, sanitizeObject } = require('../utils');
 const { userSchema } = require('../validations');
 
@@ -466,6 +473,24 @@ const editAdminProfilePost = tryCatch(async (req, res) => {
   });
 });
 
+const deleteUserMessage = tryCatch(async (req, res) => {
+  const admin = req.currentAdmin;
+  const userMessageInfo = await UserMessage.findById(req.params.UserId);
+  if (!userMessageInfo) {
+    throw new APIError('User Message not found', 404);
+  }
+
+  await UserMessage.findByIdAndDelete(req.params.UserId);
+  const redirectUrl = '/admin/chatting';
+
+  res.status(201).json({
+    redirectUrl,
+    success: true,
+    admin,
+    message: 'User Message deleted successfully',
+  });
+});
+
 const contactUsPage = tryCatch(async (req, res) => {
   const admin = req.currentAdmin;
   if (!res.paginatedResults) {
@@ -508,7 +533,7 @@ const deleteContactUs = tryCatch(async (req, res) => {
 const logoutAdmin = tryCatch(async (req, res) => {
   const adminAccessToken = req.cookies.adminAccessToken;
   const adminRefreshToken = req.cookies.adminRefreshToken;
-  const logoutRedirectUrl = '/index';
+  const logoutRedirectUrl = '/';
 
   if (adminAccessToken || adminRefreshToken) {
     // Blacklist both access and refresh tokens
@@ -550,6 +575,7 @@ module.exports = {
   chatWithUser,
   editAdminProfile,
   editAdminProfilePost,
+  deleteUserMessage,
   contactUsPage,
   deleteContactUs,
   logoutAdmin,

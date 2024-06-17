@@ -1,269 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>EOS PREMIER BANK</title>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+
     <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, user-scalable=0" />
 
-    <meta content="EOS Premier Bank" name="keywords" />
-    <meta content="EOS Premier Bank" name="description" />
+    <meta name="theme-color" content="#133a69" />
 
-    <!-- Favicon -->
-    <link href="images/logo.jpg" rel="icon" />
+    <link rel="stylesheet" href="css/css-bootstrap.min.css" />
+    <link rel="stylesheet" href="css/css-animate.min.css" />
+    <link rel="stylesheet" href="css/css-fontawesome.min.css" />
+    <link rel="stylesheet" href="css/css-flaticon0421.css" />
+    <link rel="stylesheet" href="css/css-icomoon.css" />
+    <link rel="stylesheet" href="css/css-magnific-popup.min.css" />
+    <link rel="stylesheet" href="css/css-nice-select.css" />
+    <link rel="stylesheet" href="css/css-slick.min.css" />
+    <link rel="stylesheet" href="css/css-owl.carousel.min.css" />
+    <link rel="stylesheet" href="css/css-owl.theme.default.min.css" />
+    <link rel="stylesheet" href="css/css-meanmenu.css" />
+    <link rel="stylesheet" href="css/css-odometer.min.css" />
+    <link rel="stylesheet" href="css/css-style.css" />
+    <link rel="stylesheet" href="css/css-responsive.css" />
+    <link rel="stylesheet" href="css/css-app-style.css" />
+    <link rel="stylesheet" href="css/mystyle.css" />
+    <title>EOS Premier Bank - Equity of Service</title>
+    <link rel="icon" type="image/png" href="images/favicon.png" />
+
+    <link rel="stylesheet" href="css/app-assets-app-style.css" />
+    <link rel="manifest" href="_manifest.json" />
 
     <link
-      href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700"
       rel="stylesheet"
+      href="css/dist-leaflet.css"
+      integrity="sha384-eS4bw6aEvhCSXWGP85ANR/N8isWKzT7P36NvcuTJGkrj6wsbxLVpXslrNXYHyseD"
+      crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="fonts/icomoon/style.css" />
-
-    <link rel="stylesheet" href="css/bootstrap.min.css" />
-    <link rel="stylesheet" href="css/jquery-ui.css" />
-    <link rel="stylesheet" href="css/owl.carousel.min.css" />
-    <link rel="stylesheet" href="css/owl.theme.default.min.css" />
-    <link rel="stylesheet" href="css/owl.theme.default.min.css" />
-
-    <link rel="stylesheet" href="css/jquery.fancybox.min.css" />
-
-    <link rel="stylesheet" href="css/bootstrap-datepicker.css" />
-
-    <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css" />
-
-    <link rel="stylesheet" href="css/aos.css" />
-
-    <link rel="stylesheet" href="css/style.css" />
+    <script
+      src="js/dist-leaflet.js"
+      integrity="sha384-wKOriz2x8/bF1D9t6PuKhSpxfhHeVi9huvyuxJrrShSJpi5+rmRIsM90UuWbdAYJ"
+      crossorigin="anonymous"
+    ></script>
   </head>
-  <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
-    <div id="overlayer"></div>
-    <div class="loader">
-      <div class="spinner-border text-primary" role="status">
-        <span class="sr-only">Loading...</span>
-      </div>
-    </div>
-
-    <div class="site-wrap">
-      <div class="site-mobile-menu site-navbar-target">
-        <div class="site-mobile-menu-header">
-          <div class="site-mobile-menu-close mt-3">
-            <span class="icon-close2 js-menu-toggle"></span>
-          </div>
-        </div>
-        <div class="site-mobile-menu-body"></div>
-      </div>
-
-      <%- include (`partials/header`); -%>
-
-      <div
-        class="site-blocks-cover overlay"
-        style="background-image: url(images/hero_2.jpg)"
-        data-aos="fade"
-        id="home-section"
-      >
+  <body class="personal-banking">
+    <div id="installMain"></div>
+    <header class="header-area">
+      <div class="top-header desktop-ix">
         <div class="container">
-          <div class="row align-items-center justify-content-center">
-            <div class="col-md-10 mt-lg-5 text-center">
-              <div class="single-text owl-carousel">
-                <div class="slide">
-                  <h1 class="text-uppercase" data-aos="fade-up">
-                    Comprehensive Banking Solutions
-                  </h1>
-                  <p class="mb-5 desc" data-aos="fade-up" data-aos-delay="100">
-                    Discover our innovative banking solutions designed to
-                    simplify your financial management. From secure online
-                    banking to seamless mobile apps, we provide tools that make
-                    managing your finances easier than ever.
-                  </p>
-                  <div data-aos="fade-up" data-aos-delay="100">
-                    <a
-                      href="/contact"
-                      target="_blank"
-                      class="btn btn-primary mr-2 mb-2"
-                      >Get In Touch</a
-                    >
-                  </div>
-                </div>
-
-                <div class="slide">
-                  <h1 class="text-uppercase" data-aos="fade-up">
-                    Flexible Financing Solutions
-                  </h1>
-                  <p class="mb-5 desc" data-aos="fade-up" data-aos-delay="100">
-                    Explore our range of financing options tailored to meet your
-                    personal and business needs. Whether you’re looking to
-                    expand, invest, or consolidate debt, we offer competitive
-                    rates and flexible terms to help you achieve your goals.
-                  </p>
-                  <div data-aos="fade-up" data-aos-delay="100">
-                    <a
-                      href="#"
-                      target="_blank"
-                      class="btn btn-primary mr-2 mb-2"
-                      >Get In Touch</a
-                    >
-                  </div>
-                </div>
-
-                <div class="slide">
-                  <h1 class="text-uppercase" data-aos="fade-up">
-                    High-Yield Savings Accounts
-                  </h1>
-                  <p class="mb-5 desc" data-aos="fade-up" data-aos-delay="100">
-                    Secure your future with our high-yield savings accounts.
-                    Enjoy competitive interest rates and flexible terms that
-                    maximize your savings potential, helping you grow your
-                    wealth with confidence.
-                  </p>
-                  <div data-aos="fade-up" data-aos-delay="100">
-                    <a
-                      href="#"
-                      target="_blank"
-                      class="btn btn-primary mr-2 mb-2"
-                      >Get In Touch</a
-                    >
-                  </div>
-                </div>
+          <div class="top-header-flex">
+            <div class="mth-col-lg-9">
+              <div class="header-left-content">
+                <ul class="web-only">
+                  <li class="top-nava nava">eospremierbnk@gmail.com</li>
+                  <li class="top-nava-sep"></li>
+                  <li class="top-nava"><a href="/"></a></li>
+                  <li class="top-nava-sep"></li>
+                  <li class="top-nava">
+                    <a href="/">+123-456-7890</a>
+                  </li>
+                </ul>
               </div>
             </div>
-          </div>
-        </div>
-
-        <a href="#next" class="mouse smoothscroll">
-          <span class="mouse-icon">
-            <span class="mouse-wheel"></span>
-          </span>
-        </a>
-      </div>
-
-      <div class="site-section cta-big-image" id="about-section">
-        <div class="container">
-          <div class="row mb-5 justify-content-center">
-            <div class="col-md-8 text-center">
-              <h2
-                class="section-title mb-3"
-                data-aos="fade-up"
-                data-aos-delay=""
-              >
-                About Us
-              </h2>
-              <p class="lead" data-aos="fade-up" data-aos-delay="100">
-                We learn what matters most by asking you one simple question
-              </p>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-lg-6 mb-5" data-aos="fade-up" data-aos-delay="">
-              <figure class="circle-bg">
-                <img src="images/img_2.jpg" alt="image" class="img-fluid" />
-              </figure>
-            </div>
-            <div
-              class="col-lg-5 ml-auto"
-              data-aos="fade-up"
-              data-aos-delay="100"
-            >
-              <h3 class="text-black mb-4">We Solve Your Financial Problem</h3>
-
-              <p>
-                At EOS PREMIER BANK, we're committed to cultivating a diverse
-                and inclusive workplace and focusing on partnerships that drive
-                change and address critical challenges facing our communities.
-                Creating an inclusive environment starts at the top and extends
-                to all of our company. Our Board, its committees and our CEO
-                play a key role in the oversight of our culture, holding
-                management accountable for ethical and professional conduct and
-                a commitment to being a diverse and inclusive workplace.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="site-section" id="next">
-        <div class="container">
-          <div class="row mb-5">
-            <div
-              class="col-md-4 text-center"
-              data-aos="fade-up"
-              data-aos-delay=""
-            >
-              <img
-                src="images/flaticon-svg/svg/001-wallet.svg"
-                alt="image"
-                class="img-fluid w-25 mb-4"
-              />
-              <h3 class="card-title">Money Savings</h3>
-              <p>
-                My Savings Plan helps savings customers plan, monitor, and save
-                to reach financial goals.
-              </p>
-            </div>
-            <div
-              class="col-md-4 text-center"
-              data-aos="fade-up"
-              data-aos-delay="100"
-            >
-              <img
-                src="images/flaticon-svg/svg/004-cart.svg"
-                alt="image"
-                class="img-fluid w-25 mb-4"
-              />
-              <h3 class="card-title">Online Shoppings</h3>
-              <p>
-                Earn 60,000 bonus points when you spend $4,000 in purchases
-                within the first 3 months
-              </p>
-            </div>
-            <div
-              class="col-md-4 text-center"
-              data-aos="fade-up"
-              data-aos-delay="200"
-            >
-              <img
-                src="images/flaticon-svg/svg/006-credit-card.svg"
-                alt="image"
-                class="img-fluid w-25 mb-4"
-              />
-              <h3 class="card-title">Credit / Debit Cards</h3>
-              <p>
-                Earn 20,000 bonus points when you spend $1,000 in purchases
-                within the first 3 months
-              </p>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-lg-6 mb-5" data-aos="fade-up" data-aos-delay="">
-              <figure class="circle-bg">
-                <img src="images/about_2.jpg" alt="image" class="img-fluid" />
-              </figure>
-            </div>
-            <div
-              class="col-lg-5 ml-auto"
-              data-aos="fade-up"
-              data-aos-delay="100"
-            >
-              <div class="mb-4">
-                <h3 class="h3 mb-4 text-black">
-                  Banking Solutions Is Our Priority
-                </h3>
-                <p>
-                  Our banking solutions are designed with your financial
-                  well-being in mind. We offer a range of innovative products
-                  and services that cater to both personal and business needs,
-                  ensuring you have the tools and support to achieve your
-                  financial goals with ease and confidence.
-                </p>
-              </div>
-
-              <div class="mb-4">
-                <ul class="list-unstyled ul-check success">
-                  <li>Comprehensive Online Banking</li>
-                  <li>Tailored Financial Products</li>
-                  <li>Exceptional Customer Support</li>
+            <div class="mth-col-lg-3">
+              <div class="header-right-content">
+                <ul class="hdr-right-ul">
+                  <li class="sign-on sign-on-li">
+                    <a href="/auth/user/login">
+                      <span>Customer Login</span>
+                    </a>
+                  </li>
                 </ul>
               </div>
             </div>
@@ -271,522 +76,663 @@
         </div>
       </div>
 
-      <section class="site-section">
-        <div class="container">
-          <div class="row mb-5 justify-content-center">
-            <div class="col-md-7 text-center">
-              <h2
-                class="section-title mb-3"
-                data-aos="fade-up"
-                data-aos-delay=""
-              >
-                How It Works
-              </h2>
-              <p class="lead" data-aos="fade-up" data-aos-delay="100">
-                Discover how our seamless process makes managing your finances
-                effortless. From application to approval, and delivery, we’ve
-                streamlined every step for your convenience.
-              </p>
-            </div>
-          </div>
+      <div class="mobile-top-header mobile-ix" style="display: none">
+        <div class="mobile-top-header-inner"></div>
+      </div>
 
-          <div class="row align-items-lg-center">
-            <div class="col-lg-6 mb-5" data-aos="fade-up" data-aos-delay="">
-              <div class="owl-carousel slide-one-item-alt">
+      <div class="navbar-area">
+        <div class="luvion-nav desktop-ix">
+          <div class="container">
+            <nav class="navbar navbar-expand-md navbar-light">
+              <a class="navbar-brand" href="/">
                 <img
-                  src="images/application.jpg"
-                  alt="Image"
-                  class="img-fluid"
+                  src="images/logo.png"
+                  style="width: 245px; height: auto"
+                  alt="logo"
                 />
-                <img src="images/img_2.jpg" alt="Image" class="img-fluid" />
-                <img
-                  src="images/Credit_Card.jpg"
-                  alt="Image"
-                  class="img-fluid"
-                />
+              </a>
+              <div
+                class="collapse navbar-collapse mean-menu"
+                id="navbarSupportedContent"
+              >
+                <ul class="navbar-nav">
+                  <li class="nav-item web-version checking-nav is-drop">
+                    <a href="javascript:void(0)" class="nav-link text-center"
+                      ><div class="nav-name-txt">Checking</div>
+                      <div class="nav-name-icon">
+                        <i class="fas fa-chevron-down"></i></div
+                    ></a>
+                  </li>
+
+                  <li class="nav-item web-version savings-nav is-drop">
+                    <a href="javascript:void(0)" class="nav-link text-center"
+                      ><div class="nav-name-txt">Savings</div>
+                      <div class="nav-name-icon">
+                        <i class="fas fa-chevron-down"></i></div
+                    ></a>
+                  </li>
+
+                  <li class="nav-item web-version credit-nav is-drop">
+                    <a href="javascript:void(0)" class="nav-link text-center"
+                      ><div class="nav-name-txt">Credit Cards</div>
+                      <div class="nav-name-icon">
+                        <i class="fas fa-chevron-down"></i></div
+                    ></a>
+                  </li>
+
+                  <li class="nav-item web-version loans-nav is-drop">
+                    <a href="javascript:void(0)" class="nav-link text-center"
+                      ><div class="nav-name-txt">Home Loans</div>
+                      <div class="nav-name-icon">
+                        <i class="fas fa-chevron-down"></i></div
+                    ></a>
+                  </li>
+
+                  <li class="nav-item web-version invest-nav is-drop">
+                    <a href="javascript:void(0)" class="nav-link text-center"
+                      ><div class="nav-name-txt">Investing</div>
+                      <div class="nav-name-icon">
+                        <i class="fas fa-chevron-down"></i></div
+                    ></a>
+                  </li>
+                </ul>
               </div>
-              <div class="custom-direction">
-                <a href="#" class="custom-prev"
-                  ><span><span class="icon-keyboard_backspace"></span></span></a
-                ><a href="#" class="custom-next"
-                  ><span><span class="icon-keyboard_backspace"></span></span
-                ></a>
+            </nav>
+          </div>
+        </div>
+
+        <div class="mobile-header mobile-ix" style="display: none">
+          <div class="mobile-header-inner">
+            <div class="mobile-logo-col">
+              <div class="mobile-logo-content">
+                <a class="m-navbar-brand" href="/">
+                  <img
+                    src="images/logo.png"
+                    style="width: 150px; height: auto"
+                    alt="logo"
+                  />
+                </a>
               </div>
             </div>
-            <div
-              class="col-lg-5 ml-auto"
-              data-aos="fade-up"
-              data-aos-delay="100"
-            >
-              <div class="owl-carousel slide-one-item-alt-text">
-                <div>
-                  <h2 class="section-title mb-3">01. Online Applications</h2>
-                  <p>
-                    Start your journey with our simple and secure online
-                    application process. Complete the form in minutes, and get
-                    real-time updates on your application's status.
-                  </p>
 
-                  <p>
-                    <a href="#" class="btn btn-primary mr-2 mb-2"
-                      >Start Application</a
-                    >
-                  </p>
-                </div>
-                <div>
-                  <h2 class="section-title mb-3">02. Get an approval</h2>
-                  <p>
-                    Receive an instant decision on your application. Our
-                    advanced system evaluates your information quickly,
-                    providing you with immediate feedback and next steps.
-                  </p>
-                  <p>
-                    <a href="#" class="btn btn-primary mr-2 mb-2"
-                      >Check Eligibility</a
-                    >
-                  </p>
-                </div>
-                <div>
-                  <h2 class="section-title mb-3">03. Card delivery</h2>
-                  <p>
-                    Enjoy the convenience of fast delivery for your new card or
-                    account information. We ensure prompt dispatch so you can
-                    start using your new services without delay.
-                  </p>
-
-                  <p>
-                    <a href="#" class="btn btn-primary mr-2 mb-2"
-                      >Track Your Delivery</a
-                    >
-                  </p>
+            <div class="mobile-nav-col">
+              <div class="mobile-navigation">
+                <div class="m-navi-item">
+                  <a href="#" class="m-navi-item-link">
+                    <span class="m-navi-item-link-icon">
+                      <svg
+                        version="1.0"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        viewbox="0 0 512.000000 512.000000"
+                        preserveaspectratio="xMidYMid meet"
+                      >
+                        <g
+                          transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
+                          fill="currentColor"
+                          stroke="none"
+                        >
+                          <path
+                            d="M3026 4668 c-36 -31 -51 -123 -41 -252 7 -93 8 -97 39 -121 l32 -24 599 -3 c588 -3 601 -4 666 -26 168 -56 305 -197 351 -361 17 -62 18 -135 18 -1321 0 -1186 -1 -1259 -18 -1321 -46 -164 -183 -305 -351 -361 -64 -22 -82 -22 -671 -28 -333 -3 -611 -9 -618 -13 -38 -25 -58 -138 -47 -268 6 -71 11 -83 37 -110 l30 -30 642 4 c701 4 679 2 834 66 148 61 319 199 418 337 57 79 118 209 146 309 l22 80 4 1285 c3 1379 3 1387 -47 1533 -85 247 -303 479 -543 578 -155 64 -133 62 -834 66 l-642 4 -26 -23z"
+                          ></path>
+                          <path
+                            d="M1874 4581 c-50 -13 -103 -50 -132 -94 l-27 -41 -5 -515 -5 -516 -780 -5 c-709 -5 -783 -7 -811 -22 -44 -24 -91 -81 -103 -125 -15 -52 -15 -1354 0 -1406 12 -44 59 -101 103 -125 28 -15 102 -17 811 -22 l780 -5 5 -516 5 -515 27 -42 c62 -92 188 -124 279 -69 57 33 1881 1861 1905 1907 10 21 17 57 17 90 0 33 -7 69 -17 90 -23 45 -1848 1874 -1901 1905 -46 27 -106 37 -151 26z"
+                          ></path>
+                        </g>
+                      </svg>
+                    </span>
+                    <span class="m-navi-item-link-txt">Sign In</span>
+                  </a>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </section>
 
-      <section
-        class="site-section border-bottom bg-light"
-        id="services-section"
-      >
-        <div class="container">
-          <div class="row mb-5">
-            <div class="col-12 text-center" data-aos="fade">
-              <h2 class="section-title mb-3">Our Services</h2>
-            </div>
-          </div>
-          <div class="row align-items-stretch">
-            <div class="col-md-6 col-lg-4 mb-4 mb-lg-4" data-aos="fade-up">
-              <div class="unit-4">
-                <div class="unit-4-icon">
-                  <img
-                    src="images/flaticon-svg/svg/001-wallet.svg"
-                    alt="image"
-                    class="img-fluid w-25 mb-4"
-                  />
-                </div>
-                <div>
-                  <h3>Business Consulting</h3>
-                  <p>
-                    Access funds for growth, cash flow or commercial real
-                    estate.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div
-              class="col-md-6 col-lg-4 mb-4 mb-lg-4"
-              data-aos="fade-up"
-              data-aos-delay="100"
-            >
-              <div class="unit-4">
-                <div class="unit-4-icon">
-                  <img
-                    src="images/flaticon-svg/svg/006-credit-card.svg"
-                    alt="image"
-                    class="img-fluid w-25 mb-4"
-                  />
-                </div>
-                <div>
-                  <h3>Credit Card</h3>
-                  <p>
-                    Earn 10,000 bonus points when you spend $5000 in purchases
-                    within the first 2 months
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div
-              class="col-md-6 col-lg-4 mb-4 mb-lg-4"
-              data-aos="fade-up"
-              data-aos-delay="200"
-            >
-              <div class="unit-4">
-                <div class="unit-4-icon">
-                  <img
-                    src="images/flaticon-svg/svg/002-rich.svg"
-                    alt="image"
-                    class="img-fluid w-25 mb-4"
-                  />
-                </div>
-                <div>
-                  <h3>Income Monitoring</h3>
-                  <p>
-                    Discover how to start saving to meet your retirement goals
-                  </p>
-                </div>
-              </div>
-            </div>
+        <div class="mobile-menu-background"></div>
+      </div>
+    </header>
+    <div class="slideshow-container">
+      <div class="mySlides s-fade">
+        <img
+          src="images/slide1.jpg"
+          class="master-slider-img"
+          style="width: 100%"
+        />
 
-            <div
-              class="col-md-6 col-lg-4 mb-4 mb-lg-4"
-              data-aos="fade-up"
-              data-aos-delay=""
-            >
-              <div class="unit-4">
-                <div class="unit-4-icon">
-                  <img
-                    src="images/flaticon-svg/svg/003-notes.svg"
-                    alt="image"
-                    class="img-fluid w-25 mb-4"
-                  />
-                </div>
-                <div>
-                  <h3>Insurance Consulting</h3>
-                  <p>
-                    Our insurance consulting services offer tailored solutions
-                    to protect what matters most to you.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div
-              class="col-md-6 col-lg-4 mb-4 mb-lg-4"
-              data-aos="fade-up"
-              data-aos-delay="100"
-            >
-              <div class="unit-4">
-                <div class="unit-4-icon">
-                  <img
-                    src="images/flaticon-svg/svg/004-cart.svg"
-                    alt="image"
-                    class="img-fluid w-25 mb-4"
-                  />
-                </div>
-                <div>
-                  <h3>Financial Investment</h3>
-                  <p>
-                    Our strategic financial investment solutions are designed to
-                    help you achieve your financial goals with confidence.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div
-              class="col-md-6 col-lg-4 mb-4 mb-lg-4"
-              data-aos="fade-up"
-              data-aos-delay="200"
-            >
-              <div class="unit-4">
-                <div class="unit-4-icon">
-                  <img
-                    src="images/flaticon-svg/svg/005-megaphone.svg"
-                    alt="image"
-                    class="img-fluid w-25 mb-4"
-                  />
-                </div>
-                <div>
-                  <h3>Financial Management</h3>
-                  <p>
-                    Our comprehensive financial management solutions empower you
-                    to take control of your finances and achieve your financial
-                    objectives.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section
-        class="site-section testimonial-wrap"
-        id="testimonials-section"
-        data-aos="fade"
-      >
-        <div class="container">
-          <div class="row mb-5">
-            <div class="col-12 text-center">
-              <h2 class="section-title mb-3">Happy Customers</h2>
-            </div>
-          </div>
-        </div>
-        <div class="slide-one-item home-slider owl-carousel">
-          <div>
-            <div class="testimonial">
-              <blockquote class="mb-5">
-                <p style="font-size: 18px !important">
-                  "I've been using their services for years, and I couldn't be
-                  happier. Their expertise and dedication have helped me achieve
-                  my financial goals with ease."
-                </p>
-              </blockquote>
-
-              <figure
-                class="mb-4 d-flex align-items-center justify-content-center"
-              >
-                <div>
-                  <img
-                    src="images/person_1.jpg"
-                    alt="Image"
-                    class="w-50 img-fluid mb-3"
-                  />
-                </div>
-                <p>John Smith</p>
-              </figure>
-            </div>
-          </div>
-          <div>
-            <div class="testimonial">
-              <blockquote class="mb-5">
-                <p style="font-size: 18px !important">
-                  "Their personalized approach and attention to detail have made
-                  a significant difference in managing my finances. I highly
-                  recommend their services to anyone looking for reliable
-                  financial advice."
-                </p>
-              </blockquote>
-              <figure
-                class="mb-4 d-flex align-items-center justify-content-center"
-              >
-                <div>
-                  <img
-                    src="images/person_2.jpg"
-                    alt="Image"
-                    class="w-50 img-fluid mb-3"
-                  />
-                </div>
-                <p>Christine Aguilar</p>
-              </figure>
-            </div>
-          </div>
-
-          <div>
-            <div class="testimonial">
-              <blockquote class="mb-5">
-                <p style="font-size: 18px !important">
-                  "I've been impressed by their professionalism and commitment
-                  to helping me navigate complex financial decisions. Thanks to
-                  their guidance, I feel more confident about my financial
-                  future."
-                </p>
-              </blockquote>
-              <figure
-                class="mb-4 d-flex align-items-center justify-content-center"
-              >
-                <div>
-                  <img
-                    src="images/person_3.jpg"
-                    alt="Image"
-                    class="w-50 img-fluid mb-3"
-                  />
-                </div>
-                <p>Robert Spears</p>
-              </figure>
-            </div>
-          </div>
-
-          <div>
-            <div class="testimonial">
-              <blockquote class="mb-5">
-                <p style="font-size: 18px !important">
-                  "Their team goes above and beyond to provide exceptional
-                  service and valuable insights. I'm grateful for their
-                  expertise in helping me make informed financial decisions."
-                </p>
-              </blockquote>
-              <figure
-                class="mb-4 d-flex align-items-center justify-content-center"
-              >
-                <div>
-                  <img
-                    src="images/person_1.jpg"
-                    alt="Image"
-                    class="w-50 img-fluid mb-3"
-                  />
-                </div>
-                <p>Bruce Rogers</p>
-              </figure>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="site-section" id="about-section">
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-6 mb-5" data-aos="fade-up" data-aos-delay="">
-              <figure class="circle-bg">
-                <img src="images/hero_2.jpg" alt="image" class="img-fluid" />
-              </figure>
-            </div>
-            <div
-              class="col-lg-5 ml-auto"
-              data-aos="fade-up"
-              data-aos-delay="100"
-            >
+        <div class="Slider-caption-container m-is-hidden">
+          <div class="container">
+            <div class="sl-caption-content sl-index-cover">
               <div class="row">
-                <div class="col-12 mb-4" data-aos="fade-up" data-aos-delay="">
-                  <div class="unit-4 d-flex">
-                    <div class="unit-4-icon mr-4 mb-3">
-                      <span class="text-primary flaticon-head"></span>
-                    </div>
-                    <div>
-                      <h3>Bank Loan</h3>
-                      <p>
-                        Need financial support to achieve your dreams? Our
-                        flexible bank loan options offer competitive rates and
-                        tailored solutions to suit your needs.
-                      </p>
-                    </div>
-                  </div>
+                <div class="col-4">
+                  <div class="sl-side-holder"></div>
                 </div>
-                <div
-                  class="col-12 mb-4"
-                  data-aos="fade-up"
-                  data-aos-delay="100"
-                >
-                  <div class="unit-4 d-flex">
-                    <div class="unit-4-icon mr-4 mb-3">
-                      <span class="text-primary flaticon-smartphone"></span>
-                    </div>
-                    <div>
-                      <h3>Banking Consulation</h3>
-                      <p>
-                        Confused about financial matters? Our expert banking
-                        consultants provide personalized guidance to navigate
-                        the complexities of banking and finance.
-                      </p>
-                    </div>
-                  </div>
-                </div>
+
+                <div class="col-8"></div>
               </div>
             </div>
           </div>
         </div>
-      </section>
+      </div>
 
-      <section
-        class="site-section bg-light"
-        id="contact-section"
-        data-aos="fade"
-      >
+      <div class="mySlides s-fade" style="display: none">
+        <img
+          src="images/slide2.jpg"
+          class="master-slider-img"
+          style="width: 100%"
+        />
+
+        <div class="Slider-caption-container m-is-hidden">
+          <div class="container">
+            <div class="sl-caption-content sl-index-cover">
+              <div class="row">
+                <div class="col-4">
+                  <div class="sl-side-holder"></div>
+                </div>
+
+                <div class="col-8"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="Slider-caption-container cover-action-form">
         <div class="container">
-          <div class="row mb-5">
-            <div class="col-12 text-center">
-              <h2 class="section-title mb-3">Contact Us</h2>
+          <div class="sl-caption-content sl-index-cover m-is-hidden">
+            <div class="row">
+              <div class="col-4">
+                <div class="cover-log-form-wrapper">
+                  <div class="cover-log-form">
+                    <div class="cover-log-form-inner"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-8">
+                <div class="mt-cover-caption">
+                  <div class="mt-cover-caption-inner">
+                    <div class="web-sl-cation capt-is-flex-end">
+                      <div class="web-sl-cation-inner">
+                        <div class="web-sl-cation-row">
+                          <div class="web-sl-cation-box">
+                            <div class="web-sl-cation-box-inner">
+                              <div class="web-sl-cation-box-content">
+                                <span class="web-sl-ctn-box-cns-txt"
+                                  >- Business Checking</span
+                                >
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="web-sl-cation-row">
+                          <div class="web-sl-cation-box">
+                            <div class="web-sl-cation-box-inner">
+                              <div class="web-sl-cation-box-content">
+                                <span class="web-sl-ctn-box-cns-txt"
+                                  >- Savings Account</span
+                                >
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="web-sl-cation-row">
+                          <div class="web-sl-cation-box">
+                            <div class="web-sl-cation-box-inner">
+                              <div class="web-sl-cation-box-content">
+                                <span class="web-sl-ctn-box-cns-txt"
+                                  >- Credit Cards</span
+                                >
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="web-sl-cation-row">
+                          <div class="web-sl-cation-box">
+                            <div class="web-sl-cation-box-inner">
+                              <div class="web-sl-cation-box-content">
+                                <span class="web-sl-ctn-box-cns-txt"
+                                  >- Home Loans</span
+                                >
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div class="row">
-            <div class="col-md-12 mb-5">
-              <form
-                id="contactForm"
-                action="/contactPagePost"
-                method="post"
-                class="p-5 bg-white"
-              >
-                <h2 class="h4 text-black mb-5">Contact Form</h2>
-
-                <div class="row form-group">
-                  <div class="col-md-6 mb-3 mb-md-0">
-                    <label class="text-black" for="fname">First Name</label>
-                    <input
-                      type="text"
-                      id="fname"
-                      name="firstName"
-                      class="form-control"
-                    />
-                    <div id="firstNameError" class="error"></div>
-                  </div>
-                  <div class="col-md-6">
-                    <label class="text-black" for="lname">Last Name</label>
-                    <input
-                      type="text"
-                      id="lname"
-                      name="lastName"
-                      class="form-control"
-                    />
-                    <div id="lastNameError" class="error"></div>
+          <div class="mobile-sl-cation desk-is-hidden">
+            <div class="mobile-sl-cation-inner">
+              <div class="m-sl-cation-row">
+                <div class="m-sl-cation-box">
+                  <div class="m-sl-cation-box-inner">
+                    <div class="m-sl-cation-box-content">
+                      <span class="m-sl-ctn-box-cns-txt"
+                        >- Business Checking</span
+                      >
+                    </div>
                   </div>
                 </div>
+              </div>
 
-                <div class="row form-group">
-                  <div class="col-md-12">
-                    <label class="text-black" for="email">Email</label>
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      class="form-control"
-                    />
-                    <div id="emailError" class="error"></div>
+              <div class="m-sl-cation-row">
+                <div class="m-sl-cation-box">
+                  <div class="m-sl-cation-box-inner">
+                    <div class="m-sl-cation-box-content">
+                      <span class="m-sl-ctn-box-cns-txt"
+                        >- Savings Account</span
+                      >
+                    </div>
                   </div>
                 </div>
+              </div>
 
-                <div class="row form-group">
-                  <div class="col-md-12">
-                    <label class="text-black" for="subject">Subject</label>
-                    <input
-                      type="text"
-                      id="subject"
-                      name="subject"
-                      class="form-control"
-                    />
-                    <div id="subjectError" class="error"></div>
+              <div class="m-sl-cation-row">
+                <div class="m-sl-cation-box">
+                  <div class="m-sl-cation-box-inner">
+                    <div class="m-sl-cation-box-content">
+                      <span class="m-sl-ctn-box-cns-txt">- Credit Cards</span>
+                    </div>
                   </div>
                 </div>
+              </div>
 
-                <div class="row form-group">
-                  <div class="col-md-12">
-                    <label class="text-black" for="message">Message</label>
-                    <textarea
-                      name="message"
-                      id="message"
-                      name="message"
-                      cols="30"
-                      rows="6"
-                      maxlength="250"
-                      class="form-control"
-                      placeholder="Please enter your message..."
-                    ></textarea>
-                    <div id="messageError" class="error"></div>
+              <div class="m-sl-cation-row">
+                <div class="m-sl-cation-box">
+                  <div class="m-sl-cation-box-inner">
+                    <div class="m-sl-cation-box-content">
+                      <span class="m-sl-ctn-box-cns-txt">- Home Loans</span>
+                    </div>
                   </div>
                 </div>
-
-                <div class="row form-group">
-                  <div class="col-md-12">
-                    <button
-                      class="btn btn-primary py-2 px-4"
-                      type="submit"
-                      id="sendMessageButton"
-                    >
-                      Send Message
-                    </button>
-                  </div>
-                </div>
-              </form>
-              <div id="thankYouMessage" style="display: none">
-                Thank you, your message has been sent. A member of our team will
-                get back to you shortly.
               </div>
             </div>
           </div>
         </div>
-      </section>
-      <%- include (`partials/footer`); -%>
+      </div>
     </div>
-    <!-- .site-wrap -->
+
+    <section class="featured-boxes-area">
+      <div class="container">
+        <div class="featured-boxes-inner">
+          <div class="row m-0">
+            <div class="col-lg-3 col-sm-6 col-md-6 p-0">
+              <div class="single-featured-box">
+                <div class="featured-box-image">
+                  <img
+                    src="images/icons-piggy-bank-small.png"
+                    class="featured-box-img"
+                  />
+                </div>
+                <h3>Better Savings</h3>
+                <p>
+                  What is the best savings account to save money? Our easy
+                  savings account gives you access.
+                </p>
+              </div>
+            </div>
+
+            <div class="col-lg-3 col-sm-6 col-md-6 p-0">
+              <div class="single-featured-box">
+                <div class="featured-box-image">
+                  <img
+                    src="images/icons-app-wallet.png"
+                    class="featured-box-img"
+                  />
+                </div>
+                <h3>Fully Encrypted</h3>
+                <p>
+                  Fully encrypted virtual wallet and mobile banking apps for
+                  easy transactions.
+                </p>
+              </div>
+            </div>
+
+            <div class="col-lg-3 col-sm-6 col-md-6 p-0">
+              <div class="single-featured-box">
+                <div class="featured-box-image">
+                  <img
+                    src="images/icons-credit-card.png"
+                    class="featured-box-img"
+                  />
+                </div>
+                <h3>Credit/ Debit Cards</h3>
+                <p>
+                  With your debit cards, you have complete access to your money
+                  from any at anytime.
+                </p>
+              </div>
+            </div>
+
+            <div class="col-lg-3 col-sm-6 col-md-6 p-0">
+              <div class="single-featured-box">
+                <div class="featured-box-image">
+                  <img
+                    src="images/icons-security-now.png"
+                    class="featured-box-img"
+                  />
+                </div>
+                <h3>Secure and Easy</h3>
+                <p>
+                  Easy online and mobile banking expirience, secure for all our
+                  digital platform.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-tab-container mt-bp-40">
+          <div class="mt-tab-body">
+            <div class="mt-tab-body-content mt-xtab-one">
+              <div class="row gx-5">
+                <div class="col-lg-6">
+                  <div class="about-img-wrap">
+                    <img src="images/sec2.png" class="about-img" />
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="about-content mt-go-right">
+                    <div class="content-title style1">
+                      <h2>
+                        The Better Way To Save &amp; Invest Online Banking
+                      </h2>
+                      <p>
+                        A way to carry your credit and debit card information in
+                        a secure digital form on your mobile device (smartphone,
+                        smartwatch, tablet). Instead of using your physical
+                        plastic card to make purchases, a digital wallet allows
+                        you to pay in stores, in apps, or online.
+                      </p>
+                    </div>
+                    <ul
+                      class="content-feature-list style1 list-style smart-background-list"
+                    >
+                      <li>
+                        Cards that work all across the world
+                        <span><i class="flaticon-tick"></i></span>
+                      </li>
+                      <li>
+                        Highest Returns on your investments<span
+                          ><i class="flaticon-tick"></i
+                        ></span>
+                      </li>
+                      <li>
+                        No ATM fees. No minimum balance<span
+                          ><i class="flaticon-tick"></i
+                        ></span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="conner-box-section has-m-config mt-bp-40">
+          <div class="conner-box-section-inner">
+            <div class="mt-center-content">
+              <div class="sec-title">
+                <h2 class="title mb-0">Our Banking Services</h2>
+              </div>
+
+              <div>
+                Discover the tools and services we offer to help your business
+                grow.
+              </div>
+            </div>
+
+            <div class="row mt-40">
+              <div class="col-4">
+                <div class="case-block">
+                  <div class="mt-noflex">
+                    <div class="case-box-imgs">
+                      <img src="images/tab1.jpg" alt="case" />
+                    </div>
+                    <div class="case-box-desc">
+                      <div class="case-block-inner">
+                        <h4>Treasury Management</h4>
+                        <p>
+                          Innovative treasury management solutions help you
+                          accelerate receivables, optimize payables &amp;
+                          maximize performance.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="case-block">
+                  <div class="mt-noflex">
+                    <div class="case-box-imgs">
+                      <img src="images/tab2.jpg" alt="case" />
+                    </div>
+                    <div class="case-box-desc">
+                      <div class="case-block-inner">
+                        <h4>Institutional Asset Management</h4>
+                        <p>
+                          Solutions for retirement planning, endowments,
+                          foundations, and other institutional investors and
+                          more..
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="case-block">
+                  <div class="mt-noflex">
+                    <div class="case-box-imgs">
+                      <img src="images/tab3.jpg" alt="case" />
+                    </div>
+                    <div class="case-box-desc">
+                      <div class="case-block-inner">
+                        <h4>Advisory Businesses</h4>
+                        <p>
+                          Discover and execute the right strategic options
+                          through these OceanFirst-IB business strategic
+                          advisory.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="services-area mt-rippo-service">
+      <div id="rs-about" class="rs-about style1 bg1 md-pt-80">
+        <div class="container">
+          <div class="row y-bottom">
+            <div
+              class="col-lg-6 md-pt-42 md-pb-72 mt-has-rt-border m-is-hidden"
+            >
+              <div class="sec-title mb-30 md-mb-42">
+                <h2 class="y-bott-istile title mb-0">
+                  Financial Literacy, What It Is and Why It’s So Important
+                </h2>
+              </div>
+              <div class="services-part mb-30">
+                <div class="services-icon">
+                  <img src="images/img-one.png" alt="image" />
+                </div>
+                <div class="services-text">
+                  <h4 class="title">The ability to identify market-entry</h4>
+                  <div class="desc">
+                    There are a variety of ways in which a company can enter a
+                    foreign market.
+                  </div>
+                </div>
+              </div>
+              <div class="services-part">
+                <div class="services-icon">
+                  <img src="images/img-two.png" alt="image" />
+                </div>
+                <div class="services-text">
+                  <h4 class="title">Ensure to increase of expected sales</h4>
+                  <div class="desc">
+                    Direct exporting is selling directly into the market you
+                    have chosen using in the first instance you own resources.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 padding-0">
+              <img src="images/sec4.png" class="mt-ripp-img" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="services-area has-m-config mt-tp-40 mt-b4-footer">
+      <div class="container">
+        <div class="mt-center-content m-is-hidden">
+          <div class="sec-title">
+            <h2 class="title mb-0">Guidance To Help You Reach Your Goals</h2>
+          </div>
+
+          <div>
+            Accounts and services that help make it easier to manage your money.
+          </div>
+        </div>
+
+        <div class="row mt-40">
+          <div class="col-4">
+            <div class="case-block">
+              <div class="mt-noflex">
+                <div class="case-box-imgs">
+                  <img src="images/bas1.jpg" alt="case" />
+                </div>
+                <div class="case-box-desc">
+                  <div class="case-block-inner">
+                    <h4>Digital Wallets</h4>
+                    <p>
+                      You can also access any ATM when you add your
+                      OceanFirst-IB Debit or SmartPay Card to your digital
+                      wallet.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="case-block">
+              <div class="mt-noflex">
+                <div class="case-box-imgs">
+                  <img src="images/bas2.png" alt="case" />
+                </div>
+                <div class="case-box-desc">
+                  <div class="case-block-inner">
+                    <h4>Introducing VirtualWealth</h4>
+                    <p>
+                      Thanks to advances in technology, saving and investing are
+                      more convenient than ever, A simple digital investing
+                      service..
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="case-block">
+              <div class="mt-noflex">
+                <div class="case-box-imgs">
+                  <img src="images/bas3.jpg" alt="case" />
+                </div>
+                <div class="case-box-desc">
+                  <div class="case-block-inner">
+                    <h4>Looking At The Big Picture</h4>
+                    <p>
+                      When you come across ads, or even some articles, about
+                      Financial Planning, it can seem like it’s all about
+                      investments.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="go-top"><i class="fas fa-arrow-up"></i></div>
+
+    <footer class="footer" id="footer">
+      <div class="copyright">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-6 col-md-12">
+              <div class="copyright-info">
+                <span>Copyright ©2024 EOS Premier Bank</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script src="js/js-jquery.min.js"></script>
+    <script src="js/js-bootstrap.bundle.min.js"></script>
+    <script src="js/js-meanmenu.js"></script>
+    <script src="js/js-slick.min.js"></script>
+    <script src="js/js-magnific-popup.min.js"></script>
+    <script src="js/js-appear.min.js"></script>
+    <script src="js/js-odometer.min.js"></script>
+    <script src="js/js-owl.carousel.min.js"></script>
+    <script src="js/js-parallax.min.js"></script>
+    <script src="js/js-wow.min.js"></script>
+    <script src="js/js-form-validator.min.js"></script>
+    <script src="js/js-contact-form-script.js"></script>
+    <script src="js/js-main.js"></script>
+
+    <script>
+      var slideIndex = 0;
+
+      showSlides(slideIndex);
+
+      function plusSlides(n) {
+        showSlides((slideIndex += n));
+      }
+
+      function showSlides(n) {
+        var i;
+        var slides = document.getElementsByClassName('mySlides');
+        if (n > slides.length) {
+          slideIndex = 1;
+        }
+        if (n < 1) {
+          slideIndex = slides.length;
+        }
+        for (i = 0; i < slides.length; i++) {
+          slides[i].style.display = 'none';
+        }
+        slideIndex++;
+        if (slideIndex > slides.length) {
+          slideIndex = 1;
+        }
+        slides[slideIndex - 1].style.display = 'block';
+        setTimeout(showSlides, 10000); // Change image every specified seconds
+      }
+    </script>
   </body>
 </html>
