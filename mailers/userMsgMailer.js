@@ -1,6 +1,6 @@
 const nodemailer = require(`nodemailer`);
-const logger = require('../../logger/logger');
-const config = require('../../src/configs/customEnvVariables');
+const logger = require('../logger/logger');
+const config = require('../configs/customEnvVariables');
 
 // Send email to the applicant
 const transporter = nodemailer.createTransport({

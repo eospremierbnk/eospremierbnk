@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-const logger = require('../../../logger/logger');
-const config = require('../../../src/configs/customEnvVariables');
+const logger = require('../../logger/logger');
+const config = require('../../configs/customEnvVariables');
 
 async function connectAndStartServer(server) {
   try {

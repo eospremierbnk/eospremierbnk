@@ -4,8 +4,8 @@ const { Admin } = require('../models');
 const { adminSchema } = require('../validations');
 const { tryCatch } = require('../middlewares');
 const APIError = require('../errorHandlers/apiError');
-const logger = require('../../logger/logger');
-const config = require('../../src/configs/customEnvVariables');
+const logger = require('../logger/logger');
+const config = require('../configs/customEnvVariables');
 const { sanitizeInput, sanitizeObject } = require('../utils');
 
 // register controller

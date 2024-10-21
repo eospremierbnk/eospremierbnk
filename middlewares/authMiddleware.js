@@ -1,8 +1,8 @@
 'use strict';
-//get ID of the user that sign in
+
 const { User, Admin } = require('../models');
-const APIError = require('../../src/errorHandlers/apiError');
-const logger = require('../../logger/logger');
+const APIError = require('../errorHandlers/apiError');
+const logger = require('../logger/logger');
 
 const tryCatch = (fn) => (req, res, next) => {
   Promise.resolve(fn(req, res, next)).catch(next);

@@ -4,8 +4,8 @@ const crypto = require('crypto');
 const { User } = require('../models');
 const { tryCatch } = require('../middlewares');
 const APIError = require('../errorHandlers/apiError');
-const logger = require('../../logger/logger');
-const config = require('../../src/configs/customEnvVariables');
+const logger = require('../logger/logger');
+const config = require('../configs/customEnvVariables');
 const { sanitizeInput, sanitizeObject } = require('../utils');
 const {
   sendLoginNotification,
@@ -68,12 +68,10 @@ const resetPasswordPost = tryCatch(async (req, res) => {
   const { resetToken } = req.params;
 
   if (password.length < 6) {
-    return res
-      .status(400)
-      .json({
-        success: false,
-        message: 'Password must be at least 6 characters.',
-      });
+    return res.status(400).json({
+      success: false,
+      message: 'Password must be at least 6 characters.',
+    });
   }
 
   if (password !== confirmPassword) {
@@ -108,12 +106,10 @@ const resetPasswordPost = tryCatch(async (req, res) => {
   // Send reset confirmation email
   await resetPasswordMsg(user);
 
-  return res
-    .status(200)
-    .json({
-      success: true,
-      message: 'Password reset successfully. Please log in.',
-    });
+  return res.status(200).json({
+    success: true,
+    message: 'Password reset successfully. Please log in.',
+  });
 });
 
 const userLogin = (req, res) => {

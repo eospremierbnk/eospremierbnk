@@ -1,6 +1,6 @@
 const nodemailer = require(`nodemailer`);
-const logger = require('../../logger/logger');
-const config = require('../../src/configs/customEnvVariables');
+const logger = require('../logger/logger');
+const config = require('../configs/customEnvVariables');
 
 const transporter = nodemailer.createTransport({
   service: config.mailerService,
@@ -13,7 +13,6 @@ const transporter = nodemailer.createTransport({
 const phoneNumber = config.companyNumber;
 const emailAddress = config.companyEmail;
 
-//Register admin
 const sendAccountStatusUpdateNotification = async (user) => {
   const verifiedMsg = `
      <p><img src="cid:logo" alt="logo" style="width: 100%; max-width: 600px; height: auto;"/></p><br>

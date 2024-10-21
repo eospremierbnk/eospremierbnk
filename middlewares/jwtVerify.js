@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
-const config = require('../../src/configs/customEnvVariables');
+const config = require('../configs/customEnvVariables');
 const { Blacklist } = require('../models');
-const logger = require('../../logger/logger');
+const logger = require('../logger/logger');
 
 // verifyUserToken middleware
 const verifyUserToken = async (req, res, next) => {

@@ -5,14 +5,14 @@ if (process.env.NODE_ENV === 'development') {
   dotenv.config({ path: '.env.prod' });
 }
 
-const config = require('./src/configs/customEnvVariables');
+const config = require('./configs/customEnvVariables');
 const express = require('express');
-const connectAndStartServer = require('./src/configs/database/connection');
+const connectAndStartServer = require('./configs/database/connection');
 const cors = require('cors');
 const morgan = require('morgan');
-const globalErrorHandler = require('./src/errorHandlers/globalErrorHandler');
-const middleware = require('./src/middlewares/expressMiddlewares');
-const routes = require('./src/routes');
+const globalErrorHandler = require('./errorHandlers/globalErrorHandler');
+const middleware = require('./middlewares/expressMiddlewares');
+const routes = require('./routes');
 
 const app = express();
 
