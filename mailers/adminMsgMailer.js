@@ -34,8 +34,8 @@ const sendAccountStatusUpdateNotification = async (user) => {
     html: verifiedMsg,
     attachments: [
       {
-        filename: 'logo.jpg',
-        path: './src/public/images/logo.jpg',
+        filename: 'logo.png',
+        path: './public/images/logo.png',
         cid: 'logo',
       },
     ],
@@ -80,8 +80,8 @@ const updateAdminProfileMsg = async (admin) => {
     html: updateProfile,
     attachments: [
       {
-        filename: 'logo.jpg',
-        path: './src/public/images/logo.jpg',
+        filename: 'logo.png',
+        path: './public/images/logo.png',
         cid: 'logo',
       },
     ],

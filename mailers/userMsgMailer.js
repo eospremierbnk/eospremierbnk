@@ -41,8 +41,8 @@ const contactQueriesMsg = async (newContactUs) => {
     html: msg,
     attachments: [
       {
-        filename: 'logo.jpg',
-        path: './src/public/images/logo.jpg',
+        filename: 'logo.png',
+        path: './public/images/logo.png',
         cid: 'logo',
       },
     ],
@@ -88,8 +88,8 @@ const updateUserProfileMsg = async (user) => {
     html: updateProfile,
     attachments: [
       {
-        filename: 'logo.jpg',
-        path: './src/public/images/logo.jpg',
+        filename: 'logo.png',
+        path: './public/images/logo.png',
         cid: 'logo',
       },
     ],
@@ -124,8 +124,8 @@ const sendOTPByEmail = async (user, OTP) => {
     html: sendingOtp,
     attachments: [
       {
-        filename: 'logo.jpg',
-        path: './src/public/images/logo.jpg',
+        filename: 'logo.png',
+        path: './public/images/logo.png',
         cid: 'logo',
       },
     ],
@@ -171,8 +171,8 @@ const addBeneficiaryMsg = async (user) => {
     html: addBen,
     attachments: [
       {
-        filename: 'logo.jpg',
-        path: './src/public/images/logo.jpg',
+        filename: 'logo.png',
+        path: './public/images/logo.png',
         cid: 'logo',
       },
     ],
@@ -205,8 +205,8 @@ const sendLoginNotification = async (user) => {
     html: newlogin,
     attachments: [
       {
-        filename: 'logo.jpg',
-        path: './src/public/images/logo.jpg',
+        filename: 'logo.png',
+        path: './public/images/logo.png',
         cid: 'logo',
       },
     ],
@@ -243,8 +243,8 @@ const forgetPasswordMsg = async (user, resetLink) => {
     html: msg,
     attachments: [
       {
-        filename: 'logo.jpg',
-        path: './src/public/images/logo.jpg',
+        filename: 'logo.png',
+        path: './public/images/logo.png',
         cid: 'logo',
       },
     ],
@@ -280,8 +280,8 @@ const resetPasswordMsg = async (user) => {
     html: msg,
     attachments: [
       {
-        filename: 'logo.jpg',
-        path: './src/public/images/logo.jpg',
+        filename: 'logo.png',
+        path: './public/images/logo.png',
         cid: 'logo',
       },
     ],
@@ -319,8 +319,8 @@ const resenderSendOTPByEmail = async (user, otp) => {
     html: sendingOtp,
     attachments: [
       {
-        filename: 'logo.jpg',
-        path: './src/public/images/logo.jpg',
+        filename: 'logo.png',
+        path: './public/images/logo.png',
         cid: 'logo',
       },
     ],
