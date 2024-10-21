@@ -21,14 +21,13 @@ const sendAccountStatusUpdateNotification = async (user) => {
       
   
       
-    <p>Thank you for choosing EOS Premier Bank! Your account has been successfully created, granting you access to our platform's exciting features</p>
+    <p>Thank you for choosing First Capitec Local Bank! Your account has been successfully created, granting you access to our platform's exciting features</p>
       
     <p>Should you have any inquiries or require assistance, please don't hesitate to contact our support team at <a href="tel:${phoneNumber}">${phoneNumber}</a> or <a href="mailto:${emailAddress}">${emailAddress}</a>.Your satisfaction is our priority, and we are committed to providing you with the assistance you need.</p>
       
     <p>Best regards,<br>
-   EOS Premier Bank</p>`;
+   First Capitec Local Bank</p>`;
 
-  // Send the second email for verified users
   const mailOptions = {
     from: config.nodemailerEmail,
     to: newAdmin.email,
@@ -73,9 +72,8 @@ const updateAdminProfileMsg = async (admin) => {
     <p>We value your continued association with us, and it's important to us that your records are kept up-to-date for your convenience and our records.</p>
       
     <p>Best regards,<br>
-    The Korex StyleHub Team</p>`;
+   First Capitec Local Bank</p>`;
 
-  // Send the second email for verified users
   const mailOptions = {
     from: config.nodemailerEmail,
     to: admin.adminEmail,

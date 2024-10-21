@@ -109,7 +109,6 @@ const adminLoginPost = tryCatch(async (req, res) => {
 
   const authRedirectUrl = '/admin/index';
 
-  logger.info('Admin login successful');
   res.status(200).json({
     authRedirectUrl,
     success: true,

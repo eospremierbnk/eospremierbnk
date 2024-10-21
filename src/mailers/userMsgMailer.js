@@ -27,17 +27,17 @@ const contactQueriesMsg = async (newContactUs) => {
 
   <p>Rest assured that we have received your message, and a member of our team will get back to you as soon as possible.</p>
 
-  <p>Once again, thank you for choosing EOS premier bank. We look forward to assisting you! </p>
+  <p>Once again, thank you for choosing First Capitec Local Bank. We look forward to assisting you! </p>
 
   <p>If you did not request this password reset, please contact us immediately. at <a href="tel:${phoneNumber}">${phoneNumber}</a> or <a href="mailto:${emailAddress}">${emailAddress}</a>. Your satisfaction is important to us, and we are here to assist you</p>
 
   <p>Warm regards,<br>
-  EOS premier bank</p>`;
+  First Capitec Local Bank</p>`;
 
   const mailOptions = {
     from: config.nodemailerEmail,
     to: newContactUs.email,
-    subject: 'Thank You for Contacting EOS premier bank!',
+    subject: 'Thank You for Contacting First Capitec Local Bank!',
     html: msg,
     attachments: [
       {
@@ -78,7 +78,7 @@ const updateUserProfileMsg = async (user) => {
   <p>We value your continued association with us, and it's important to us that your records are kept up-to-date for your convenience and our records.</p>
     
   <p>Best regards,<br>
- EOS premier bank</p>`;
+ First Capitec Local Bank</p>`;
 
   // Send the second email for verified users
   const mailOptions = {
@@ -114,7 +114,7 @@ const sendOTPByEmail = async (user, OTP) => {
   <p>We value your continued association with us, and it's important to us that your records are kept up-to-date for your convenience and our records.</p>
     
   <p>Best regards,<br>
- EOS premier bank</p>`;
+ First Capitec Local Bank</p>`;
 
   // Send the second email for verified users
   const mailOptions = {
@@ -161,7 +161,7 @@ const addBeneficiaryMsg = async (user) => {
   <p>We value your continued association with us, and it's important to us that your records are kept up-to-date for your convenience and our records.</p>
     
   <p>Best regards,<br>
- EOS premier bank</p>`;
+ First Capitec Local Bank</p>`;
 
   // Send the second email for verified users
   const mailOptions = {
@@ -195,7 +195,7 @@ const sendLoginNotification = async (user) => {
   <p>We value your continued association with us, and it's important to us that your records are kept up-to-date for your convenience and our records.</p>
     
   <p>Best regards,<br>
- EOS premier bank</p>`;
+ First Capitec Local Bank</p>`;
 
   // Send the second email for verified users
   const mailOptions = {
@@ -234,7 +234,7 @@ const forgetPasswordMsg = async (user, resetLink) => {
   <p>If you encounter any issues or need further assistance, feel free to contact our support team at <a href="tel:${phoneNumber}">${phoneNumber}</a> or <a href="mailto:${emailAddress}">${emailAddress}</a>. Your satisfaction is important to us, and we are here to assist you</p>
 
   <p>Warm regards,<br>
-  EOS PREMIER BANK</p>`;
+  First Capitec Local Bank</p>`;
 
   const mailOptions = {
     from: config.nodemailerEmail,
@@ -309,7 +309,7 @@ const resenderSendOTPByEmail = async (user, otp) => {
   <p>We value your continued association with us, and it's important to us that your records are kept up-to-date for your convenience and our records.</p>
     
   <p>Best regards,<br>
- EOS premier bank</p>`;
+ First Capitec Local Bank</p>`;
 
   // Send the second email for verified users
   const mailOptions = {
@@ -343,5 +343,5 @@ module.exports = {
   sendLoginNotification,
   forgetPasswordMsg,
   resetPasswordMsg,
-  resenderSendOTPByEmail
+  resenderSendOTPByEmail,
 };
